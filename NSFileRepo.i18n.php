@@ -212,18 +212,18 @@ $messages['ms'] = array(
 	'nsfilerepo-desc' => 'Memberikan ciri-ciri berasaskan ruang nama kepada fail-fail yang dimuat naik',
 );
 
-/** Dutch (Nederlands)
- * @author Siebrand
- */
-$messages['nl'] = array(
-	'nsfilerepo-desc' => 'Biedt op naamruimte gebaseerde mogelijkheden voor geüploade bestanden',
-);
-
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Jon Harald Søby
  */
 $messages['nb'] = array(
 	'nsfilerepo-desc' => 'Gir navneromsbaserte funksjoner til opplastede filer',
+);
+
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'nsfilerepo-desc' => 'Biedt op naamruimte gebaseerde mogelijkheden voor geüploade bestanden',
 );
 
 /** Occitan (Occitan)
