@@ -177,6 +177,13 @@ $messages['ja'] = array(
 	'nsfilerepo-desc' => 'アップロードされたファイルに対する名前空間ベースの機能を提供する',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'nsfilerepo-desc' => '올린 파일을 이름공간 기반으로 기능 제공',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
