@@ -30,7 +30,7 @@ $messages['ar'] = array(
 	'nsfilerepo-desc' => 'يوفر خصائص معنمدة على النطاق للملفات المرفوعة',
 );
 
-/** Asturian (Asturianu)
+/** Asturian (asturianu)
  * @author Xuacu
  */
 $messages['ast'] = array(
@@ -44,21 +44,21 @@ $messages['be-tarask'] = array(
 	'nsfilerepo-desc' => 'Дадае дадатковыя магчымасьці для загружаных файлаў у залежнасьці ад прасторы назваў',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fulup
  */
 $messages['br'] = array(
 	'nsfilerepo-desc' => "Pourchas a ra d'ar restroù enporzhiet arc'hwelioù diazezet war an esaouenn anv",
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  */
 $messages['bs'] = array(
 	'nsfilerepo-desc' => 'Omogućuje osobine zasnovane na imenskim prostorima za postavljene datoteke',
 );
 
-/** Catalan (Català)
+/** Catalan (català)
  * @author Solde
  */
 $messages['ca'] = array(
@@ -86,21 +86,21 @@ $messages['el'] = array(
 	'nsfilerepo-desc' => 'Παρέχει χαρακτηριστικά στα επιφορτισμένα αρχεία κατά ονοματικό χώρο',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Crazymadlover
  */
 $messages['es'] = array(
 	'nsfilerepo-desc' => 'Proveer características basadas en espacio de nombre a archivos cargados',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Crt
  */
 $messages['fi'] = array(
 	'nsfilerepo-desc' => 'Tarjoaa nimiavaruuden, joka perustuu lähetetyn tiedoston ominaisuuksiin.',
 );
 
-/** French (Français)
+/** French (français)
  * @author IAlex
  */
 $messages['fr'] = array(
@@ -142,14 +142,14 @@ $messages['hsb'] = array(
 	'nsfilerepo-desc' => 'Funkcije na zakładźe mjenjoweho ruma za nahrate dataje zmóžnić',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author Glanthor Reviol
  */
 $messages['hu'] = array(
 	'nsfilerepo-desc' => 'Névtér alapú funkciók a feltöltött fájlokhoz',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -163,7 +163,7 @@ $messages['id'] = array(
 	'nsfilerepo-desc' => 'Menyediakan fitur berbasis ruang nama untuk memuat berkas',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Darth Kule
  */
 $messages['it'] = array(
@@ -198,7 +198,7 @@ $messages['lb'] = array(
 	'nsfilerepo-desc' => 'Gëtt Nummraum baséiert Fonctioune fir eropgeluede Fichieren',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
@@ -233,14 +233,14 @@ $messages['nl'] = array(
 	'nsfilerepo-desc' => 'Biedt op naamruimte gebaseerde mogelijkheden voor geüploade bestanden',
 );
 
-/** Occitan (Occitan)
+/** Occitan (occitan)
  * @author Cedric31
  */
 $messages['oc'] = array(
 	'nsfilerepo-desc' => 'Apond de foncionalitats als fichièrs telecargats per espaci de nom',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author Sp5uhe
  */
 $messages['pl'] = array(
@@ -254,7 +254,7 @@ $messages['pms'] = array(
 	'nsfilerepo-desc' => 'Fornì fonsion basà an dzora a namespace për carié dij file',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author Hamilton Abreu
  * @author Waldir
  */
@@ -262,35 +262,35 @@ $messages['pt'] = array(
 	'nsfilerepo-desc' => 'Fornecer, aos ficheiros carregados, características de acesso associadas aos espaços nominais protegidos',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author Eduardo.mps
  */
 $messages['pt-br'] = array(
 	'nsfilerepo-desc' => 'Provê funcionalidades de arquivos carregados, baseadas no domínio',
 );
 
-/** Tarandíne (Tarandíne)
+/** tarandíne (tarandíne)
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
 	'nsfilerepo-desc' => 'Prevede namespace ca se basene sus a le funziune pe carecà le file',
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
 	'nsfilerepo-desc' => 'Добавляет особенности работы с загружаемыми файлами в зависимости от пространства имён',
 );
 
-/** Slovak (Slovenčina)
+/** Slovak (slovenčina)
  * @author Helix84
  */
 $messages['sk'] = array(
 	'nsfilerepo-desc' => 'Poskytuje nahraným súborom možnosti menných priestorov',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author Boivie
  */
 $messages['sv'] = array(
@@ -311,7 +311,7 @@ $messages['tr'] = array(
 	'nsfilerepo-desc' => 'Yüklenmiş dosyalar için isim alanını temel alan özellikler sağlar',
 );
 
-/** Ukrainian (Українська)
+/** Ukrainian (українська)
  * @author Prima klasy4na
  */
 $messages['uk'] = array(
