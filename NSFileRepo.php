@@ -7,9 +7,11 @@
  * @file
  * @author Jack D. Pond <jack.pond@psitex.com>
  * @ingroup Extensions
- * @copyright  2009 Jack D. pond
+ * @copyright  2009-2012 Jack D. pond
  * @url http://www.mediawiki.org/wiki/Manual:Extension:NSFileRepo
  * @licence GNU General Public Licence 2.0 or later
+ *
+ * Version 1.5 - Bug 37652 -Fixes for Extension:Lockdown dependency changes
  *
  * Version 1.4 - Several thumbnail fixes and updates for FileRepo enhancements
  *
@@ -22,7 +24,7 @@
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die( 'Not an entry point.' );
-if (!function_exists('lockdownUserCan')) die('You MUST load Extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
+if (!function_exists('lockdownUserPermissionsErrors')) die('You MUST load Extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
 
 $wgImgAuthPublicTest = false;		// Must be set to false if you want to use more restrictive than general ['*']['read']
 $wgIllegalFileChars = isset($wgIllegalFileChars) ? $wgIllegalFileChars : "";  // For MW Versions <1.16
@@ -91,11 +93,11 @@ function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
 	global $wgWhitelistRead;
 	if ( in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
 		return true;
-	} elseif( function_exists( 'lockdownUserCan' ) ) {
+	} elseif( function_exists( 'lockdownUserPermissionsErrors' ) ) {
 		if( $title->getNamespace() == NS_FILE ) {
 			$ntitle = Title::newFromText( $title->mDbkeyform );
 			return ( $ntitle->getNamespace() < 100 ) ?
-				true : lockdownUserCan( $ntitle, $user, $action, $result );
+				true : lockdownUserPermissionsErrors( $ntitle, $user, $action, $result );
 		}
 	}
 	return true;
