@@ -37,7 +37,7 @@ $messages['ast'] = array(
 	'nsfilerepo-desc' => 'Proporciona carauterístiques basaes nel espaciu de nomes pa los ficheros xubíos',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  */
 $messages['be-tarask'] = array(
@@ -72,7 +72,7 @@ $messages['de'] = array(
 	'nsfilerepo-desc' => 'Namensraum-basierte Eigenschaften für das Hochladen von Dateien',
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
@@ -107,7 +107,7 @@ $messages['fr'] = array(
 	'nsfilerepo-desc' => 'Ajoute des fonctionnalités aux fichiers téléversés par espace de nom',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -135,7 +135,7 @@ $messages['hil'] = array(
 	'nsfilerepo-desc' => 'Nagahatag ngalanespasyo base sa mga feature para i-upload ang mga file',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
