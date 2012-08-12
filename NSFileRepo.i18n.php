@@ -295,6 +295,13 @@ $messages['sv'] = array(
 	'nsfilerepo-desc' => 'Ge namnrymdbaserade funktioner till uppladdade filer',
 );
 
+/** Tamil (தமிழ்)
+ * @author Shanmugamp7
+ */
+$messages['ta'] = array(
+	'nsfilerepo-desc' => 'பதிவேற்றிய கோப்புகளுக்கு பெயர்வெளி அடிப்படையான அம்சங்களை வழங்கு',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
