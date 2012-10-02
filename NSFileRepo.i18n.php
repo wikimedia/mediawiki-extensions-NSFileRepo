@@ -37,7 +37,7 @@ $messages['ast'] = array(
 	'nsfilerepo-desc' => 'Proporciona carauterístiques basaes nel espaciu de nomes pa los ficheros xubíos',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  */
 $messages['be-tarask'] = array(
@@ -219,7 +219,7 @@ $messages['ms'] = array(
 	'nsfilerepo-desc' => 'Memberikan ciri-ciri berasaskan ruang nama kepada fail-fail yang dimuat naik',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬) */
+/** Norwegian Bokmål (norsk (bokmål)‎) */
 $messages['nb'] = array(
 	'nsfilerepo-desc' => 'Gir navneromsbaserte funksjoner til opplastede filer',
 );
