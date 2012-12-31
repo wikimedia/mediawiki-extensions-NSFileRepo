@@ -107,6 +107,13 @@ $messages['fr'] = array(
 	'nsfilerepo-desc' => 'Ajoute des fonctionnalités aux fichiers téléversés par espace de nom',
 );
 
+/** Franco-Provençal (arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'nsfilerepo-desc' => 'Balye des fonccionalitâts basâyes sur los èspâços de noms por los fichiérs tèlèchargiês',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
