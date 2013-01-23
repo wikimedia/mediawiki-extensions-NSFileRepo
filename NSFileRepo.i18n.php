@@ -337,3 +337,10 @@ $messages['uk'] = array(
 $messages['vi'] = array(
 	'nsfilerepo-desc' => 'Cung cấp các tính năng dựa trên không gian tên cho các tập tin được tải lên',
 );
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'nsfilerepo-desc' => '提供基于命名空间的特性到上传的文件',
+);
