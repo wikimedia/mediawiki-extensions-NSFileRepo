@@ -6,24 +6,23 @@
 |type1       = user rights
 |type2       =
 |hook1       = userCan
-|hook2       = ImgAuthBeforeStream
+|hook2       = UploadForm:BeforeProcessing
+|hook3       = ImgAuthBeforeStream
 |username    = Jpond
 |author      = Jack D. Pond
 |description = implements per-namespace group permissions for image and file rights protection
 |image       =
-|version     = 1.3
-|update      = 2010-4-23
-|mediawiki   = 1.13, 1.14, 1.15, 1.16, 1.17-SVN
+|version     = 1.5
+|update      = 2013-03-01
+|mediawiki   = 1.13, 1.14, 1.15, 1.16, 1.17-SVN, 1.19, 1.20
 |license     = GNU General Public Licence 2.0
 |download    = {{WikimediaDownload|NSFileRepo}}
 |readme      = [http://svn.wikimedia.org/svnroot/mediawiki/trunk/extensions/NSFileRepo/README README]
 |changelog   = [http://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/NSFileRepo/?view=log log]
-|parameters  = <!-- configuration parameters, for use in LocalSettings.php -->
-|rights      = <!-- user rights, for use with $wgGroupPermissions -->
+|parameters  = $wgWhitelistRead<br/>$wgImgAuthPublicTest<br/>$wgSpecialPageLockdown<br/>$wgActionLockdown<br/>$wgNamespacePermissionLockdown<br/>$wgExtraNamespaces<br/>$wgContentNamespaces<br/>$wgNonincludableNamespaces<br/>
+|rights      = $wgGroupPermissions
 |example     =
 }}
-
-==What can this extension do?==
 
 The '''NSFileRepo''' restricts access to upload and read files and images to a given set of user groups associated with protected namespaces. Using this extension (within the security limitations noted above), you can protect not only pages and areas of your wiki, but also any uploaded images or files within those namespaces.
 
@@ -78,13 +77,21 @@ This extension was made possible by the introduction of Repository Classes by Ti
 
 
 == Release Notes ==
-=== NSFileRepo 1.4 ===
+=== NSFileRepo 1.5 (Planned) ===
+This is a major update to incorporate several evolved changes to the core FileRepo modules into the extension and to bring the extension up to current coding and core standards.  Specifically:
 
-=== NSFileRepo 1.4 (Planned) ===
+* [https://bugzilla.wikimedia.org/show_bug.cgi?id=45364 Bug Fix for 45364] - Fixed Move/Relocate issue and cleared result array for Title
+* Synchronized with changes made to the core FileRepo classes and methods.  It now reflects fixes and upgrades as of 2013-2-27
+* Updated for Documentation (doxygen)
+* Cleared result array for userCan hook (NSFileRepolockdownUserCan) since Title now takes anything in that array to be an affirmative (user can)
+
+Should be backwards compatible, but only tested with HEAD, 1.19 and 1.20
+
+=== NSFileRepo 1.4 ===
 
 * Bug Fixes - Thumbnails did not display properly in History (and even in uploads of past files).  The problem is fixed with 1.16 (and the current trunk version of NSFileRepo), but in versions of MW before 1.16, archived thumbnails still break because LocalFile.php uses hard-coded class of OldLocalFile instead of <nowiki>$repo->oldFileFactory</nowiki> which would instantiate the correct NSLocalFile class.
 
-* Works with all namespaces > 1000 (used to only work with NS >=11 and <1000
+* Works with all namespaces > 1000 (used to only work with NS >=11 and <1000)
 
 * Use NS_IMAGE instead of NS_FILE for backward compatibility
 
@@ -105,14 +112,40 @@ This extension was made possible by the introduction of Repository Classes by Ti
 * First fully tested version, works with MW 1.13.1, 1.14.1, 1.15.1 with patches
 * Works with 1.16.0 (trunk) without patches.
 
+=== Tagged Releases ===
+There were issues with image thumbnails that require modification to both NSFileRepo and the standard FileRepo.  These revisions have been tested for MW Rev 1.15.0 and should also work with 1.14.0.  It is doubtful they will work before 1.14.0.  If someone could test the 1.14.0 patches, I would be glad to assist in any issues you may have. --[[User:Jpond|jdpond]] 15:02, 13 May 2010 (UTC)
+
+==== Tagged Release 1.14.0 Phase 3 ====
+
+This tagged branch '''has not''' been tested.  It corrects the Thumbnail issues but requires:
+
+* Replacement/patching of LocalFile.php
+* Replacement/patching of GlobalFunctions.php
+* Alternate branched versions of the core NSFileRepo code.
+
+If you do not mind messed up thumbnails with problems in the following areas, you can stay with the HEAD version:
+
+* Visual - displays broken impage link for thumbnails, especially in upload history
+* Security - without this patch, it loads thumbnails into 'public' area which could (theoretically) be viewed regardless of NS protection
+
+SVN available [http://svn.wikimedia.org/svnroot/mediawiki/tags/extensions/NSFileRepo/REL1_14_0/phase3 here]
+
+==== Tagged Release 1.15.0 Phase 3 ====
+
+This tagged branch '''has''' been tested.  It corrects the thumbnail issues but requires:
+
+* Replacement/patching of LocalFile.php
+* Replacement/patching of GlobalFunctions.php
+* Alternate branched versions of the core NSFileRepo code.
+
+If you do not mind messed up thumbnails with problems in the following areas, you can stay with the HEAD version:
+
+* Visual - displays broken impage link for thumbnails, especially in upload history
+* Security - without this patch, it loads thumbnails into 'public' area which could (theoretically) be viewed regardless of NS protection
+
+SVN available [http://svn.wikimedia.org/svnroot/mediawiki/tags/extensions/NSFileRepo/REL1_15_0/phase3 here]
+
 ==Download instructions==
-
-This Extension and the necessary patch/files may be downloaded from one of the following (SVN preferred).  The distribution is the same for all versions of MW, 1.13.0 through Current.
-
-
-* [http://wiki.montcopa.org/PublicDownloads/NSFileRepo_REL_1_4.tar Download tar] (May require eol conversion)
-* [http://wiki.montcopa.org/PublicDownloads/NSFileRepo_REL_1_4.zip Download zip]
-* [http://svn.wikimedia.org/svnroot/mediawiki/trunk/extensions/NSFileRepo SVN]
 
 Copy all files and directories into directory:
 

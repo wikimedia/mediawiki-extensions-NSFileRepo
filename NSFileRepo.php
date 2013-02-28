@@ -11,9 +11,9 @@
  * @url http://www.mediawiki.org/wiki/Manual:Extension:NSFileRepo
  * @licence GNU General Public Licence 2.0 or later
  *
- * Version 1.5 - Bug 37652 -Fixes for Extension:Lockdown dependency changes
+ * Version 1.5 - (bug 45364)Fixed Moving/Rename, synched for Repo Upgrades
  *
- * Version 1.4 - Several thumbnail fixes and updates for FileRepo enhancements
+ * Version 1.4 - Bug 37652 Several thumbnail fixes and updates for FileRepo enhancements
  *
  * Version 1.3 - Allows namespace protected files to be whitelisted
  *
@@ -41,7 +41,7 @@ $wgExtensionCredits['media'][] = array(
 	'path' => __FILE__,
 	'name' => 'NSFileRepo',
 	'author' => 'Jack D. Pond',
-	'version' => '1.4',
+	'version' => '1.5',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:NSFileRepo',
 	'descriptionmsg' => 'nsfilerepo-desc'
 );
@@ -96,8 +96,10 @@ function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
 	} elseif( function_exists( 'lockdownUserPermissionsErrors' ) ) {
 		if( $title->getNamespace() == NS_FILE ) {
 			$ntitle = Title::newFromText( $title->mDbkeyform );
-			return ( $ntitle->getNamespace() < 100 ) ?
-				true : lockdownUserPermissionsErrors( $ntitle, $user, $action, $result );
+			$ret_val = ( $ntitle->getNamespace() < 100 ) ?
+					true : lockdownUserPermissionsErrors( $ntitle, $user, $action, $result );
+			$result = null;
+			return $ret_val;
 		}
 	}
 	return true;

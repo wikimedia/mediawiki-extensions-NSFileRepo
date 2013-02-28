@@ -58,6 +58,44 @@ class NSLocalFile extends LocalFile {
 	function getRel() {
 		return $this->getHashPath() . $this->getFileNameStripped( $this->getName() );
 	}
+	/**
+	 * Get the path, relative to the thumbnail zone root, of the
+	 * thumbnail directory or a particular file if $suffix is specified
+	 *
+	 * @param $suffix bool|string if not false, the name of a thumbnail file
+	 *
+	 * @return string
+	 */
+	function getThumbRel( $suffix = false ) {
+		$path = $this->getRel();
+		if ( $suffix !== false ) {
+/* This is the part that changed from LocalFile */
+			$path .= '/' . $this->getFileNameStripped( $suffix );
+/* End of changes */
+		}
+		return $path;
+	}
+
+	/**
+	 * Get the path of an archived file relative to the public zone root
+	 *
+	 * @param $suffix bool|string if not false, the name of an archived thumbnail file
+	 *
+	 * @return string
+	 */
+	function getArchiveRel( $suffix = false ) {
+		$path = 'archive/' . $this->getHashPath();
+		if ( $suffix === false ) {
+			$path = substr( $path, 0, -1 );
+		} else {
+/* This is the part that changed from LocalFile */
+			$path .= '/' . $this->getFileNameStripped( $suffix );
+/* End of changes */
+		}
+		return $path;
+	}
+
+
 
 	/**
 	 * Get urlencoded relative path of the file
@@ -67,7 +105,13 @@ class NSLocalFile extends LocalFile {
 			rawurlencode( $this->getFileNameStripped( $this->getName() ) );
 	}
 
-	/** Get the URL of the thumbnail directory, or a particular file if $suffix is specified */
+	/**
+	 * Get the URL of the thumbnail directory, or a particular file if $suffix is specified
+	 *
+	 * @param $suffix bool|string if not false, the name of a thumbnail file
+	 *
+	 * @return string path
+	 */
 	function getThumbUrl( $suffix = false ) {
 		$path = $this->repo->getZoneUrl('thumb') . '/' . $this->getUrlRel();
 		if ( $suffix !== false ) {
@@ -77,246 +121,202 @@ class NSLocalFile extends LocalFile {
 	}
 
 
-	/** Return the file name of a thumbnail with the specified parameters */
-	function thumbName( $params ) {
+	public function thumbName( $params, $flags = 0 ) {
+		$name = ( $this->repo && !( $flags & self::THUMB_FULL_NAME ) )
+/* This is the part that changed from LocalFile */
+			? $this->repo->nameForThumb( $this->getFileNameStripped( $this->getName() ) )
+			: $this->getFileNameStripped( $this->getName() );
+/* End of changes */
+		return $this->generateThumbName( $name, $params );
+	}
+
+	/**
+	 * Generate a thumbnail file name from a name and specified parameters
+	 *
+	 * @param string $name
+	 * @param array $params Parameters which will be passed to MediaHandler::makeParamString
+	 *
+	 * @return string
+	 */
+	public function generateThumbName( $name, $params ) {
 		if ( !$this->getHandler() ) {
 			return null;
 		}
 		$extension = $this->getExtension();
-		list( $thumbExt, $thumbMime ) = $this->handler->getThumbType( $extension, $this->getMimeType() );
+		list( $thumbExt, $thumbMime ) = $this->handler->getThumbType(
+			$extension, $this->getMimeType(), $params );
 /* This is the part that changed from LocalFile */
-		$thumbName = $this->handler->makeParamString( $params ) . '-' . $this->getFileNameStripped( $this->getName() );
+		$thumbName = $this->handler->makeParamString( $params ) . '-' . 
+			$this->getFileNameStripped( $this->getName() );
 /* End of changes */
 		if ( $thumbExt != $extension ) {
 			$thumbName .= ".$thumbExt";
 		}
+/* And also need to retain namespace changed from LocalFile */
 		$bits = explode( ':',$this->getName() );
 		if ( count($bits) > 1 ) $thumbName = $bits[0] . ":" . $thumbName;
+/* End of changes */
 		return $thumbName;
 	}
 
-
-	/** Get the path of the thumbnail directory, or a particular file if $suffix is specified */
-	function getThumbPath( $suffix = false ) {
-		$path = $this->repo->getZonePath('thumb') . '/' . $this->getRel();
-		if ( $suffix !== false ) {
-			$path .= '/' . $this->getFileNameStripped( $suffix );
-		}
-		return $path;
-	}
-
-	/** Get the relative path for an archive file */
-	function getArchiveRel( $suffix = false ) {
-		$path = 'archive/' . $this->getHashPath();
-		if ( $suffix === false ) {
-			$path = substr( $path, 0, -1 );
-		} else {
-			$path .= $this->getFileNameStripped( $suffix );
-		}
-		return $path;
-	}
-
-	/** Get the URL of the archive directory, or a particular file if $suffix is specified */
+	/**
+	 * Get the URL of the archive directory, or a particular file if $suffix is specified
+	 *
+	 * @param $suffix bool|string if not false, the name of an archived file
+	 *
+	 * @return string
+	 */
 	function getArchiveUrl( $suffix = false ) {
-		$path = $this->repo->getZoneUrl( 'public' ) . '/archive/' . $this->getHashPath();
+		$this->assertRepoDefined();
+		$ext = $this->getExtension();
+		$path = $this->repo->getZoneUrl( 'public', $ext ) . '/archive/' . $this->getHashPath();
 		if ( $suffix === false ) {
 			$path = substr( $path, 0, -1 );
 		} else {
+/* This is the part that changed from LocalFile */
 			$path .= rawurlencode( $this->getFileNameStripped( $suffix ) );
+/* End of changes */
 		}
 		return $path;
 	}
 
-	/** Get the virtual URL for an archive file or directory */
+	/**
+	 * Get the public zone virtual URL for an archived version source file
+	 *
+	 * @param $suffix bool|string if not false, the name of a thumbnail file
+	 *
+	 * @return string
+	 */
 	function getArchiveVirtualUrl( $suffix = false ) {
+		$this->assertRepoDefined();
 		$path = $this->repo->getVirtualUrl() . '/public/archive/' . $this->getHashPath();
 		if ( $suffix === false ) {
 			$path = substr( $path, 0, -1 );
 		} else {
+/* This is the part that changed from LocalFile */
 			$path .= rawurlencode( $this->getFileNameStripped( $suffix ) );
+/* End of changes */
 		}
 		return $path;
 	}
 
-	/** Get the virtual URL for a thumbnail file or directory */
+	/**
+	 * Get the virtual URL for a thumbnail file or directory
+	 *
+	 * @param $suffix bool|string if not false, the name of a thumbnail file
+	 *
+	 * @return string
+	 */
 	function getThumbVirtualUrl( $suffix = false ) {
+		$this->assertRepoDefined();
 		$path = $this->repo->getVirtualUrl() . '/thumb/' . $this->getUrlRel();
 		if ( $suffix !== false ) {
+			$path .= '/' . rawurlencode( $suffix );
+/* This is the part that changed from LocalFile */
 			$path .= '/' . rawurlencode( $this->getFileNameStripped( $suffix ) );
+/* End of changes */
 		}
 		return $path;
 	}
 
-	/** Get the virtual URL for the file itself */
-	function getVirtualUrl( $suffix = false ) {
-		$path = $this->repo->getVirtualUrl() . '/public/' . $this->getUrlRel();
-		if ( $suffix !== false ) {
-			$path .= '/' . rawurlencode( $this->getFileNameStripped( $suffix ) );
-		}
-		return $path;
-	}
-
-	/** Strip namespace (if any) from file name */
+	/**
+	 * Strip namespace (if any) from file name
+	 *
+	 * @param $suffix the name of a thumbnail file
+	 *
+	 * @return string
+	 */
 	function getFileNameStripped($suffix) {
 		$bits = explode( ':', $suffix );
 		return $bits[ count( $bits ) -1 ];
 	}
-
+	
 	/**
-	 * This function overrides the LocalFile because the archive name should not contain the namespace in the
-	 * filename.  Otherwise the function would have worked.  This only affects reuploads
-	 *
-	 * Move or copy a file to its public location. Returns a FileRepoStatus object.
-	 * On success, the value contains "new" or "archived", to indicate whether the file was new with that name.
+	 * Move or copy a file to a specified location. Returns a FileRepoStatus
+	 * object with the archive name in the "value" member on success.
 	 *
 	 * The archive name should be passed through to recordUpload for database
 	 * registration.
 	 *
-	 * @param string $sourcePath Local filesystem path to the source image
-	 * @param integer $flags A bitwise combination of:
-	 *     File::DELETE_SOURCE    Delete the source file, i.e. move
-	 *         rather than copy
+	 * @param $srcPath String: local filesystem path to the source image
+	 * @param $dstRel String: target relative path
+	 * @param $flags Integer: a bitwise combination of:
+	 *     File::DELETE_SOURCE	Delete the source file, i.e. move rather than copy
+	 * @param $options Array Optional additional parameters
 	 * @return FileRepoStatus object. On success, the value member contains the
 	 *     archive name, or an empty string if it was a new file.
 	 */
-	function publish( $srcPath, $flags = 0 ) {
-		$this->lock();
-		$dstRel = $this->getRel();
-		/* This is the part that changed from LocalFile */
-		$archiveName = gmdate( 'YmdHis' ) . '!' .
-			$this->getFileNameStripped( $this->getName() );
-		/* End of changes */
+	function publishTo( $srcPath, $dstRel, $flags = 0, array $options = array() ) {
+		if ( $this->getRepo()->getReadOnlyReason() !== false ) {
+			return $this->readOnlyFatalStatus();
+		}
+
+		$this->lock(); // begin
+
+/* This is the part that changed from LocalFile */
+		$archiveName = wfTimestamp( TS_MW ) . '!'. $this->getFileNameStripped( $this->getName() );
+/* End of changes */
 		$archiveRel = 'archive/' . $this->getHashPath() . $archiveName;
 		$flags = $flags & File::DELETE_SOURCE ? LocalRepo::DELETE_SOURCE : 0;
-		$status = $this->repo->publish( $srcPath, $dstRel, $archiveRel, $flags );
+		$status = $this->repo->publish( $srcPath, $dstRel, $archiveRel, $flags, $options );
+
 		if ( $status->value == 'new' ) {
 			$status->value = '';
 		} else {
 			$status->value = $archiveName;
 		}
-		$this->unlock();
+
+		$this->unlock(); // done
+
 		return $status;
 	}
 
 	/**
-	 * The only thing changed here is that the array needs to strip the NS from the file name for the has (oldname is already fixed)
-	 * Add the old versions of the image to the batch
+	 * Move file to the new title
+	 *
+	 * Move current, old version and all thumbnails
+	 * to the new filename. Old file is deleted.
+	 *
+	 * Cache purging is done; checks for validity
+	 * and logging are caller's responsibility
+	 *
+	 * @param $target Title New file name
+	 * @return FileRepoStatus object.
 	 */
-	function addOlds() {
-		$archiveBase = 'archive';
-		$this->olds = array();
-		$this->oldCount = 0;
-
-		$result = $this->db->select( 'oldimage',
-			array( 'oi_archive_name', 'oi_deleted' ),
-			array( 'oi_name' => $this->oldName ),
-			__METHOD__
-		);
-		foreach( $result as $row ) {
-			$oldName = $row->oi_archive_name;
-			$bits = explode( '!', $oldName, 2 );
-			if( count( $bits ) != 2 ) {
-				wfDebug( "Invalid old file name: $oldName \n" );
-				continue;
-			}
-			list( $timestamp, $filename ) = $bits;
-			if( $this->oldName != $filename ) {
-				wfDebug( "Invalid old file name: $oldName \n" );
-				continue;
-			}
-			$this->oldCount++;
-			// Do we want to add those to oldCount?
-			if( $row->oi_deleted & File::DELETED_FILE ) {
-				continue;
-			}
-			$this->olds[] = array(
-				"{$archiveBase}/{$this->oldHash}{$oldName}",
-				/* This is the part that changed from LocalFile */
-				"{$archiveBase}/{$this->newHash}{$timestamp}!" .
-					$this->getFileNameStripped( $this->newName )
-				/* End of changes */
-			);
+	function move( $target ) {
+		if ( $this->getRepo()->getReadOnlyReason() !== false ) {
+			return $this->readOnlyFatalStatus();
 		}
-		$this->db->freeResult( $result );
+
+		wfDebugLog( 'imagemove', "Got request to move {$this->name} to " . $target->getText() );
+/* This is the part that changed from LocalFile */
+		$batch = new NSLocalFileMoveBatch( $this, $target );
+/* End of changes */
+
+		$this->lock(); // begin
+		$batch->addCurrent();
+		$archiveNames = $batch->addOlds();
+		$status = $batch->execute();
+		$this->unlock(); // done
+
+		wfDebugLog( 'imagemove', "Finished moving {$this->name}" );
+
+		$this->purgeEverything();
+		foreach ( $archiveNames as $archiveName ) {
+			$this->purgeOldThumbnails( $archiveName );
+		}
+		if ( $status->isOK() ) {
+			// Now switch the object
+			$this->title = $target;
+			// Force regeneration of the name and hashpath
+			unset( $this->name );
+			unset( $this->hashPath );
+			// Purge the new image
+			$this->purgeEverything();
+		}
+
+		return $status;
 	}
-
-	/**
-	 * The only thing changed here is to strip NS from the file name
-	 * Delete cached transformed files
-	*/
-	function purgeThumbnails( $options = array() ) {
-		global $wgUseSquid;
-		// Delete thumbnails
-		$files = $this->getThumbnails();
-		$dir = $this->getThumbPath();
-		$urls = array();
-		foreach ( $files as $file ) {
-			# Check that the base file name is part of the thumb name
-			# This is a basic sanity check to avoid erasing unrelated directories
-
-			/* This is the part that changed from LocalFile */
-			if ( strpos( $file, $this->getFileNameStripped($this->getName()) ) !== false ) {
-			/* End of changes */
-				$url = $this->getThumbUrl( $file );
-				$urls[] = $url;
-				wfSuppressWarnings();
-				unlink( "$dir/$file" );
-				wfRestoreWarnings();
-			}
-		}
-
-		// Purge the squid
-		if ( $wgUseSquid ) {
-			SquidUpdate::purge( $urls );
-		}
-	}
-
-	/**
-	 * Replaces hard coded OldLocalFile::newFromRow to use $this->repo->oldFileFromRowFactory configuration
-	 * This may not be necessary in the future if LocalFile is patched to allow configuration
-	*/
-
-	function getHistory( $limit = null, $start = null, $end = null, $inc = true ) {
-		$dbr = $this->repo->getSlaveDB();
-		$tables = array( 'oldimage' );
-		$fields = OldLocalFile::selectFields();
-		$conds = $opts = $join_conds = array();
-		$eq = $inc ? '=' : '';
-		$conds[] = "oi_name = " . $dbr->addQuotes( $this->title->getDBkey() );
-		if( $start ) {
-			$conds[] = "oi_timestamp <$eq " . $dbr->addQuotes( $dbr->timestamp( $start ) );
-		}
-		if( $end ) {
-			$conds[] = "oi_timestamp >$eq " . $dbr->addQuotes( $dbr->timestamp( $end ) );
-		}
-		if( $limit ) {
-			$opts['LIMIT'] = $limit;
-		}
-		// Search backwards for time > x queries
-		$order = ( !$start && $end !== null ) ? 'ASC' : 'DESC';
-		$opts['ORDER BY'] = "oi_timestamp $order";
-		$opts['USE INDEX'] = array( 'oldimage' => 'oi_name_timestamp' );
-
-		wfRunHooks( 'LocalFile::getHistory', array( &$this, &$tables, &$fields,
-			&$conds, &$opts, &$join_conds ) );
-
-		$res = $dbr->select( $tables, $fields, $conds, __METHOD__, $opts, $join_conds );
-		$r = array();
-		foreach( $res as $row ) {
-		/* This is the part that changed from LocalFile */
-			if ( $this->repo->oldFileFromRowFactory ) {
-				$r[] = call_user_func( $this->repo->oldFileFromRowFactory, $row, $this->repo );
-			} else {
-				$r[] = OldLocalFile::newFromRow( $row, $this->repo );
-			}
-		/* End of changes */
-		}
-		if( $order == 'ASC' ) {
-			$r = array_reverse( $r ); // make sure it ends up descending
-		}
-		return $r;
-	}
-
 
 
 	/** Instantiating this class using "self"
@@ -423,5 +423,27 @@ class NSOldLocalFile extends OldLocalFile {
 		$file = new self( $title, $repo, null, $row->oi_archive_name );
 		$file->loadFromRow( $row, 'oi_' );
 		return $file;
+	}
+}
+
+/**
+ * Helper class for file movement
+ * @ingroup FileAbstraction
+ */
+class NSLocalFileMoveBatch extends LocalFileMoveBatch {
+	/**
+	 * @param File $file
+	 * @param Title $target
+	 */
+	function __construct( File $file, Title $target ) {
+		$this->file = $file;
+		$this->target = $target;
+		$this->oldHash = $this->file->repo->getHashPath( $this->file->getName() );
+		$this->newHash = $this->file->repo->getHashPath( $this->target->getDBkey() );
+		$this->oldName = $this->file->getName();
+		$this->newName = $this->file->repo->getNameFromTitle( $this->target );
+		$this->oldRel = $this->oldHash . $this->file->getFileNameStripped( $this->oldName );
+		$this->newRel = $this->newHash . $this->file->getFileNameStripped( $this->newName );
+		$this->db = $file->getRepo()->getMasterDb();
 	}
 }
