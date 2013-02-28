@@ -18,9 +18,10 @@ $messages['en'] = array(
 /** Message documentation (Message documentation)
  * @author Fryed-peach
  * @author Raymond
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'nsfilerepo-desc' => '{{desc}}',
+	'nsfilerepo-desc' => '{{desc|name=NS File Repo|url=http://www.mediawiki.org/wiki/Extension:NSFileRepo}}',
 );
 
 /** Arabic (العربية)
