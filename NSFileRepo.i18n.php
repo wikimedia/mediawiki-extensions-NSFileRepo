@@ -227,7 +227,7 @@ $messages['ms'] = array(
 	'nsfilerepo-desc' => 'Memberikan ciri-ciri berasaskan ruang nama kepada fail-fail yang dimuat naik',
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎)
+/** Norwegian Bokmål (norsk bokmål)
  */
 $messages['nb'] = array(
 	'nsfilerepo-desc' => 'Gir navneromsbaserte funksjoner til opplastede filer',
