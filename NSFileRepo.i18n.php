@@ -345,3 +345,10 @@ $messages['vi'] = array(
 $messages['zh-hans'] = array(
 	'nsfilerepo-desc' => '提供基于命名空间的特性到上传的文件',
 );
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Justincheng12345
+ */
+$messages['zh-hant'] = array(
+	'nsfilerepo-desc' => '為上傳的檔案提供基于名字空間的特性',
+);
