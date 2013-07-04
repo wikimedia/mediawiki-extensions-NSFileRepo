@@ -361,14 +361,14 @@ class NSOldLocalFile extends OldLocalFile {
 		return 'archive/' . $this->getHashPath() . 
 			urlencode( $this->getFileNameStripped( $this->getArchiveName() ) );
 	}
-	function publish( $srcPath, $flags = 0 ) {
-		return NSLocalFile::publish( $srcPath, $flags );
+	function publish( $srcPath, $flags = 0, array $options = array() ) {
+		return NSLocalFile::publish( $srcPath, $flags, $options );
 	}
 	function getThumbUrl( $suffix = false ) {
 		return NSLocalFile::getThumbUrl( $suffix );
 	}
-	function thumbName( $params ) {
-		return NSLocalFile::thumbName( $params );
+	function thumbName( $params, $flags = 0 ) {
+		return NSLocalFile::thumbName( $params, $flags );
 	}
 	function getThumbPath( $suffix = false ) {
 		return NSLocalFile::getThumbPath( $suffix );
