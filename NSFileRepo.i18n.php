@@ -201,9 +201,10 @@ $messages['ksh'] = array(
 
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
+ * @author Soued031
  */
 $messages['lb'] = array(
-	'nsfilerepo-desc' => 'Gëtt Nummraum baséiert Fonctioune fir eropgeluede Fichieren',
+	'nsfilerepo-desc' => 'Gëtt Nummraum baséiert Funktioune fir eropgeluede Fichieren',
 );
 
 /** Macedonian (македонски)
