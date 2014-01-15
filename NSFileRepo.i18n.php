@@ -94,6 +94,13 @@ $messages['es'] = array(
 	'nsfilerepo-desc' => 'Proveer características basadas en espacio de nombre a archivos cargados',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'nsfilerepo-desc' => 'ایجاد فضای نامی مبتنی بر ویژگی‌ها برای پوشه‌های منتقل شده',
+);
+
 /** Finnish (suomi)
  * @author Crt
  */
