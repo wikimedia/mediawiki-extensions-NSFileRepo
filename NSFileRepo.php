@@ -11,6 +11,8 @@
  * @url http://www.mediawiki.org/wiki/Manual:Extension:NSFileRepo
  * @licence GNU General Public Licence 2.0 or later
  *
+ * Version 1.6.0 - Migrated to JSON i18n files
+ *
  * Version 1.5 - (bug 45364)Fixed Moving/Rename, synched for Repo Upgrades
  *
  * Version 1.4 - Bug 37652 Several thumbnail fixes and updates for FileRepo enhancements
@@ -33,6 +35,7 @@ $wgIllegalFileChars = str_replace(":","",$wgIllegalFileChars);			      // Remove
 $dir = dirname( __FILE__ ) . '/';
 
 # Internationalisation file
+$wgMessagesDirs['NSFileRepo'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['NSFileRepo'] =  $dir . 'NSFileRepo.i18n.php';
 $wgExtensionMessagesFiles['img_auth'] =  $dir . 'img_auth.i18n.php';
 
@@ -41,7 +44,7 @@ $wgExtensionCredits['media'][] = array(
 	'path' => __FILE__,
 	'name' => 'NSFileRepo',
 	'author' => 'Jack D. Pond',
-	'version' => '1.5',
+	'version' => '1.6.0',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:NSFileRepo',
 	'descriptionmsg' => 'nsfilerepo-desc'
 );
