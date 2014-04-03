@@ -35,8 +35,9 @@ $wgIllegalFileChars = str_replace(":","",$wgIllegalFileChars);			      // Remove
 $dir = dirname( __FILE__ ) . '/';
 
 # Internationalisation file
-$wgMessagesDirs['NSFileRepo'] = __DIR__ . '/i18n';
+$wgMessagesDirs['NSFileRepo'] = __DIR__ . '/i18n/nsfilerepo';
 $wgExtensionMessagesFiles['NSFileRepo'] =  $dir . 'NSFileRepo.i18n.php';
+$wgMessagesDirs['img_auth'] = __DIR__ . '/i18n/imgauth';
 $wgExtensionMessagesFiles['img_auth'] =  $dir . 'img_auth.i18n.php';
 
 $wgExtensionFunctions[] = 'NSFileRepoSetup';
