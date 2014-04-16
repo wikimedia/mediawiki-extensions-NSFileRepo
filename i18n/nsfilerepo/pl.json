@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Sp5uhe"
-        ]
-    },
-    "nsfilerepo-desc": "Dostarcza mechanizmu opartego na przestrzeniach nazw służącego do przesyłania plików"
+	"@metadata": {
+		"authors": [
+			"Sp5uhe"
+		]
+	},
+	"nsfilerepo-desc": "Dostarcza mechanizmu opartego na przestrzeniach nazw służącego do przesyłania plików"
 }

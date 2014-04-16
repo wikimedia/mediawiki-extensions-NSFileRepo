@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Fryed-peach",
-            "Raymond",
-            "Shirayuki"
-        ]
-    },
-    "nsfilerepo-desc": "{{desc|name=NS File Repo|url=http://www.mediawiki.org/wiki/Extension:NSFileRepo}}"
+	"@metadata": {
+		"authors": [
+			"Fryed-peach",
+			"Raymond",
+			"Shirayuki"
+		]
+	},
+	"nsfilerepo-desc": "{{desc|name=NS File Repo|url=http://www.mediawiki.org/wiki/Extension:NSFileRepo}}"
 }
