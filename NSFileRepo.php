@@ -95,7 +95,7 @@ function NSFileRepoNSCheck( $uploadForm ) {
  */
 function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
 	global $wgWhitelistRead;
-	if ( in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
+	if ( $wgWhitelistRead !== false && in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
 		return true;
 	} elseif( function_exists( 'lockdownUserPermissionsErrors' ) ) {
 		if( $title->getNamespace() == NS_FILE ) {
