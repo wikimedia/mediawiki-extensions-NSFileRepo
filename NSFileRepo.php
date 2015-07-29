@@ -78,7 +78,7 @@ function NSFileRepoSetup() {
 /**
  * Check for Namespace in Title Line
 */
-function NSFileRepoNSCheck( $uploadForm ) {
+function NSFileRepoNSCheck( &$uploadForm ) {
 	$title = Title::newFromText($uploadForm->mDesiredDestName);
 	if( $title === null ) {
 		return true;
@@ -96,7 +96,7 @@ function NSFileRepoNSCheck( $uploadForm ) {
 /**
  * If Extension:Lockdown has been activated (recommend), check individual namespace protection
  */
-function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
+function NSFileRepolockdownUserCan( &$title, &$user, $action, &$result) {
 	global $wgWhitelistRead;
 	if ( $wgWhitelistRead !== false && in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
 		return true;
@@ -112,7 +112,7 @@ function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
 	return true;
 }
 
-function NSFileRepoImgAuthCheck( $title, $path, $name, $result ) {
+function NSFileRepoImgAuthCheck( &$title, &$path, &$name, &$result ) {
 	global $wgContLang;
 
 	# See if stored in a NS path
