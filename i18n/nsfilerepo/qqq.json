@@ -3,8 +3,9 @@
 		"authors": [
 			"Fryed-peach",
 			"Raymond",
-			"Shirayuki"
+			"Shirayuki",
+			"Umherirrender"
 		]
 	},
-	"nsfilerepo-desc": "{{desc|name=NS File Repo|url=http://www.mediawiki.org/wiki/Extension:NSFileRepo}}"
+	"nsfilerepo-desc": "{{desc|name=NS File Repo|url=https://www.mediawiki.org/wiki/Extension:NSFileRepo}}"
 }
