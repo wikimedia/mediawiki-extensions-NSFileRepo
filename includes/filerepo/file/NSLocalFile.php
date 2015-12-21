@@ -1,62 +1,11 @@
 <?php
 
-/**
- * Class definitions for NSFileRepo
- */
-
-class NSLocalRepo extends LocalRepo {
-	public $fileFactory = array( 'NSLocalFile', 'newFromTitle' );
-	public $oldFileFactory = array( 'NSOldLocalFile', 'newFromTitle' );
-	public $fileFromRowFactory = array( 'NSLocalFile', 'newFromRow' );
-	public $oldFileFromRowFactory = array( 'NSOldLocalFile', 'newFromRow' );
-
-	static function getHashPathForLevel( $name, $levels ) {
-		global $wgContLang;
-		$bits = explode( ':',$name );
-		$filename = $bits[ count( $bits ) - 1 ];
-		$path = parent::getHashPathForLevel( $filename, $levels );
-		return count( $bits ) > 1 ?
-			$wgContLang->getNsIndex( $bits[0] ) .'/'. $path : $path;
-	}
-
-	/**
-	 * Get a relative path including trailing slash, e.g. f/fa/
-	 * If the repo is not hashed, returns an empty string
-	 * This is needed because self:: will call parent if not included - exact same as in FSRepo
-	 */
-	function getHashPath( $name ) {
-		return self::getHashPathForLevel( $name, $this->hashLevels );
-	}
-
-	/**
-	 * Pick a random name in the temp zone and store a file to it.
-	 * @param string $originalName The base name of the file as specified
-	 *     by the user. The file extension will be maintained.
-	 * @param string $srcPath The current location of the file.
-	 * @return FileRepoStatus object with the URL in the value.
-	 */
-	function storeTemp( $originalName, $srcPath ) {
-		$date = gmdate( "YmdHis" );
-		$hashPath = $this->getHashPath( $originalName );
-		$filename = $this->getFileNameStripped( $originalName );
-		$dstRel = "$hashPath$date!$filename";
-		$dstUrlRel = $hashPath . $date . '!' . rawurlencode( $filename );
-		$result = $this->store( $srcPath, 'temp', $dstRel );
-		$result->value = $this->getVirtualUrl( 'temp' ) . '/' . $dstUrlRel;
-		return $result;
-	}
-
-	function getFileNameStripped($suffix) {
-		return(NSLocalFile::getFileNameStripped($suffix));
-	}
-}
-
 class NSLocalFile extends LocalFile {
 	/**
 	 * Get the path of the file relative to the public zone root
 	 */
 	function getRel() {
-		return $this->getHashPath() . $this->getFileNameStripped( $this->getName() );
+		return $this->getHashPath() . self::getFileNameStripped( $this->getName() );
 	}
 	/**
 	 * Get the path, relative to the thumbnail zone root, of the
@@ -69,9 +18,9 @@ class NSLocalFile extends LocalFile {
 	function getThumbRel( $suffix = false ) {
 		$path = $this->getRel();
 		if ( $suffix !== false ) {
-/* This is the part that changed from LocalFile */
-			$path .= '/' . $this->getFileNameStripped( $suffix );
-/* End of changes */
+			/* This is the part that changed from LocalFile */
+			$path .= '/' . self::getFileNameStripped( $suffix );
+			/* End of changes */
 		}
 		return $path;
 	}
@@ -89,7 +38,7 @@ class NSLocalFile extends LocalFile {
 			$path = substr( $path, 0, -1 );
 		} else {
 /* This is the part that changed from LocalFile */
-			$path .= '/' . $this->getFileNameStripped( $suffix );
+			$path .= '/' . self::getFileNameStripped( $suffix );
 /* End of changes */
 		}
 		return $path;
@@ -101,8 +50,8 @@ class NSLocalFile extends LocalFile {
 	 * Get urlencoded relative path of the file
 	 */
 	function getUrlRel() {
-		return $this->getHashPath() . 
-			rawurlencode( $this->getFileNameStripped( $this->getName() ) );
+		return $this->getHashPath() .
+			rawurlencode( self::getFileNameStripped( $this->getName() ) );
 	}
 
 	/**
@@ -115,7 +64,7 @@ class NSLocalFile extends LocalFile {
 	function getThumbUrl( $suffix = false ) {
 		$path = $this->repo->getZoneUrl('thumb') . '/' . $this->getUrlRel();
 		if ( $suffix !== false ) {
-			$path .= '/' . rawurlencode( $this->getFileNameStripped( $suffix ) );
+			$path .= '/' . rawurlencode( self::getFileNameStripped( $suffix ) );
 		}
 		return $path;
 	}
@@ -124,8 +73,8 @@ class NSLocalFile extends LocalFile {
 	public function thumbName( $params, $flags = 0 ) {
 		$name = ( $this->repo && !( $flags & self::THUMB_FULL_NAME ) )
 /* This is the part that changed from LocalFile */
-			? $this->repo->nameForThumb( $this->getFileNameStripped( $this->getName() ) )
-			: $this->getFileNameStripped( $this->getName() );
+			? $this->repo->nameForThumb( self::getFileNameStripped( $this->getName() ) )
+			: self::getFileNameStripped( $this->getName() );
 /* End of changes */
 		return $this->generateThumbName( $name, $params );
 	}
@@ -146,8 +95,8 @@ class NSLocalFile extends LocalFile {
 		list( $thumbExt, $thumbMime ) = $this->handler->getThumbType(
 			$extension, $this->getMimeType(), $params );
 /* This is the part that changed from LocalFile */
-		$thumbName = $this->handler->makeParamString( $params ) . '-' . 
-			$this->getFileNameStripped( $this->getName() );
+		$thumbName = $this->handler->makeParamString( $params ) . '-' .
+			self::getFileNameStripped( $this->getName() );
 /* End of changes */
 		if ( $thumbExt != $extension ) {
 			$thumbName .= ".$thumbExt";
@@ -174,7 +123,7 @@ class NSLocalFile extends LocalFile {
 			$path = substr( $path, 0, -1 );
 		} else {
 /* This is the part that changed from LocalFile */
-			$path .= rawurlencode( $this->getFileNameStripped( $suffix ) );
+			$path .= rawurlencode( self::getFileNameStripped( $suffix ) );
 /* End of changes */
 		}
 		return $path;
@@ -194,7 +143,7 @@ class NSLocalFile extends LocalFile {
 			$path = substr( $path, 0, -1 );
 		} else {
 /* This is the part that changed from LocalFile */
-			$path .= rawurlencode( $this->getFileNameStripped( $suffix ) );
+			$path .= rawurlencode( self::getFileNameStripped( $suffix ) );
 /* End of changes */
 		}
 		return $path;
@@ -213,7 +162,7 @@ class NSLocalFile extends LocalFile {
 		if ( $suffix !== false ) {
 			$path .= '/' . rawurlencode( $suffix );
 /* This is the part that changed from LocalFile */
-			$path .= '/' . rawurlencode( $this->getFileNameStripped( $suffix ) );
+			$path .= '/' . rawurlencode( self::getFileNameStripped( $suffix ) );
 /* End of changes */
 		}
 		return $path;
@@ -226,11 +175,11 @@ class NSLocalFile extends LocalFile {
 	 *
 	 * @return string
 	 */
-	function getFileNameStripped($suffix) {
+	public static function getFileNameStripped($suffix) {
 		$bits = explode( ':', $suffix );
 		return $bits[ count( $bits ) -1 ];
 	}
-	
+
 	/**
 	 * Move or copy a file to a specified location. Returns a FileRepoStatus
 	 * object with the archive name in the "value" member on success.
@@ -254,7 +203,7 @@ class NSLocalFile extends LocalFile {
 		$this->lock(); // begin
 
 /* This is the part that changed from LocalFile */
-		$archiveName = wfTimestamp( TS_MW ) . '!'. $this->getFileNameStripped( $this->getName() );
+		$archiveName = wfTimestamp( TS_MW ) . '!'. self::getFileNameStripped( $this->getName() );
 /* End of changes */
 		$archiveRel = 'archive/' . $this->getHashPath() . $archiveName;
 		$flags = $flags & File::DELETE_SOURCE ? LocalRepo::DELETE_SOURCE : 0;
@@ -351,81 +300,6 @@ class NSLocalFile extends LocalFile {
 	}
 }
 
-class NSOldLocalFile extends OldLocalFile {
-
-	function getRel() {
-		return 'archive/' . $this->getHashPath() . 
-			$this->getFileNameStripped( $this->getArchiveName() );
-	}
-	function getUrlRel() {
-		return 'archive/' . $this->getHashPath() . 
-			urlencode( $this->getFileNameStripped( $this->getArchiveName() ) );
-	}
-	function publish( $srcPath, $flags = 0, array $options = array() ) {
-		return NSLocalFile::publish( $srcPath, $flags, $options );
-	}
-	function getThumbUrl( $suffix = false ) {
-		return NSLocalFile::getThumbUrl( $suffix );
-	}
-	function thumbName( $params, $flags = 0 ) {
-		return NSLocalFile::thumbName( $params, $flags );
-	}
-	function getThumbPath( $suffix = false ) {
-		return NSLocalFile::getThumbPath( $suffix );
-	}
-	function getArchiveRel( $suffix = false ) {
-		return NSLocalFile::getArchiveRel( $suffix );
-	}
-	function getArchiveUrl( $suffix = false ) {
-		return NSLocalFile::getArchiveUrl( $suffix );
-	}
-	function getArchiveVirtualUrl( $suffix = false ) {
-		return NSLocalFile::getArchiveVirtualUrl( $suffix );
-	}
-	function getThumbVirtualUrl( $suffix = false ) {
-		return NSLocalFile::getArchiveVirtualUrl( $suffix );
-	}
-	function getVirtualUrl( $suffix = false ) {
-		return NSLocalFile::getVirtualUrl( $suffix );
-	}
-	function getFileNameStripped($suffix) {
-		return NSLocalFile::getFileNameStripped( $suffix );
-	}
-	function addOlds() {
-		return NSLocalFile::addOlds();
-	}
-	function purgeThumbnails($options = array() ) {
-		return NSLocalFile::purgeThumbnails( $options );
-	}
-	/**
-	 * Replaces hard coded OldLocalFile::newFromRow to use $this->repo->oldFileFromRowFactory configuration
-	 * This may not be necessary in the future if LocalFile is patched to allow configuration
-	*/
-	function getHistory( $limit = null, $start = null, $end = null, $inc = true ) {
-		return NSLocalFile::getHistory( $limit, $start , $end, $inc );
-	}
-
-	/** See comment above about Instantiating this class using "self" */
-
-	static function newFromTitle( $title, $repo, $time = null ) {
-		# The null default value is only here to avoid an E_STRICT
-		if( $time === null )
-			throw new MWException( __METHOD__.' got null for $time parameter' );
-		return new self( $title, $repo, $time, null );
-	}
-
-	static function newFromArchiveName( $title, $repo, $archiveName ) {
-		return new self( $title, $repo, null, $archiveName );
-	}
-
-	static function newFromRow( $row, $repo ) {
-		$title = Title::makeTitle( NS_FILE, $row->oi_name );
-		$file = new self( $title, $repo, null, $row->oi_archive_name );
-		$file->loadFromRow( $row, 'oi_' );
-		return $file;
-	}
-}
-
 /**
  * Helper class for file movement
  * @ingroup FileAbstraction
@@ -442,8 +316,8 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 		$this->newHash = $this->file->repo->getHashPath( $this->target->getDBkey() );
 		$this->oldName = $this->file->getName();
 		$this->newName = $this->file->repo->getNameFromTitle( $this->target );
-		$this->oldRel = $this->oldHash . $this->file->getFileNameStripped( $this->oldName );
-		$this->newRel = $this->newHash . $this->file->getFileNameStripped( $this->newName );
+		$this->oldRel = $this->oldHash . NSLocalFile::getFileNameStripped( $this->oldName );
+		$this->newRel = $this->newHash . NSLocalFile::getFileNameStripped( $this->newName );
 		$this->db = $file->getRepo()->getMasterDb();
 	}
 }
