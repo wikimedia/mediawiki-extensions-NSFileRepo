@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jack D. Pond"
+			"Jack D. Pond",
+			"Robert Vogel"
 		]
 	},
-	"nsfilerepo-desc": "Provide namespace based features to uploaded files"
+	"nsfilerepo-desc": "Provide namespace based features to uploaded files",
+	"nsfilerepo-upload-target" : "Target file name in namspace",
+	"nsfilerepo-nsmain" : "(Main)"
 }

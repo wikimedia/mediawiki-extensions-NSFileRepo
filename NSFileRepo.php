@@ -29,14 +29,11 @@
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
-if ( !function_exists('lockdownUserPermissionsErrors') ) {
-	die('You MUST load Extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
-}
 
 $wgExtensionCredits['media'][] = array(
 	'path' => __FILE__,
 	'name' => 'NSFileRepo',
-	'author' => 'Jack D. Pond',
+	'author' => array( 'Jack D. Pond', 'Robert Vogel' ),
 	'version' => '1.7.0',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:NSFileRepo',
 	'descriptionmsg' => 'nsfilerepo-desc'
@@ -67,6 +64,20 @@ $wgHooks['UploadForm:BeforeProcessing'][] =  'NSFileRepoHooks::onUploadFormBefor
 // user has access to files in general + files at this particular namespace.
 $wgHooks['userCan'][] = 'NSFileRepoHooks::onUserCan';
 $wgHooks['ImgAuthBeforeStream'][] = 'NSFileRepoHooks::onImgAuthBeforeStream';
+$wgHooks['BeforePageDisplay'][] = 'NSFileRepoHooks::onBeforePageDisplay';
+$wgHooks['UploadFormInitDescriptor'][] = 'NSFileRepoHooks::onUploadFormInitDescriptor';
+
+$resourceModuleTemplate = array(
+	'localBasePath' => __DIR__.'/resources',
+	'remoteExtPath' => 'NSFileRepo/resources',
+);
+
+$wgResourceModules['ext.nsfilerepo.special.upload'] = array(
+	'scripts' => array(
+		'ext.nsfilerepo.special.upload.js',
+	)
+) + $resourceModuleTemplate;
+unset( $resourceModuleTemplate );
 
 /**
  * Some default configuration that is needed for this extension
