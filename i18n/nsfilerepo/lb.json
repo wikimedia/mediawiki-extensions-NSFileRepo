@@ -5,5 +5,7 @@
 			"Soued031"
 		]
 	},
-	"nsfilerepo-desc": "Gëtt Nummraum baséiert Funktioune fir eropgeluede Fichieren"
+	"nsfilerepo-desc": "Gëtt Nummraum baséiert Funktioune fir eropgeluede Fichieren",
+	"nsfilerepo-upload-target": "Zil-Fichier am Nummraum",
+	"nsfilerepo-nsmain": "(Haapt)"
 }

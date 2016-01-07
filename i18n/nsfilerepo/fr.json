@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"IAlex"
+			"IAlex",
+			"Gomoko"
 		]
 	},
-	"nsfilerepo-desc": "Ajoute des fonctionnalités aux fichiers téléversés par espace de nom"
+	"nsfilerepo-desc": "Ajoute des fonctionnalités aux fichiers téléversés par espace de nom",
+	"nsfilerepo-upload-target": "Nom du fichier cible dans l’espace de noms",
+	"nsfilerepo-nsmain": "(Principal)"
 }

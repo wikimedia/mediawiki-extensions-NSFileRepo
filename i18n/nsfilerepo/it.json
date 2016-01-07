@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Darth Kule"
+			"Darth Kule",
+			"Beta16"
 		]
 	},
-	"nsfilerepo-desc": "Fornisce una funzione basata sui namespace per caricare file"
+	"nsfilerepo-desc": "Fornisce una funzione basata sui namespace per caricare file",
+	"nsfilerepo-nsmain": "(Principale)"
 }
