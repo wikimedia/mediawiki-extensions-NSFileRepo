@@ -2,8 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Crazymadlover",
-			"Macofe"
+			"Macofe",
+			"Syum90"
 		]
 	},
-	"nsfilerepo-desc": "Proveer características basadas en espacio de nombres para archivos subidos"
+	"nsfilerepo-desc": "Proveer características basadas en espacio de nombres para archivos subidos",
+	"nsfilerepo-nsmain": "(Principal)"
 }

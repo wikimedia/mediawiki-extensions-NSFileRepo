@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sp5uhe"
+			"Sp5uhe",
+			"Chrumps"
 		]
 	},
-	"nsfilerepo-desc": "Dostarcza mechanizmu opartego na przestrzeniach nazw służącego do przesyłania plików"
+	"nsfilerepo-desc": "Dostarcza mechanizmu opartego na przestrzeniach nazw służącego do przesyłania plików",
+	"nsfilerepo-nsmain": "(Główna)"
 }
