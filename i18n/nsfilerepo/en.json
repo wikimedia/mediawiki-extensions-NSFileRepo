@@ -6,6 +6,6 @@
 		]
 	},
 	"nsfilerepo-desc": "Provide namespace based features to uploaded files",
-	"nsfilerepo-upload-target" : "Target file name in namspace",
+	"nsfilerepo-upload-target" : "Target file name in namespace",
 	"nsfilerepo-nsmain" : "(Main)"
 }
