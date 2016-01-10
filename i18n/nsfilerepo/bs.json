@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"CERminator"
+			"CERminator",
+			"Srdjan m"
 		]
 	},
-	"nsfilerepo-desc": "Omogućuje osobine zasnovane na imenskim prostorima za postavljene datoteke"
+	"nsfilerepo-desc": "Omogućuje osobine zasnovane na imenskim prostorima za postavljene datoteke",
+	"nsfilerepo-upload-target": "Odredišno ime datoteke u imenskom prostoru",
+	"nsfilerepo-nsmain": "(glavni)"
 }

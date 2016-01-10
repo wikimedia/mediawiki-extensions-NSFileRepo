@@ -7,5 +7,6 @@
 		]
 	},
 	"nsfilerepo-desc": "Proveer características basadas en espacio de nombres para archivos subidos",
+	"nsfilerepo-upload-target": "Nombre de archivo destino en el espacio de nombres",
 	"nsfilerepo-nsmain": "(Principal)"
 }

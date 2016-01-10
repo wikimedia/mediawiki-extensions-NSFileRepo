@@ -5,10 +5,11 @@
 			"Raymond",
 			"Shirayuki",
 			"Umherirrender",
-			"Robert Vogel"
+			"Robert Vogel",
+			"Macofe"
 		]
 	},
 	"nsfilerepo-desc": "{{desc|name=NS File Repo|url=https://www.mediawiki.org/wiki/Extension:NSFileRepo}}",
-	"nsfilerepo-upload-target": "Label for selectbox to choose target namspace for upload on Special:Upload",
+	"nsfilerepo-upload-target": "Label for selectbox to choose target namespace for upload on Special:Upload",
 	"nsfilerepo-nsmain": "Label for selectbox option to upload into main namespace {{Identical|blanknamespace}}"
 }
