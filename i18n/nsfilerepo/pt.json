@@ -2,8 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Hamilton Abreu",
-			"Waldir"
+			"Waldir",
+			"Vitorvicentevalente"
 		]
 	},
-	"nsfilerepo-desc": "Fornecer, aos ficheiros carregados, características de acesso associadas aos espaços nominais protegidos"
+	"nsfilerepo-desc": "Fornecer, aos ficheiros carregados, características de acesso associadas aos espaços nominais protegidos",
+	"nsfilerepo-nsmain": "(Principal)"
 }

@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño"
+			"Toliño",
+			"Elisardojm"
 		]
 	},
-	"nsfilerepo-desc": "Proporciona características baseadas en espazos de nomes para ficheiros cargados"
+	"nsfilerepo-desc": "Proporciona características baseadas en espazos de nomes para ficheiros cargados",
+	"nsfilerepo-upload-target": "Nombre de ficheiro destino no espazo de nomes",
+	"nsfilerepo-nsmain": "(Principal)"
 }
