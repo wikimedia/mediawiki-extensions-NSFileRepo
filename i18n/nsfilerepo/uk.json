@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Prima klasy4na"
+			"Prima klasy4na",
+			"Piramidion"
 		]
 	},
-	"nsfilerepo-desc": "Додає особливості завантаження файлів в залежності від простору назв"
+	"nsfilerepo-desc": "Додає особливості завантаження файлів в залежності від простору назв",
+	"nsfilerepo-upload-target": "Цільова назва файлу в просторі назв",
+	"nsfilerepo-nsmain": "(Основний)"
 }
