@@ -36,7 +36,8 @@ $wgExtensionCredits['media'][] = array(
 	'author' => array( 'Jack D. Pond', 'Robert Vogel' ),
 	'version' => '1.7.0',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:NSFileRepo',
-	'descriptionmsg' => 'nsfilerepo-desc'
+	'descriptionmsg' => 'nsfilerepo-desc',
+	'license-name' => 'GPL-2.0+'
 );
 
 # Internationalisation file
