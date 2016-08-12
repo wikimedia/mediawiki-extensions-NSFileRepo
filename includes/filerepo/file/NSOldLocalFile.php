@@ -73,4 +73,32 @@ class NSOldLocalFile extends OldLocalFile {
 		$file->loadFromRow( $row, 'oi_' );
 		return $file;
 	}
+
+	/**
+	 * Create a OldLocalFile from a SHA-1 key
+	 * Do not call this except from inside a repo class.
+	 *
+	 * Copy & paste from OldLocalFile to fix "late-static-binding" issue
+	 *
+	 * @param string $sha1 Base-36 SHA-1
+	 * @param LocalRepo $repo
+	 * @param string|bool $timestamp MW_timestamp (optional)
+	 *
+	 * @return bool|OldLocalFile
+	 */
+	static function newFromKey( $sha1, $repo, $timestamp = false ) {
+		$dbr = $repo->getSlaveDB();
+
+		$conds = [ 'oi_sha1' => $sha1 ];
+		if ( $timestamp ) {
+			$conds['oi_timestamp'] = $dbr->timestamp( $timestamp );
+		}
+
+		$row = $dbr->selectRow( 'oldimage', self::selectFields(), $conds, __METHOD__ );
+		if ( $row ) {
+			return self::newFromRow( $row, $repo );
+		} else {
+			return false;
+		}
+	}
 }
