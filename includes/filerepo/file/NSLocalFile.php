@@ -325,6 +325,10 @@ class NSLocalFile extends LocalFile {
 			return false;
 		}
 	}
+
+	public function getHashPath() {
+		return 'nsfilerepo/' . parent::getHashPath();
+	}
 }
 
 /**

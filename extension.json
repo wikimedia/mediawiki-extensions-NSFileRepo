@@ -1,0 +1,51 @@
+{
+	"name": "NSFileRepo",
+	"version": "1.27.0",
+	"author": [
+		"Jack D. Pond",
+		"Robert Vogel"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:NSFileRepo",
+	"descriptionmsg": "nsfilerepo-desc",
+	"license-name": "GPL-2.0+",
+	"type": "media",
+	"ExtensionFunctions": [
+		"NSFileRepoHooks::setup"
+	],
+	"callback": "NSFileRepoHooks::register",
+	"MessagesDirs": {
+		"NSFileRepo": [
+			"i18n/nsfilerepo"
+		],
+		"img_auth": [
+			"i18n/imgauth"
+		]
+	},
+	"AutoloadClasses": {
+		"NSFileRepoHooks": "includes/NSFileRepoHooks.php",
+		"NSLocalRepo": "includes/filerepo/NSLocalRepo.php",
+		"NSLocalFile": "includes/filerepo/file/NSLocalFile.php",
+		"NSLocalFileMoveBatch": "includes/filerepo/file/NSLocalFile.php",
+		"NSOldLocalFile": "includes/filerepo/file/NSOldLocalFile.php",
+		"NSFileRepoFSFileBackend": "includes/filebackend/NSFileRepoFSFileBackend.php"
+	},
+	"ResourceModules": {
+		"ext.nsfilerepo.special.upload": {
+			"scripts": [
+				"ext.nsfilerepo.special.upload.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "NSFileRepo/resources"
+	},
+	"Hooks": {
+		"UploadForm:BeforeProcessing": "NSFileRepoHooks::onUploadFormBeforeProcessing",
+		"@note": "Note, this must be AFTER Extension:Lockdown has been included - thus assuming that the user has access to files in general + files at this particular namespace.",
+		"userCan": "NSFileRepoHooks::onUserCan",
+		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
+		"UploadFormInitDescriptor": "NSFileRepoHooks::onUploadFormInitDescriptor"
+	},
+	"manifest_version": 1
+}
