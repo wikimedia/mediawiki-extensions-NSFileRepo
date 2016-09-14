@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Imre",
-			"Metalhead64"
+			"Metalhead64",
+			"Kghbln"
 		]
 	},
 	"nsfilerepo-desc": "Namensraum-basierte Eigenschaften für das Hochladen von Dateien",
-	"nsfilerepo-upload-target": "Ziel-Dateiname in Namensraum",
+	"nsfilerepo-upload-target": "Zielname im Namensraum",
 	"nsfilerepo-nsmain": "(Haupt)"
 }

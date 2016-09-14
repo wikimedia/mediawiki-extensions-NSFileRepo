@@ -5,10 +5,12 @@
  */
 
 class NSLocalRepo extends LocalRepo {
-	public $fileFactory = array( 'NSLocalFile', 'newFromTitle' );
-	public $oldFileFactory = array( 'NSOldLocalFile', 'newFromTitle' );
-	public $fileFromRowFactory = array( 'NSLocalFile', 'newFromRow' );
-	public $oldFileFromRowFactory = array( 'NSOldLocalFile', 'newFromRow' );
+	protected $fileFactory = array( 'NSLocalFile', 'newFromTitle' );
+	protected $fileFactoryKey = array( 'NSLocalFile', 'newFromKey' );
+	protected $oldFileFactory = array( 'NSOldLocalFile', 'newFromTitle' );
+	protected $fileFromRowFactory = array( 'NSLocalFile', 'newFromRow' );
+	protected $oldFileFromRowFactory = array( 'NSOldLocalFile', 'newFromRow' );
+	protected $oldFileFactoryKey = array( 'NSOldLocalFile', 'newFromKey' );
 
 	static function getHashPathForLevel( $name, $levels ) {
 		global $wgContLang;
