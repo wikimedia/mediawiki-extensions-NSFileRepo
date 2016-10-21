@@ -2,6 +2,17 @@
 
 class NSOldLocalFile extends OldLocalFile {
 
+	/**
+	 *
+	 * @var NSLocalFile
+	 */
+	protected $internalFile = null;
+
+	public function __construct($title, $repo, $time, $archiveName) {
+		parent::__construct($title, $repo, $time, $archiveName);
+		$this->internalFile = new NSLocalFile($title, $repo);
+	}
+
 	function getRel() {
 		return 'archive/' . $this->getHashPath() .
 			$this->getFileNameStripped( $this->getArchiveName() );
@@ -11,47 +22,47 @@ class NSOldLocalFile extends OldLocalFile {
 			urlencode( $this->getFileNameStripped( $this->getArchiveName() ) );
 	}
 	function publish( $srcPath, $flags = 0, array $options = array() ) {
-		return NSLocalFile::publish( $srcPath, $flags, $options );
+		return $this->internalFile->publish( $srcPath, $flags, $options );
 	}
 	function getThumbUrl( $suffix = false ) {
-		return NSLocalFile::getThumbUrl( $suffix );
+		return $this->internalFile->getThumbUrl( $suffix );
 	}
 	function thumbName( $params, $flags = 0 ) {
-		return NSLocalFile::thumbName( $params, $flags );
+		return $this->internalFile->thumbName( $params, $flags );
 	}
 	function getThumbPath( $suffix = false ) {
-		return NSLocalFile::getThumbPath( $suffix );
+		return $this->internalFile->getThumbPath( $suffix );
 	}
 	function getArchiveRel( $suffix = false ) {
-		return NSLocalFile::getArchiveRel( $suffix );
+		return $this->internalFile->getArchiveRel( $suffix );
 	}
 	function getArchiveUrl( $suffix = false ) {
-		return NSLocalFile::getArchiveUrl( $suffix );
+		return $this->internalFile->getArchiveUrl( $suffix );
 	}
 	function getArchiveVirtualUrl( $suffix = false ) {
-		return NSLocalFile::getArchiveVirtualUrl( $suffix );
+		return $this->internalFile->getArchiveVirtualUrl( $suffix );
 	}
 	function getThumbVirtualUrl( $suffix = false ) {
-		return NSLocalFile::getArchiveVirtualUrl( $suffix );
+		return $this->internalFile->getThumbVirtualUrl( $suffix );
 	}
 	function getVirtualUrl( $suffix = false ) {
-		return NSLocalFile::getVirtualUrl( $suffix );
+		return $this->internalFile->getVirtualUrl( $suffix );
 	}
 	function getFileNameStripped($suffix) {
-		return NSLocalFile::getFileNameStripped( $suffix );
+		return $this->internalFile->getFileNameStripped( $suffix );
 	}
 	function addOlds() {
-		return NSLocalFile::addOlds();
+		return $this->internalFile->addOlds();
 	}
 	function purgeThumbnails($options = array() ) {
-		return NSLocalFile::purgeThumbnails( $options );
+		return $this->internalFile->purgeThumbnails( $options );
 	}
 	/**
 	 * Replaces hard coded OldLocalFile::newFromRow to use $this->repo->oldFileFromRowFactory configuration
 	 * This may not be necessary in the future if LocalFile is patched to allow configuration
 	*/
 	function getHistory( $limit = null, $start = null, $end = null, $inc = true ) {
-		return NSLocalFile::getHistory( $limit, $start , $end, $inc );
+		return $this->internalFile->getHistory( $limit, $start , $end, $inc );
 	}
 
 	/** See comment above about Instantiating this class using "self" */

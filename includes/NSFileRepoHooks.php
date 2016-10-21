@@ -7,14 +7,19 @@ class NSFileRepoHooks {
 	 * @global array $wgLocalFileRepo
 	 */
 	public static function setup() {
-		global $wgLocalFileRepo;
-
 		if ( !function_exists('lockdownUserPermissionsErrors') ) {
-			die('You MUST load Extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
+			die('You MUST load extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
 		}
 
-		$wgLocalFileRepo['class'] = "NSLocalRepo";
+		$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
+		$GLOBALS['wgLocalFileRepo']['backend'] = "nsfilerepo-fs";
+		$GLOBALS['wgLocalFileRepo']['url'] = $GLOBALS['wgScriptPath'] .'/img_auth.php';
+
 		RepoGroup::destroySingleton();
+	}
+
+	public static function register() {
+		require_once( __DIR__.'/DefaultSettings.php' );
 	}
 
 	/**
@@ -71,34 +76,6 @@ class NSFileRepoHooks {
 						true : lockdownUserPermissionsErrors( $ntitle, $user, $action, $result );
 				$result = null;
 				return $ret_val;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 *
-	 * @global Language $wgContLang
-	 * @param Title $title
-	 * @param string $path
-	 * @param string $name
-	 * @param mixed $result
-	 * @return boolean
-	 */
-	public static function onImgAuthBeforeStream( &$title, &$path, &$name, &$result ) {
-		global $wgContLang;
-
-		# See if stored in a NS path
-		$subdirs = explode('/',$path);
-		$x = (!is_numeric($subdirs[1]) && ($subdirs[1] == "archive" || $subdirs[1] == "deleted" || $subdirs[1] == "thumb")) ? 2 : 1;
-		$x = ($x == 2 && $subdirs[1] == "thumb" && $subdirs[2] == "archive") ? 3 : $x;
-		if ( strlen( $subdirs[$x] ) >= 3 && is_numeric( $subdirs[$x] )
-			&& $subdirs[$x] >= 100 )
-		{
-			$title = Title::makeTitleSafe( NS_FILE, $wgContLang->getNsText( $subdirs[$x] ) . ":" . $name );
-			if( !$title instanceof Title ) {
-				$result = array( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
-				return false;
 			}
 		}
 		return true;
