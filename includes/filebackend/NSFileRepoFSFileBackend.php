@@ -77,6 +77,9 @@ class NSFileRepoFSFileBackend extends FSFileBackend {
 		foreach( $this->zoneSuffixes as $zone ) {
 			$parts = explode( "$zone/nsfilerepo/", $storagePath, 2 );
 			if( count( $parts ) === 2 ) {
+				if( $zone === 'public' ) {
+					return $parts[1];
+				}
 				return $zone.'/'.$parts[1];
 			}
 		}
