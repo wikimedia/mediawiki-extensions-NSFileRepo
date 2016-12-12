@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo.mps"
+			"Eduardo.mps",
+			"!Silent"
 		]
 	},
-	"nsfilerepo-desc": "Provê funcionalidades de arquivos carregados, baseadas no domínio"
+	"nsfilerepo-desc": "Provê funcionalidades de arquivos carregados, baseadas no domínio",
+	"nsfilerepo-upload-target": "Nome de destino do arquivo no domínio",
+	"nsfilerepo-nsmain": "(Principal)"
 }
