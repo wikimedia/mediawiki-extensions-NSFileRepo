@@ -12,9 +12,6 @@ class NSFileRepoHooks {
 		}
 
 		$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
-		$GLOBALS['wgLocalFileRepo']['backend'] = "nsfilerepo-fs";
-		$GLOBALS['wgLocalFileRepo']['url'] = $GLOBALS['wgScriptPath'] .'/img_auth.php';
-
 		RepoGroup::destroySingleton();
 	}
 
@@ -37,12 +34,47 @@ class NSFileRepoHooks {
 	}
 
 	/**
+	 * @param $path
+	 * @param $name
+	 * @param $filename
+	 * @return bool
+	 */
+	public static function onImgAuthBeforeCheckFileExists( &$path, &$name, &$filename ) {
+		$nsfrhelper = new NSFileRepoHelper();
+		$title = $nsfrhelper->getTitleFromPath( $path );
+		if( $title instanceof Title ) {
+			$name = $title->getPrefixedDBkey();
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param Title $title
+	 * @param $path
+	 * @param $name
+	 * @param $result
+	 * @return bool
+	 */
+	public static function onImgAuthBeforeStream( &$title, &$path, &$name, &$result ) {
+		$nsfrhelper = new NSFileRepoHelper();
+		$title = $nsfrhelper->getTitleFromPath( $path );
+
+		if( $title instanceof Title === false ) {
+			$result = array('img-auth-accessdenied', 'img-auth-badtitle', $name);
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Check for Namespace in Title line
 	 * @param UploadForm $uploadForm
 	 * @return boolean
 	 */
 	public static function onUploadFormBeforeProcessing( &$uploadForm ) {
-		$title = Title::newFromText($uploadForm->mDesiredDestName);
+		$title = Title::newFromText( $uploadForm->mDesiredDestName );
 		if( $title === null ) {
 			return true;
 		}
@@ -57,7 +89,7 @@ class NSFileRepoHooks {
 	}
 
 	/**
-	 * If Extension:Lockdown has been activated (recommend), check individual namespace protection
+	 * Check individual namespace protection using Extension:Lockdown
 	 * @global array $wgWhitelistRead
 	 * @param Title $title
 	 * @param user $user
@@ -69,16 +101,23 @@ class NSFileRepoHooks {
 		global $wgWhitelistRead;
 		if ( $wgWhitelistRead !== false && in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
 			return true;
-		} elseif( function_exists( 'lockdownUserPermissionsErrors' ) ) {
-			if( $title->getNamespace() == NS_FILE ) {
-				$ntitle = Title::newFromText( $title->mDbkeyform );
-				$ret_val = ( $ntitle->getNamespace() < 100 ) ?
-						true : lockdownUserPermissionsErrors( $ntitle, $user, $action, $result );
-				$result = null;
-				return $ret_val;
-			}
 		}
-		return true;
+
+		if( $title->getNamespace() !== NS_FILE ) {
+			return true;
+		}
+
+		$ntitle = Title::newFromText( $title->getDBkey() );
+		$ret_val = true;
+
+		//Additional check for NS_MAIN: If a user is not allowed to read NS_MAIN he should also be not allowed
+		//to view files with no namespace-prefix as they are logically assigned to namespace NS_MAIN
+		if( $ntitle->getNamespace() < 100 || $ntitle->getNamespace() === NS_MAIN ) {
+			$ret_val = lockdownUserPermissionsErrors( $ntitle, $user, $action, $result );
+		}
+
+		$result = null;
+		return $ret_val;
 	}
 
 	/**
@@ -186,5 +225,21 @@ class NSFileRepoHooks {
 			$aReturn[$iNsId] = $sNsText;
 		}
 		return $aReturn;
+	}
+
+	/**
+	 * Checks if the destination file name contains a valid namespace prefix
+	 * @param string $destName
+	 * @param string $tempPath
+	 * @param string $error
+	 * @return bool
+	 */
+	public static function onUploadVerification( $destName, $tempPath, &$error ) {
+		$title = Title::newFromText( $destName );
+		if( strpos( $title->getText(), ':' ) !== false ) { //There is a colon in the name but it was not a valid namespace prefix!
+			$error = 'illegal-filename';
+			return false;
+		}
+		return true;
 	}
 }

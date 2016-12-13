@@ -27,7 +27,8 @@
 		"NSLocalFile": "includes/filerepo/file/NSLocalFile.php",
 		"NSLocalFileMoveBatch": "includes/filerepo/file/NSLocalFile.php",
 		"NSOldLocalFile": "includes/filerepo/file/NSOldLocalFile.php",
-		"NSFileRepoFSFileBackend": "includes/filebackend/NSFileRepoFSFileBackend.php"
+		"NSFileRepoFSFileBackend": "includes/filebackend/NSFileRepoFSFileBackend.php",
+		"NSFileRepoHelper": "includes/utility/NSFileRepoHelper.php"
 	},
 	"ResourceModules": {
 		"ext.nsfilerepo.special.upload": {
@@ -45,7 +46,10 @@
 		"@note": "Note, this must be AFTER Extension:Lockdown has been included - thus assuming that the user has access to files in general + files at this particular namespace.",
 		"userCan": "NSFileRepoHooks::onUserCan",
 		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
-		"UploadFormInitDescriptor": "NSFileRepoHooks::onUploadFormInitDescriptor"
+		"UploadFormInitDescriptor": "NSFileRepoHooks::onUploadFormInitDescriptor",
+		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
+		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
+		"UploadVerification": "NSFileRepoHooks::onUploadVerification"
 	},
 	"manifest_version": 1
 }
