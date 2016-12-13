@@ -13,7 +13,6 @@ class NSFileRepoHelper {
 	 * @return null|Title
 	 */
 	public function getTitleFromPath( $path ) {
-		error_log( $path );
 		$filename = wfBaseName( $path );
 		if( UploadBase::isThumbName( $filename ) ) {
 			//HINT: Thumbname-to-filename-conversion taken from includes/Upload/UploadBase.php
@@ -30,7 +29,6 @@ class NSFileRepoHelper {
 		}
 
 		$title = Title::makeTitleSafe( (int)$matches[2], $filename );
-		error_log( $title->getPrefixedDBkey() );
 		return $title;
 	}
 }
