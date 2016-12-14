@@ -42,8 +42,9 @@ class NSFileRepoHooks {
 	public static function onImgAuthBeforeCheckFileExists( &$path, &$name, &$filename ) {
 		$nsfrhelper = new NSFileRepoHelper();
 		$title = $nsfrhelper->getTitleFromPath( $path );
-		if( $title instanceof Title ) {
-			$name = $title->getPrefixedDBkey();
+		if( $title instanceof Title && $title->getNamespace() !== NS_MAIN ) {
+			//Not using "$title->getPrefixedDBKey()" because "$wgCapitalLinkOverrides[NS_FILE]" may be "false"
+			$name = $title->getNsText() . ':' . $name;
 		}
 
 		return true;
