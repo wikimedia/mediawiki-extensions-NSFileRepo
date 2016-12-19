@@ -113,7 +113,16 @@ function wfImageAuthMain() {
 
 	// Get the local file repository
 	$repo = RepoGroup::singleton()->getRepo( 'local' );
-	$zone = strstr( ltrim( $path, '/' ), '/', true );
+	$zone = '';
+	$pathParts = explode( '/transcoded/', $path, 2 );
+	if( count( $pathParts ) === 2 ) {
+		$zone = 'transcoded';
+	}
+
+	$pathParts = explode( '/thumb/', $path, 2 );
+	if( count( $pathParts ) === 2 ) {
+		$zone = 'thumb';
+	}
 
 	// Get the full file storage path and extract the source file name.
 	// (e.g. 120px-Foo.png => Foo.png or page2-120px-Foo.png => Foo.png).
@@ -125,8 +134,11 @@ function wfImageAuthMain() {
 		Hooks::run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
 		// Check to see if the file exists
 		if ( !$repo->fileExists( $filename ) ) {
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
-			return;
+			$file = wfFindFile( $name ); //Give other repos a chance to handle this
+			if( !$file || !$file->exists() ) {
+				wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
+				return;
+			}
 		}
 	} else {
 		$name = wfBaseName( $path ); // file is a source file
@@ -140,8 +152,11 @@ function wfImageAuthMain() {
 			$file = $repo->newFile( $name );
 		}
 		if ( !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
-			return;
+			$file = wfFindFile( $name ); //Give other repos a chance to handle this
+			if( !$file || !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
+				wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
+				return;
+			}
 		}
 	}
 
@@ -178,6 +193,14 @@ function wfImageAuthMain() {
 
 	// Stream the requested file
 	wfDebugLog( 'img_auth', "Streaming `" . $filename . "`." );
+	if( !$repo->fileExists( $filename ) ) {
+		$file = wfFindFile( $name );
+		if( $file ) {
+			$repo = $file->getRepo();
+			$filename = $file->getPath();
+		}
+	}
+
 	$repo->streamFile( $filename, $headers );
 }
 
