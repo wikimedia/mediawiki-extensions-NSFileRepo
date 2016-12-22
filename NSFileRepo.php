@@ -80,6 +80,9 @@ function NSFileRepoSetup() {
 */
 function NSFileRepoNSCheck( $uploadForm ) {
 	$title = Title::newFromText($uploadForm->mDesiredDestName);
+	if( $title === null ) {
+		return true;
+	}
 	if ( $title->getNamespace() < 100 ) {
 		$uploadForm->mDesiredDestName = preg_replace( "/:/", '-', $uploadForm->mDesiredDestName );
 	} else {

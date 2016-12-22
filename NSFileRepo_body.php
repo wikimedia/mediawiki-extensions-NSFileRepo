@@ -5,10 +5,11 @@
  */
 
 class NSLocalRepo extends LocalRepo {
-	var $fileFactory = array( 'NSLocalFile', 'newFromTitle' );
-	var $oldFileFactory = array( 'NSOldLocalFile', 'newFromTitle' );
-	var $fileFromRowFactory = array( 'NSLocalFile', 'newFromRow' );
-	var $oldFileFromRowFactory = array( 'NSOldLocalFile', 'newFromRow' );
+	public $fileFactory = array( 'NSLocalFile', 'newFromTitle' );
+	protected $fileFactoryKey = array( 'NSLocalFile', 'newFromKey' );
+	public $oldFileFactory = array( 'NSOldLocalFile', 'newFromTitle' );
+	public $fileFromRowFactory = array( 'NSLocalFile', 'newFromRow' );
+	public $oldFileFromRowFactory = array( 'NSOldLocalFile', 'newFromRow' );
 
 	static function getHashPathForLevel( $name, $levels ) {
 		global $wgContLang;
@@ -52,6 +53,23 @@ class NSLocalRepo extends LocalRepo {
 }
 
 class NSLocalFile extends LocalFile {
+
+	static function newFromKey( $sha1, $repo, $timestamp = false ) {
+		$dbr = $repo->getSlaveDB();
+
+		$conds = array( 'img_sha1' => $sha1 );
+		if ( $timestamp ) {
+			$conds['img_timestamp'] = $dbr->timestamp( $timestamp );
+		}
+
+		$row = $dbr->selectRow( 'image', self::selectFields(), $conds, __METHOD__ );
+		if ( $row ) {
+			return self::newFromRow( $row, $repo );
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * Get the path of the file relative to the public zone root
 	 */
@@ -101,7 +119,7 @@ class NSLocalFile extends LocalFile {
 	 * Get urlencoded relative path of the file
 	 */
 	function getUrlRel() {
-		return $this->getHashPath() . 
+		return $this->getHashPath() .
 			rawurlencode( $this->getFileNameStripped( $this->getName() ) );
 	}
 
@@ -146,7 +164,7 @@ class NSLocalFile extends LocalFile {
 		list( $thumbExt, $thumbMime ) = $this->handler->getThumbType(
 			$extension, $this->getMimeType(), $params );
 /* This is the part that changed from LocalFile */
-		$thumbName = $this->handler->makeParamString( $params ) . '-' . 
+		$thumbName = $this->handler->makeParamString( $params ) . '-' .
 			$this->getFileNameStripped( $this->getName() );
 /* End of changes */
 		if ( $thumbExt != $extension ) {
@@ -230,7 +248,7 @@ class NSLocalFile extends LocalFile {
 		$bits = explode( ':', $suffix );
 		return $bits[ count( $bits ) -1 ];
 	}
-	
+
 	/**
 	 * Move or copy a file to a specified location. Returns a FileRepoStatus
 	 * object with the archive name in the "value" member on success.
@@ -354,11 +372,11 @@ class NSLocalFile extends LocalFile {
 class NSOldLocalFile extends OldLocalFile {
 
 	function getRel() {
-		return 'archive/' . $this->getHashPath() . 
+		return 'archive/' . $this->getHashPath() .
 			$this->getFileNameStripped( $this->getArchiveName() );
 	}
 	function getUrlRel() {
-		return 'archive/' . $this->getHashPath() . 
+		return 'archive/' . $this->getHashPath() .
 			urlencode( $this->getFileNameStripped( $this->getArchiveName() ) );
 	}
 	function publish( $srcPath, $flags = 0, array $options = array() ) {
