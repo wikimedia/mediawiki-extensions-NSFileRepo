@@ -95,7 +95,7 @@ function NSFileRepoNSCheck( $uploadForm ) {
  */
 function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
 	global $wgWhitelistRead;
-	if ( in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
+	if ( is_array( $wgWhitelistRead ) && in_array( $title->getPrefixedText(), $wgWhitelistRead ) ) {
 		return true;
 	} elseif( function_exists( 'lockdownUserPermissionsErrors' ) ) {
 		if( $title->getNamespace() == NS_FILE ) {
@@ -109,7 +109,7 @@ function NSFileRepolockdownUserCan( $title, $user, $action, &$result) {
 	return true;
 }
 
-function NSFileRepoImgAuthCheck( $title, $path, $name, $result ) {
+function NSFileRepoImgAuthCheck( &$title, &$path, &$name, &$result ) {
 	global $wgContLang;
 
 	# See if stored in a NS path
