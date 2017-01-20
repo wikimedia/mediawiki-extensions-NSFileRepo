@@ -154,8 +154,12 @@ function wfImageAuthMain() {
 		if ( !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
 			$file = wfFindFile( $name ); //Give other repos a chance to handle this
 			if( !$file || !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
-				wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
-				return;
+
+				global $wgUploadDirectory;
+				if( !file_exists( $wgUploadDirectory.$path ) ) {
+					wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
+					return;
+				}
 			}
 		}
 	}
