@@ -244,9 +244,21 @@ class NSLocalFile extends LocalFile {
 	 *
 	 * @return string
 	 */
-	function getFileNameStripped($suffix) {
-		$bits = explode( ':', $suffix );
-		return $bits[ count( $bits ) -1 ];
+	function getFileNameStripped( $suffix ) {
+		$iNsEndPos = strpos( $suffix, ":");
+		if( $iNsEndPos ){
+			$sRes = '';
+			$iTsEndPos = strpos( $suffix, "!" );
+
+			if( $iTsEndPos ) {
+				$sRes = substr( $suffix, 0, $iTsEndPos +1 );
+			}
+			$sRes .= substr( $suffix,  $iNsEndPos +1, strlen( $suffix ) -1 );
+
+			return $sRes;
+		} else {
+			return $suffix;
+		}
 	}
 
 	/**
@@ -463,5 +475,62 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 		$this->oldRel = $this->oldHash . $this->file->getFileNameStripped( $this->oldName );
 		$this->newRel = $this->newHash . $this->file->getFileNameStripped( $this->newName );
 		$this->db = $file->getRepo()->getMasterDb();
+	}
+
+	/**
+	 * Add the old versions of the image to the batch
+	 * @return array List of archive names from old versions
+	 */
+	function addOlds() {
+/* This is the part that changed from LocalFile */
+		$newName = $this->getFileNameStripped( $this->newName );
+/* End of changes */
+		$archiveBase = 'archive';
+		$this->olds = array();
+		$this->oldCount = 0;
+		$archiveNames = array();
+
+		$result = $this->db->select( 'oldimage',
+			array( 'oi_archive_name', 'oi_deleted' ),
+			array( 'oi_name' => $this->oldName ),
+			__METHOD__
+		);
+
+		foreach ( $result as $row ) {
+			$archiveNames[] = $row->oi_archive_name;
+			$oldName = $row->oi_archive_name;
+			$bits = explode( '!', $oldName, 2 );
+
+			if ( count( $bits ) != 2 ) {
+				wfDebug( "Old file name missing !: '$oldName' \n" );
+				continue;
+			}
+
+			list( $timestamp, $filename ) = $bits;
+
+			if ( $this->oldName != $filename ) {
+				wfDebug( "Old file name doesn't match: '$oldName' \n" );
+				continue;
+			}
+
+			$this->oldCount++;
+
+			// Do we want to add those to oldCount?
+			if ( $row->oi_deleted & File::DELETED_FILE ) {
+				continue;
+			}
+/* This is the part that changed from LocalFile */
+			$this->olds[] = array(
+				"{$archiveBase}/{$this->oldHash}{$oldName}",
+				"{$archiveBase}/{$this->newHash}{$timestamp}!{$newName}"
+			);
+/* End of changes */
+		}
+
+		return $archiveNames;
+	}
+
+	function getFileNameStripped( $suffix ) {
+		return(NSLocalFile::getFileNameStripped($suffix));
 	}
 }
