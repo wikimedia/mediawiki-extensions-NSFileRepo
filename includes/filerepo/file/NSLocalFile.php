@@ -214,10 +214,11 @@ class NSLocalFile extends LocalFile {
 
 		$this->lock(); // begin
 
+		$archiveName = wfTimestamp( TS_MW ) . '!'. $this->getName();
 /* This is the part that changed from LocalFile */
-		$archiveName = wfTimestamp( TS_MW ) . '!'. self::getFileNameStripped( $this->getName() );
+		$strippedArchiveName = wfTimestamp( TS_MW ) . '!'. self::getFileNameStripped( $this->getName() );
+		$archiveRel = 'archive/' . $this->getHashPath() . $strippedArchiveName;
 /* End of changes */
-		$archiveRel = 'archive/' . $this->getHashPath() . $archiveName;
 		$flags = $flags & File::DELETE_SOURCE ? LocalRepo::DELETE_SOURCE : 0;
 		$status = $this->repo->publish( $srcPath, $dstRel, $archiveRel, $flags, $options );
 
