@@ -483,7 +483,7 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 	 * @return array List of archive names from old versions
 	 */
 	function addOlds() {
-/* This is the part that changed from LocalFile */
+/* This is the part that changed from LocalFileMoveBatch*/
 		$newName = $this->getFileNameStripped( $this->newName );
 /* End of changes */
 		$archiveBase = 'archive';
@@ -513,6 +513,11 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 				wfDebug( "Old file name doesn't match: '$oldName' \n" );
 				continue;
 			}
+/* This is the part that changed from LocalFileMoveBatch */
+			#When file is moved within a namespace we do not want it
+			#looking to NS:Name format in FS
+			$strippedOldName = $this->file->getFileNameStripped( $oldName );
+/* End of changes */
 
 			$this->oldCount++;
 
@@ -520,15 +525,70 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 			if ( $row->oi_deleted & File::DELETED_FILE ) {
 				continue;
 			}
-/* This is the part that changed from LocalFile */
+/* This is the part that changed from LocalFileMoveBatch */
 			$this->olds[] = array(
-				"{$archiveBase}/{$this->oldHash}{$oldName}",
+				"{$archiveBase}/{$this->oldHash}{$strippedOldName}",
 				"{$archiveBase}/{$this->newHash}{$timestamp}!{$newName}"
 			);
 /* End of changes */
 		}
 
 		return $archiveNames;
+	}
+
+	/**
+	 * Do the database updates and return a new FileRepoStatus indicating how
+	 * many rows where updated.
+	 *
+	 * @return FileRepoStatus
+	 */
+	function doDBUpdates() {
+		$repo = $this->file->repo;
+		$status = $repo->newGood();
+		$dbw = $this->db;
+
+		// Update current image
+		$dbw->update(
+			'image',
+			array( 'img_name' => $this->newName ),
+			array( 'img_name' => $this->oldName ),
+			__METHOD__
+		);
+
+		if ( $dbw->affectedRows() ) {
+			$status->successCount++;
+		} else {
+			$status->failCount++;
+			$status->fatal( 'imageinvalidfilename' );
+
+			return $status;
+		}
+/* Part that is changed from LocalFileMoveBatch' */
+		// Update old images
+		$dbw->update(
+			'oldimage',
+			array(
+				'oi_name' => $this->newName,
+				'oi_archive_name = ' . $dbw->strreplace( 'oi_archive_name',
+					$dbw->addQuotes( $this->oldName ), $dbw->addQuotes( $this->newName ) ),
+			),
+			array( 'oi_name' => $this->oldName ),
+			__METHOD__
+		);
+/* End of changes */
+
+		$affected = $dbw->affectedRows();
+		$total = $this->oldCount;
+		$status->successCount += $affected;
+		// Bug 34934: $total is based on files that actually exist.
+		// There may be more DB rows than such files, in which case $affected
+		// can be greater than $total. We use max() to avoid negatives here.
+		$status->failCount += max( 0, $total - $affected );
+		if ( $status->failCount ) {
+			$status->error( 'imageinvalidfilename' );
+		}
+
+		return $status;
 	}
 
 	function getFileNameStripped( $suffix ) {
