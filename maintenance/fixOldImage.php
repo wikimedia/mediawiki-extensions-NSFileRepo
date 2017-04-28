@@ -7,14 +7,10 @@ class FixOldImage extends Maintenance {
 
 	function __construct() {
 		parent::__construct();
-		$this->addOption( 'db', 'DB to run script on', true, true );
 	}
 
 	function execute() {
-		$this->mDBName = $this->getOption( 'db' );
-
 		$dbw = wfGetDB( DB_MASTER );
-		$dbw->selectDB( $this->mDBName );
 		print( "USING DB: " . $dbw->getDBName() . "\n" );
 		$images = $dbw->select( 'oldimage',
 			array( 'oi_name', 'oi_archive_name' ),
@@ -41,17 +37,39 @@ class FixOldImage extends Maintenance {
 				$archiveName = $archiveBits[1];
 			}
 
+			$title = Title::makeTitle( NS_FILE, $image->oi_name );
+			if( !$title || !$title->exists() ) {
+				print( "Title wrong " . $image->oi_name . PHP_EOL );
+				continue;
+			}
+
+			$repo = RepoGroup::singleton()->getRepo( 'local' );
+			$strippedName = NSLocalFile::getFilenameStripped( $image->oi_archive_name );
+
+			$file = OldLocalFile::newFromArchiveName( $title, $repo, $strippedName );
+			if( !$file || !$file->exists() ) {
+				$file = OldLocalFile::newFromArchiveName( $title, $repo, $image->oi_archive_name );
+				if( $file && $file->exists() && file_exists( $file->getLocalRefPath() ) ) {
+					$path = $file->getLocalRefPath();
+					print( "Found wrong file on FS: " . $path . "..." );
+					$baseDir = dirname( $path );
+					$renamed = rename( $path, $baseDir . '/' . $strippedName );
+					if( $renamed ) {
+						print("renamed" . PHP_EOL );
+						$log .= "Renamed " . $path . " to " . $baseDir . '/' . $strippedName . "\n";
+					} else {
+						print("failed to rename" . PHP_EOL );
+						$log .= "Failed to rename " . $path . " to " . $baseDir . '/' . $strippedName . "\n";
+					}
+
+				}
+			}
+
 			if( $nameNS === $archiveNS && $nameName == $archiveName ) {
 				continue;
 			}
 
 			if( $nameNS != $archiveNS && $nameName != $archiveName ) {
-				continue;
-			}
-			$title = Title::newFromText( $image->oi_name, NS_FILE );
-			$repo = RepoGroup::singleton()->getRepo( 'local' );
-			$file = OldLocalFile::newFromArchiveName( $title, $repo, $image->oi_archive_name );
-			if( !$file->exists() ) {
 				continue;
 			}
 
@@ -63,13 +81,13 @@ class FixOldImage extends Maintenance {
 					'oi_archive_name = ' . $dbw->strreplace( 'oi_archive_name',
 						$dbw->addQuotes( $archiveName ), $dbw->addQuotes( $image->oi_name ) )
 				),
-				array( 'oi_name' => $image->oi_name ),
+				array( 'oi_archive_name' => $image->oi_archive_name ),
 				__METHOD__
 			);
 
 			$count++;
 		}
-		#file_put_contents( '/tmp/fixOldImagesLog.log', $log );
+		file_put_contents( '/tmp/fixOldImagesLog.log', $log );
 		print( "Total " . $count . " images altered\n" );
 	}
 }

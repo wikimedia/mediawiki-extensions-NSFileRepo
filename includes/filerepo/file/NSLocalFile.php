@@ -396,6 +396,11 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 				wfDebug( "Old file name doesn't match: '$oldName' \n" );
 				continue;
 			}
+/* This is the part that changed from LocalFileMoveBatch */
+			#When file is moved within a namespace we do not want it
+			#looking to NS:Name format in FS
+			$strippedOldName = $this->file->getFileNameStripped( $oldName );
+/* End of changes */
 
 			$this->oldCount++;
 
@@ -405,7 +410,7 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 			}
 /* This is the part that changed from LocalFile */
 			$this->olds[] = array(
-				"{$archiveBase}/{$this->oldHash}{$oldName}",
+				"{$archiveBase}/{$this->oldHash}{$strippedOldName}",
 				"{$archiveBase}/{$this->newHash}{$timestamp}!{$newName}"
 			);
 /* End of changes */
