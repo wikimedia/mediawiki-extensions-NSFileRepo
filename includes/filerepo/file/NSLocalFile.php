@@ -130,6 +130,50 @@ class NSLocalFile extends LocalFile {
 	}
 
 	/**
+	 * Get the path, relative to the thumbnail zone root, for an archived file's thumbs directory
+	 * or a specific thumb if the $suffix is given.
+	 *
+	 * @param string $archiveName The timestamped name of an archived image
+	 * @param bool|string $suffix If not false, the name of a thumbnail file
+	 * @return string
+	 */
+	function getArchiveThumbRel( $archiveName, $suffix = false ) {
+		$path = 'archive/' . $this->getHashPath() . $archiveName . "/";
+		if ( $suffix === false ) {
+			$path = substr( $path, 0, -1 );
+		} else {
+/* This is the part that changed from LocalFile */
+			$path .= self::getFileNameStripped( $suffix );
+/* End of changes */
+		}
+
+		return $path;
+	}
+
+	/**
+	 * Get the URL of the archived file's thumbs, or a particular thumb if $suffix is specified
+	 *
+	 * @param string $archiveName The timestamped name of an archived image
+	 * @param bool|string $suffix If not false, the name of a thumbnail file
+	 * @return string
+	 */
+	function getArchiveThumbUrl( $archiveName, $suffix = false ) {
+		$this->assertRepoDefined();
+		$ext = $this->getExtension();
+		$path = $this->repo->getZoneUrl( 'thumb', $ext ) . '/archive/' .
+			$this->getHashPath() . rawurlencode( $archiveName ) . "/";
+		if ( $suffix === false ) {
+			$path = substr( $path, 0, -1 );
+		} else {
+/* This is the part that changed from LocalFile */
+			$path .= rawurlencode( self::getFileNameStripped( $suffix ) );
+/* End of changes */
+		}
+
+		return $path;
+	}
+
+	/**
 	 * Get the public zone virtual URL for an archived version source file
 	 *
 	 * @param $suffix bool|string if not false, the name of a thumbnail file
