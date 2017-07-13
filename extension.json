@@ -42,14 +42,24 @@
 		"remoteExtPath": "NSFileRepo/resources"
 	},
 	"Hooks": {
-		"UploadForm:BeforeProcessing": "NSFileRepoHooks::onUploadFormBeforeProcessing",
+		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
 		"@note": "Note, this must be AFTER Extension:Lockdown has been included - thus assuming that the user has access to files in general + files at this particular namespace.",
-		"userCan": "NSFileRepoHooks::onUserCan",
+		"userCan": "NSFileRepo\\Hooks\\UserCan::handle",
 		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
-		"UploadFormInitDescriptor": "NSFileRepoHooks::onUploadFormInitDescriptor",
+		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
 		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
-		"UploadVerification": "NSFileRepoHooks::onUploadVerification"
+		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
+		"UnitTestsList": "NSFileRepo\\Hooks\\UnitTestsList::handle"
 	},
-	"manifest_version": 1
+	"config": {
+		"_prefix": "egNSFileRepo",
+		"@note": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default",
+		"NamespaceThreshold": 100,
+		"@note": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ...",
+		"NamespaceBlacklist": [ 102, 104, 106, 108, 274, 828 ],
+		"SkipTalk": true
+	},
+	"manifest_version": 1,
+	"load_composer_autoloader": true
 }

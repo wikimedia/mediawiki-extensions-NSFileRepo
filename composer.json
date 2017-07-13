@@ -1,0 +1,17 @@
+{
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "0.9.2",
+		"jakub-onderka/php-console-highlighter": "0.3.2"
+	},
+	"autoload" : {
+		"psr-4": {
+			"NSFileRepo\\Tests\\" : "tests/phpunit",
+			"NSFileRepo\\" : "src"
+		}
+	},
+	"scripts": {
+		"test": [
+			"parallel-lint . --exclude vendor"
+		]
+	}
+}
