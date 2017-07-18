@@ -43,7 +43,7 @@
 	},
 	"Hooks": {
 		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
-		"@note": "Note, this must be AFTER Extension:Lockdown has been included - thus assuming that the user has access to files in general + files at this particular namespace.",
+		"@note userCan": "Note, this must be AFTER Extension:Lockdown has been included - thus assuming that the user has access to files in general + files at this particular namespace.",
 		"userCan": "NSFileRepo\\Hooks\\UserCan::handle",
 		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
@@ -54,9 +54,9 @@
 	},
 	"config": {
 		"_prefix": "egNSFileRepo",
-		"@note": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default",
+		"@note NamespaceThreshold": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default",
 		"NamespaceThreshold": 100,
-		"@note": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ...",
+		"@note NamespaceBlacklist": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ...",
 		"NamespaceBlacklist": [ 102, 104, 106, 108, 274, 828 ],
 		"SkipTalk": true
 	},
