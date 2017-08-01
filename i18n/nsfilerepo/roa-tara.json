@@ -4,5 +4,7 @@
 			"Joetaras"
 		]
 	},
-	"nsfilerepo-desc": "Prevede namespace ca se basene sus a le funziune pe carecà le file"
+	"nsfilerepo-desc": "Prevede namespace ca se basene sus a le funziune pe carecà le file",
+	"nsfilerepo-upload-target": "Nome d'u file de destinazione jndr'à 'u namespace",
+	"nsfilerepo-nsmain": "(Prengepàle)"
 }
