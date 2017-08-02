@@ -41,9 +41,9 @@ class UploadFormBeforeProcessing {
 	 * See static method "handle"
 	 * @param \IContextSource $context
 	 * @param \Config $config
-	 * @param \SpecialUpload $uploadForm
+	 * @param \SpecialUpload $uploadForm 'Extension:PageForms' fires this hook with \PFUploadWindow as parameter
 	 */
-	public function __construct( \IContextSource $context, \Config $config, \SpecialUpload $uploadForm ) {
+	public function __construct( \IContextSource $context, \Config $config, /* \SpecialUpload */ $uploadForm ) {
 		$this->context = $context;
 		$this->config = $config;
 		$this->uploadForm = $uploadForm;
