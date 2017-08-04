@@ -82,6 +82,9 @@ class UploadFormInitDescriptor {
 		foreach( $namespaceList->getEditable() as $nsId => $namespace ) {
 			$this->namespaceSelectOptions[$namespace->getDisplayName()]
 				= $namespace->getCanonicalName();
+			if( $nsId === NS_MAIN ) {
+				$this->namespaceSelectOptions[$namespace->getDisplayName()] = '-';
+			}
 		}
 	}
 

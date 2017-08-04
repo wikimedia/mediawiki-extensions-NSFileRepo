@@ -3,7 +3,7 @@
 		var prefix = $('#mw-input-wpNSFR_Namespace').val();
 		var destName = $('#wpDestFile').val();
 		var destFileParts = [destName];
-		if( prefix !== '' ) {
+		if( prefix !== '-' ) {
 			destFileParts.unshift(prefix);
 		}
 
