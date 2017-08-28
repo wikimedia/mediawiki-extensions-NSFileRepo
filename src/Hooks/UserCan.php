@@ -95,6 +95,13 @@ class UserCan {
 		$ntitle = \Title::newFromText( $this->title->getDBkey() );
 		$ret_val = true;
 
+		//When image title cannot be created, due to upload errors,
+		//$this->title->getDBKey() is empty, resulting in an invaid
+		//title object in Title::newFromText
+		if( !$ntitle instanceof \Title ) {
+			return $ret_val;
+		}
+
 		//Additional check for NS_MAIN: If a user is not allowed to read NS_MAIN he should also be not allowed
 		//to view files with no namespace-prefix as they are logically assigned to namespace NS_MAIN
 		$titleIsNSMAIN =  $ntitle->getNamespace() === NS_MAIN;
