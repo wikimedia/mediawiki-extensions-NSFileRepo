@@ -64,9 +64,18 @@ class UploadFormInitDescriptor {
 		$this->selectedNamespace = '';
 		//"wpDestFile" is set on query string. e.g after click on redlink or on re-upload
 		if( !empty( $this->descriptor['DestFile']['default'] ) ) {
-			$target = \Title::newFromText( $this->descriptor['DestFile']['default'] );
-			$this->descriptor['DestFile']['default'] = $target->getText();
-			$this->selectedNamespace = str_replace(  ' ', '_', $target->getNsText() );
+			$target = $this->descriptor['DestFile']['default'];
+			$target = str_replace( '_', ' ', $target );
+			$targetPieces = explode( ':', $target );
+
+			$nsText = '';
+			if( count( $targetPieces) > 1 ) {
+				$nsText = str_replace( ' ', '_', $targetPieces[0] );
+				$target = $targetPieces[1];
+			}
+
+			$this->descriptor['DestFile']['default'] = $target;
+			$this->selectedNamespace = $nsText;
 		}
 	}
 
