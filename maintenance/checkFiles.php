@@ -10,6 +10,8 @@ class CheckFiles extends Maintenance {
 
 	function __construct() {
 		parent::__construct();
+
+		$this->requireExtension( 'NSFileRepo' );
 	}
 
 	function execute() {
