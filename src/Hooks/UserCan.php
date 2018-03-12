@@ -107,7 +107,12 @@ class UserCan {
 		$titleIsNSMAIN =  $ntitle->getNamespace() === NS_MAIN;
 		$titleNSaboveThreshold = $ntitle->getNamespace() > $this->config->get( 'NamespaceThreshold' );
 		if( $titleIsNSMAIN || $titleNSaboveThreshold ) {
-			$ret_val = lockdownUserPermissionsErrors( $ntitle, $this->user, $this->action, $this->result );
+			$ret_val = \MediaWiki\Extensions\Lockdown\Hooks::onGetUserPermissionsErrors(
+				$ntitle,
+				$this->user,
+				$this->action,
+				$this->result
+			);
 		}
 
 		$this->result = null;

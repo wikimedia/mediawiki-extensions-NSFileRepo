@@ -7,7 +7,7 @@ class NSFileRepoHooks {
 	 * @global array $wgLocalFileRepo
 	 */
 	public static function setup() {
-		if ( !function_exists('lockdownUserPermissionsErrors') ) {
+		if ( !\ExtensionRegistry::getInstance()->isLoaded( 'Lockdown' ) ) {
 			die('You MUST load extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
 		}
 
