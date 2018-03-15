@@ -9,6 +9,12 @@
 	"descriptionmsg": "nsfilerepo-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
+	"requires": {
+		"MediaWiki": ">= 1.27.0",
+		"extensions": {
+			"Lockdown": "*"
+		}
+	},
 	"ExtensionFunctions": [
 		"NSFileRepoHooks::setup"
 	],
