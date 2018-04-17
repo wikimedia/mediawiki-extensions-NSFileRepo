@@ -1,4 +1,10 @@
 {
-	"@metadata": [],
-	"nsfilerepo-desc": "Gir navneromsbaserte funksjoner til opplastede filer"
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"nsfilerepo-desc": "Gir navneromsbaserte funksjoner til opplastede filer",
+	"nsfilerepo-upload-target": "Målfilnavn i navnerom",
+	"nsfilerepo-nsmain": "(hoved)"
 }
