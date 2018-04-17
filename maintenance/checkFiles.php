@@ -27,23 +27,23 @@ class CheckFiles extends Maintenance {
 
 		foreach( $res as $row ) {
 			$sName = preg_replace( '/_/', ' ', $row->img_name );
-                        $oTitle = Title::makeTitle( NS_FILE, $sName );
+			$oTitle = Title::makeTitle( NS_FILE, $sName );
 
-                        if( !$oTitle->exists() ) {
-                                print ( "Title for " . $sName . " does not exist" . PHP_EOL );
-                                continue;
-                        }
+			if( !$oTitle->exists() ) {
+					print ( "Title for " . $sName . " does not exist" . PHP_EOL );
+					continue;
+			}
 
-                        if( $oTitle->getNamespace() !== NS_FILE ) {
-                                print ( "Title for " . $sName . " is not in NS_FILE" . PHP_EOL );
-                                continue;
-                        }
+			if( $oTitle->getNamespace() !== NS_FILE ) {
+					print ( "Title for " . $sName . " is not in NS_FILE" . PHP_EOL );
+					continue;
+			}
 
-                        $oFile = wfFindFile( $sName );
-                        if( !$oFile || !$oFile->exists() ) {
-                                print( "File " . $sName . " does not exist!" . PHP_EOL );
-                        }
-                        $sFileLocalPath = $oFile->getLocalRefPath();
+			$oFile = wfFindFile( $sName );
+			if( !$oFile || !$oFile->exists() ) {
+					print( "File " . $sName . " does not exist!" . PHP_EOL );
+			}
+			$sFileLocalPath = $oFile->getLocalRefPath();
 			if( !$sFileLocalPath || !file_exists( $sFileLocalPath ) ) {
 				print( "Image " . $sName . " not found!" . PHP_EOL );
 			}
@@ -55,7 +55,7 @@ class CheckFiles extends Maintenance {
 			__METHOD__
 		);
 
-        	foreach( $res as $row ) {
+			foreach( $res as $row ) {
 			$oTitle = Title::makeTitle( NS_FILE, $row->oi_name );
 			$repo = RepoGroup::singleton()->getRepo( 'local' );
 			$strippedName = NSLocalFile::getFilenameStripped( $row->oi_archive_name );
