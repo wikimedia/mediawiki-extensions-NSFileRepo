@@ -1,12 +1,20 @@
 /*jshint node:true */
 module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-jsonlint' );
+	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 
 	grunt.initConfig( {
 		banana: {
 			nsfilerepo: 'i18n/nsfilerepo',
 			imgauth: 'i18n/imgauth'
+		},
+		jshint: {
+			all: [
+				'**/*.js',
+				'!node_modules/**',
+				'!vendor/**'
+			]
 		},
 		jsonlint: {
 			all: [
@@ -17,6 +25,6 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'jsonlint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'jsonlint', 'banana', 'jshint' ] );
 	grunt.registerTask( 'default', 'test' );
 };

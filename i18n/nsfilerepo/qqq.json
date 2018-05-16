@@ -7,10 +7,11 @@
 			"Umherirrender",
 			"Robert Vogel",
 			"Macofe",
-			"Kghbln"
+			"Kghbln",
+			"Liuxinyu970226"
 		]
 	},
 	"nsfilerepo-desc": "{{desc|name=NS File Repo|url=https://www.mediawiki.org/wiki/Extension:NSFileRepo}}",
 	"nsfilerepo-upload-target": "The respective field holds the name of the file in the target namespace, i.e. the prefix of the file name is being appended to the target file name, e.g. \"Project:My file.png\"",
-	"nsfilerepo-nsmain": "Label for selectbox option to upload into main namespace {{Identical|blanknamespace}}"
+	"nsfilerepo-nsmain": "Label for selectbox option to upload into main namespace\n{{Identical|Main}}"
 }

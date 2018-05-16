@@ -25,13 +25,13 @@ class NSOldLocalFile extends OldLocalFile {
 		return $this->internalFile->publish( $srcPath, $flags, $options );
 	}
 	function getThumbUrl( $suffix = false ) {
-		return $this->internalFile->getThumbUrl( $suffix );
+		return $this->internalFile->getArchiveThumbUrl( $this->getFileNameStripped( $this->getArchiveName() ), $suffix );
 	}
 	function thumbName( $params, $flags = 0 ) {
 		return $this->internalFile->thumbName( $params, $flags );
 	}
 	function getThumbPath( $suffix = false ) {
-		return $this->internalFile->getThumbPath( $suffix );
+		return $this->internalFile->getArchiveThumbPath( $this->getFileNameStripped( $this->getArchiveName() ), $suffix );
 	}
 	function getArchiveRel( $suffix = false ) {
 		return $this->internalFile->getArchiveRel( $suffix );
