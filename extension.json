@@ -27,6 +27,10 @@
 			"i18n/imgauth"
 		]
 	},
+	"AutoloadNamespaces": {
+		"NSFileRepo\\": "src/",
+		"NSFileRepo\\Tests\\": "tests/phpunit/"
+	},
 	"AutoloadClasses": {
 		"NSFileRepoHooks": "includes/NSFileRepoHooks.php",
 		"NSLocalRepo": "includes/filerepo/NSLocalRepo.php",
@@ -65,6 +69,5 @@
 		"NamespaceBlacklist": [ 102, 104, 106, 108, 274, 828 ],
 		"SkipTalk": true
 	},
-	"manifest_version": 1,
-	"load_composer_autoloader": true
+	"manifest_version": 1
 }
