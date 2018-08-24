@@ -9,7 +9,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	const DUMMY_NS_C_ID = 12612;
 
 	protected function setUp() {
-		global $wgExtraNamespaces, $wgNamespaceContentModels, $wgContentHandlers, $wgContLang;
+		global $wgExtraNamespaces, $wgNamespaceContentModels, $wgContentHandlers;
 
 		parent::setUp();
 
@@ -17,7 +17,6 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 			'wgExtraNamespaces' => $wgExtraNamespaces,
 			'wgNamespaceContentModels' => $wgNamespaceContentModels,
 			'wgContentHandlers' => $wgContentHandlers,
-			'wgContLang' => $wgContLang,
 		] );
 
 		$wgExtraNamespaces[self::DUMMY_NS_A_ID] = 'NSFRDummyA';
@@ -30,7 +29,6 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 		$wgExtraNamespaces[self::DUMMY_NS_C_ID + 1] = 'NSFRDummyC_talk';
 
 		\MWNamespace::getCanonicalNamespaces( true ); # reset namespace cache
-		$wgContLang->resetNamespaces(); # reset namespace cache
 
 		/**
 		 * Test hook handler that mimics Extension:Lockdown and revokes read
