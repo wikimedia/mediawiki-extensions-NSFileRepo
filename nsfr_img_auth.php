@@ -184,6 +184,9 @@ function wfImageAuthMain() {
 		return;
 	}
 
+	// Make sure the user is properly loaded from session and all
+	// groups/permissions are available
+	$GLOBALS['wgUser']->load();
 	// Check user authorization for this title
 	// Checks Whitelist too
 	if ( !$title->userCan( 'read' ) ) {
