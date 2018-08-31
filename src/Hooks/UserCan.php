@@ -37,7 +37,7 @@ class UserCan {
 	protected $result = true;
 
 	/**
-	 * Check individual namespace protection using Extension:Lockdown
+	 * Check individual namespace protection
 	 * @param Title $title
 	 * @param user $user
 	 * @param string $action
@@ -93,13 +93,12 @@ class UserCan {
 		}
 
 		$ntitle = \Title::newFromText( $this->title->getDBkey() );
-		$ret_val = true;
 
 		//When image title cannot be created, due to upload errors,
 		//$this->title->getDBKey() is empty, resulting in an invaid
 		//title object in Title::newFromText
 		if( !$ntitle instanceof \Title ) {
-			return $ret_val;
+			return true;
 		}
 
 		//Additional check for NS_MAIN: If a user is not allowed to read NS_MAIN he should also be not allowed
@@ -107,15 +106,13 @@ class UserCan {
 		$titleIsNSMAIN =  $ntitle->getNamespace() === NS_MAIN;
 		$titleNSaboveThreshold = $ntitle->getNamespace() > $this->config->get( 'NamespaceThreshold' );
 		if( $titleIsNSMAIN || $titleNSaboveThreshold ) {
-			$ret_val = \MediaWiki\Extensions\Lockdown\Hooks::onGetUserPermissionsErrors(
-				$ntitle,
-				$this->user,
-				$this->action,
-				$this->result
-			);
+			$errors = $ntitle->getUserPermissionsErrors( $this->action, $this->user );
+			if( !empty( $errors ) ) {
+				$this->result = false;
+				return false;
+			}
 		}
 
-		$this->result = null;
-		return $ret_val;
+		return true;
 	}
 }

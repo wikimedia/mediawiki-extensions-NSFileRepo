@@ -10,10 +10,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.31.0",
-		"extensions": {
-			"Lockdown": "*"
-		}
+		"MediaWiki": ">= 1.31.0"
 	},
 	"ExtensionFunctions": [
 		"NSFileRepoHooks::setup"
@@ -53,7 +50,6 @@
 	},
 	"Hooks": {
 		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
-		"@note userCan": "Note, this must be AFTER Extension:Lockdown has been included - thus assuming that the user has access to files in general + files at this particular namespace.",
 		"userCan": "NSFileRepo\\Hooks\\UserCan::handle",
 		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
