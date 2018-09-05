@@ -174,6 +174,35 @@ class NSLocalFile extends LocalFile {
 	}
 
 	/**
+	 * Delete cached transformed files for the current version only.
+	 * @param array $options
+	 */
+	protected function purgeThumbList( $dir, $files ) {
+
+		$purgeList = [];
+		foreach ( $files as $file ) {
+			if ( $this->repo->supportsSha1URLs() ) {
+				$reference = $this->getSha1();
+			} else {
+				//change from LocalFile.php here
+				$reference = $this->getFileNameStripped($this->getName());
+			}
+
+			# Check that the reference (filename or sha1) is part of the thumb name
+			# This is a basic sanity check to avoid erasing unrelated directories
+			if ( strpos( $file, $reference ) !== false
+				|| strpos( $file, "-thumbnail" ) !== false // "short" thumb name
+			) {
+				$purgeList[] = "{$dir}/{$file}";
+			}
+		}
+
+		# Delete the thumbnails
+		$this->repo->quickPurgeBatch( $purgeList );
+		# Clear out the thumbnail directory if empty
+		$this->repo->quickCleanDir( $dir );
+	}
+	/**
 	 * Get the public zone virtual URL for an archived version source file
 	 *
 	 * @param $suffix bool|string if not false, the name of a thumbnail file
@@ -272,6 +301,7 @@ class NSLocalFile extends LocalFile {
 			$status->value = $archiveName;
 		}
 
+		$this->purgeThumbnails();
 		$this->unlock(); // done
 
 		return $status;
