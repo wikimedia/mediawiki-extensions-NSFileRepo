@@ -189,6 +189,7 @@ function wfImageAuthMain() {
 	$GLOBALS['wgUser']->load();
 	// Check user authorization for this title
 	// Checks Whitelist too
+	$GLOBALS['wgUser']->load();
 	if ( !$title->userCan( 'read' ) ) {
 		wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
 		return;
