@@ -7,10 +7,6 @@ class NSFileRepoHooks {
 	 * @global array $wgLocalFileRepo
 	 */
 	public static function setup() {
-		if ( !\ExtensionRegistry::getInstance()->isLoaded( 'Lockdown' ) ) {
-			die('You MUST load extension Lockdown before NSFileRepo (http://www.mediawiki.org/wiki/Extension:Lockdown).');
-		}
-
 		$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
 		RepoGroup::destroySingleton();
 	}

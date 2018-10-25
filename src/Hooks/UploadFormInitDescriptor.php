@@ -61,7 +61,7 @@ class UploadFormInitDescriptor {
 	protected $selectedNamespace = '';
 
 	protected function setDefaultNamespace() {
-		$this->selectedNamespace = '-';
+		$this->selectedNamespace = '';
 		//"wpDestFile" is set on query string. e.g after click on redlink or on re-upload
 		if( !empty( $this->descriptor['DestFile']['default'] ) ) {
 			$target = $this->descriptor['DestFile']['default'];

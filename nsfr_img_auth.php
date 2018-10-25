@@ -184,12 +184,11 @@ function wfImageAuthMain() {
 		return;
 	}
 
-	// Make sure the user is properly loaded from session and all
-	// groups/permissions are available
+	// set group in case something changed them
 	$GLOBALS['wgUser']->load();
+
 	// Check user authorization for this title
 	// Checks Whitelist too
-	$GLOBALS['wgUser']->load();
 	if ( !$title->userCan( 'read' ) ) {
 		wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
 		return;

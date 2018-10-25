@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(dirname(dirname(dirname(__DIR__)))) . '/maintenance/Maintenance.php' );
+require_once( dirname( dirname( dirname( __DIR__ ) ) ) . '/maintenance/Maintenance.php' );
 
 /**
  * This script checks if all files in DB have their
@@ -24,18 +24,18 @@ class CheckFiles extends Maintenance {
 			$oTitle = Title::makeTitle( NS_FILE, $sName );
 
 			if( !$oTitle->exists() ) {
-					print ( "Title for " . $sName . " does not exist" . PHP_EOL );
-					continue;
+				print ( "Title for " . $sName . " does not exist" . PHP_EOL );
+				continue;
 			}
 
 			if( $oTitle->getNamespace() !== NS_FILE ) {
-					print ( "Title for " . $sName . " is not in NS_FILE" . PHP_EOL );
-					continue;
+				print ( "Title for " . $sName . " is not in NS_FILE" . PHP_EOL );
+				continue;
 			}
 
 			$oFile = wfFindFile( $sName );
 			if( !$oFile || !$oFile->exists() ) {
-					print( "File " . $sName . " does not exist!" . PHP_EOL );
+				print( "File " . $sName . " does not exist!" . PHP_EOL );
 			}
 			$sFileLocalPath = $oFile->getLocalRefPath();
 			if( !$sFileLocalPath || !file_exists( $sFileLocalPath ) ) {
