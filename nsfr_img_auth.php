@@ -191,7 +191,19 @@ function wfImageAuthMain() {
 		return;
 	}
 
-	if ( $request->getCheck( 'download' ) ) {
+	$forceDownload = false;
+	array_walk(
+			$GLOBALS['egNSFileRepoForceDownload'],
+			function( $ext ) use ( $filename, &$forceDownload ) {
+			$quotedExt = preg_quote( ".$ext" );
+			$endsWithPattern = "#$quotedExt$#si";
+			if( preg_match( $endsWithPattern, $filename ) === 1 ) {
+				$forceDownload = true;
+			}
+		}
+	);
+
+	if ( $request->getCheck( 'download' ) || $forceDownload ) {
 		$headers[] = 'Content-Disposition: attachment';
 	}
 
