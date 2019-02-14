@@ -63,7 +63,8 @@
 		"NamespaceThreshold": 100,
 		"@note NamespaceBlacklist": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ...",
 		"NamespaceBlacklist": [ 102, 104, 106, 108, 274, 828 ],
-		"SkipTalk": true
+		"SkipTalk": true,
+		"ForceDownload": [ "js", "css", "xml", "html", "htm", "xhtml" ]
 	},
 	"manifest_version": 1
 }
