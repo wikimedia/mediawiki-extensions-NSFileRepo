@@ -98,7 +98,7 @@ class NSOldLocalFile extends OldLocalFile {
 	 * @return bool|OldLocalFile
 	 */
 	static function newFromKey( $sha1, $repo, $timestamp = false ) {
-		$dbr = $repo->getSlaveDB();
+		$dbr = $repo->getReplicaDB();
 
 		$conds = [ 'oi_sha1' => $sha1 ];
 		if ( $timestamp ) {

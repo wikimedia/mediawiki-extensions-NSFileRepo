@@ -398,7 +398,7 @@ class NSLocalFile extends LocalFile {
 	 * @return bool|LocalFile
 	 */
 	static function newFromKey( $sha1, $repo, $timestamp = false ) {
-		$dbr = $repo->getSlaveDB();
+		$dbr = $repo->getReplicaDB();
 
 		$conds = [ 'img_sha1' => $sha1 ];
 		if ( $timestamp ) {
