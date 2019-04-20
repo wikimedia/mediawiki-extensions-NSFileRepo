@@ -221,7 +221,7 @@ function wfImageAuthMain() {
 		}
 	}
 
-	$repo->streamFile( $filename, $headers );
+	$repo->streamFileWithStatus( $filename, $headers );
 }
 
 /**
