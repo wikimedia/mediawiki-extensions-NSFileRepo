@@ -103,7 +103,7 @@ function wfImageAuthMain() {
 			if ( $be->fileExists( [ 'src' => $filename ] ) ) {
 				wfDebugLog( 'img_auth', "Streaming `" . $filename . "`." );
 				$be->streamFile( [ 'src' => $filename ],
-					[ 'Cache-Control: private', 'Vary: Cookie' ] );
+					[ 'Cache-Control: private, no-cache', 'Vary: Cookie' ] );
 			} else {
 				wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $path );
 			}
@@ -167,7 +167,7 @@ function wfImageAuthMain() {
 	$headers = []; // extra HTTP headers to send
 
 	// For private wikis, run extra auth checks and set cache control headers
-	$headers[] = 'Cache-Control: private';
+	$headers[] = 'Cache-Control: private, no-cache';
 	$headers[] = 'Vary: Cookie';
 
 	$title = Title::makeTitleSafe( NS_FILE, $name );
