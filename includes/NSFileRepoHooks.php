@@ -3,12 +3,11 @@
 class NSFileRepoHooks {
 
 	/**
-	* Initial setup
+	 * Initial setup
 	 * @global array $wgLocalFileRepo
 	 */
 	public static function setup() {
 		$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
-		RepoGroup::destroySingleton();
 	}
 
 	public static function register() {
