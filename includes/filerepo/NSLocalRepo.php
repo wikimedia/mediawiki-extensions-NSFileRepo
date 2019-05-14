@@ -35,7 +35,7 @@ class NSLocalRepo extends LocalRepo {
 	 * @param string $originalName The base name of the file as specified
 	 *     by the user. The file extension will be maintained.
 	 * @param string $srcPath The current location of the file.
-	 * @return FileRepoStatus object with the URL in the value.
+	 * @return Status object with the URL in the value.
 	 */
 	function storeTemp( $originalName, $srcPath ) {
 		$date = gmdate( "YmdHis" );

@@ -276,8 +276,8 @@ class NSLocalFile extends LocalFile {
 	 * @param $dstRel String: target relative path
 	 * @param $flags Integer: a bitwise combination of:
 	 *     File::DELETE_SOURCE	Delete the source file, i.e. move rather than copy
-	 * @param $options Array Optional additional parameters
-	 * @return FileRepoStatus object. On success, the value member contains the
+	 * @param $options array Optional additional parameters
+	 * @return Status object. On success, the value member contains the
 	 *     archive name, or an empty string if it was a new file.
 	 */
 	function publishTo( $srcPath, $dstRel, $flags = 0, array $options = array() ) {
@@ -317,7 +317,7 @@ class NSLocalFile extends LocalFile {
 	 * and logging are caller's responsibility
 	 *
 	 * @param $target Title New file name
-	 * @return FileRepoStatus object.
+	 * @return Status object.
 	 */
 	function move( $target ) {
 		if ( $this->getRepo()->getReadOnlyReason() !== false ) {
