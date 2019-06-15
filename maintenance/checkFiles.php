@@ -15,7 +15,7 @@ class CheckFiles extends Maintenance {
 	}
 
 	function execute() {
-		$dbr = wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 		print( "Using DB: " . $dbr->getDBName() ) . PHP_EOL;
 
 		$aImgNames = array();
