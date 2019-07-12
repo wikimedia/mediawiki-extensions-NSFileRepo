@@ -15,7 +15,7 @@ class UploadFormInitDescriptor {
 	 * @var \IContextSource
 	 */
 	protected $context = null;
-	
+
 	/**
 	 *
 	 * @var array
@@ -119,6 +119,13 @@ class UploadFormInitDescriptor {
 				'nodata' => false,
 			],
 		];
+
+		//Prevent change of this fields value when it's a reupload
+		if ( isset( $this->descriptor['ForReUpload'] ) ) {
+			$this->fieldDef['NSFR_Namespace']['disabled'] = true;
+			$this->fieldDef['NSFR_Namespace']['help-message']
+				= 'nsfilerepo-reupload-namespaceselector-disabled-helptext';
+		}
 	}
 
 	protected function modifyDescriptor() {
