@@ -42,6 +42,23 @@
 			"scripts": [
 				"ext.nsfilerepo.special.upload.js"
 			]
+		},
+		"ext.nsfilerepo.filepage.bootstrap": {
+			"scripts": [
+				"ext.nsfilerepo.filepage.bootstrap.js"
+			]
+		},
+		"ext.nsfilerepo.filepage": {
+			"scripts": [
+				"ext.nsfilerepo.filepage.js",
+				"nsfr/ui/dialog/ChangeFileNamespaceAssociation.js"
+			],
+			"messages": [
+				"nsfilerepo-move-file-namespace-dialog-title",
+				"nsfilerepo-move-file-namespace-dialog-button-done",
+				"nsfilerepo-move-file-namespace-dialog-button-cancel",
+				"nsfilerepo-move-file-namespace-dialog-namespaceselector-label"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -55,7 +72,9 @@
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
 		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
-		"UploadVerification": "NSFileRepoHooks::onUploadVerification"
+		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
+		"UnitTestsList": "NSFileRepo\\Hooks\\UnitTestsList::handle",
+		"SkinTemplateNavigation": "NSFileRepo\\Hooks\\SkinTemplateNavigation::handle"
 	},
 	"config": {
 		"_prefix": "egNSFileRepo",
