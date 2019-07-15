@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Prima klasy4na",
-			"Piramidion"
+			"Piramidion",
+			"Vlad5250"
 		]
 	},
 	"nsfilerepo-desc": "Додає особливості завантаження файлів в залежності від простору назв",
 	"nsfilerepo-upload-target": "Цільова назва файлу в просторі назв",
-	"nsfilerepo-nsmain": "(Основний)"
+	"nsfilerepo-nsmain": "(Основний)",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Це поле не можна змінювати при повторному завантаженні файлу"
 }

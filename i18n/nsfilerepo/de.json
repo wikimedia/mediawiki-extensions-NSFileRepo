@@ -10,5 +10,5 @@
 	"nsfilerepo-desc": "Namensraum-basierte Eigenschaften für das Hochladen von Dateien",
 	"nsfilerepo-upload-target": "Zielname im Namensraum",
 	"nsfilerepo-nsmain": "(Seiten)",
-	"nsfilerepo-reupload-namespaceselector-disabled-helptext" : "Dieses Feld kann beim erneuten Hochladen einer Datei nicht verändert werden"
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Dieses Feld kann beim erneuten Hochladen einer Datei nicht verändert werden"
 }

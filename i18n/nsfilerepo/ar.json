@@ -8,5 +8,6 @@
 	},
 	"nsfilerepo-desc": "يوفر خصائص معنمدة على النطاق للملفات المرفوعة",
 	"nsfilerepo-upload-target": "اسم الملف الهدف في النطاق",
-	"nsfilerepo-nsmain": "(رئيسي)"
+	"nsfilerepo-nsmain": "(رئيسي)",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "لا يمكن تعديل هذا الحقل عند إعادة رفع الملف"
 }

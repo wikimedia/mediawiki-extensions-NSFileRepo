@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Eduardo.mps",
-			"!Silent"
+			"!Silent",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"nsfilerepo-desc": "Provê funcionalidades de arquivos carregados, baseadas no domínio",
 	"nsfilerepo-upload-target": "Nome de destino do arquivo no domínio",
-	"nsfilerepo-nsmain": "(Principal)"
+	"nsfilerepo-nsmain": "(Principal)",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Este campo não pode ser modificado ao recarregar um arquivo"
 }
