@@ -50,7 +50,6 @@
 		},
 		"ext.nsfilerepo.filepage": {
 			"scripts": [
-				"ext.nsfilerepo.filepage.js",
 				"nsfr/ui/dialog/ChangeFileNamespaceAssociation.js"
 			],
 			"messages": [

@@ -57,8 +57,9 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	thePrototype.getActionProcess = function ( action ) {
 		var parentProcess = nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call( this, action );
 		var dialog = this;
-		var selectedNamespace = this.targetNamespaceSelector.getValue();
+		var selectedNamespace = parseInt( this.targetNamespaceSelector.getValue() );
 		var namespaceAssocHasBeenChanged = this.currentNS !== selectedNamespace;
+
 		if ( action === 'save' && namespaceAssocHasBeenChanged ) {
 			var newFilePageName = this.makeNewFilePageName( selectedNamespace );
 			dfd = new $.Deferred();
@@ -82,6 +83,13 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
 			parentProcess.first( dfd.promise() );
 		}
+
+		if( action ) {
+			parentProcess.next( function () {
+				dialog.close( { action: action } );
+			} );
+		}
+
 		return parentProcess;
 	};
 
