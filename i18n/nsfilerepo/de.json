@@ -4,7 +4,8 @@
 			"Imre",
 			"Metalhead64",
 			"Kghbln",
-			"Osnard"
+			"Osnard",
+			"Mcandri13"
 		]
 	},
 	"nsfilerepo-desc": "Namensraum-basierte Eigenschaften für das Hochladen von Dateien",
@@ -13,7 +14,7 @@
 	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Dieses Feld kann beim erneuten Hochladen einer Datei nicht verändert werden",
 	"nsfilerepo-move-file-namespace-action-label": "Dateinamensraumzuordnung ändern",
 	"nsfilerepo-move-file-namespace-dialog-title": "Dateinamensraumzuordnung ändern",
-	"nsfilerepo-move-file-namespace-dialog-button-done": "Schließen",
+	"nsfilerepo-move-file-namespace-dialog-button-done": "Fertig",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Abbrechen",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Namensraum"
 }
