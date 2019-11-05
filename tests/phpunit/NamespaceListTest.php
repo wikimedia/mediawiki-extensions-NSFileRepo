@@ -8,7 +8,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	const DUMMY_NS_B_ID = 12512;
 	const DUMMY_NS_C_ID = 12612;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		global $wgExtraNamespaces, $wgNamespaceContentModels, $wgContentHandlers;
 
 		parent::setUp();
