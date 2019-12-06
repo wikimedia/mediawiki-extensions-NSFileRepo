@@ -4,7 +4,7 @@
 			"Jack D. Pond"
 		]
 	},
-	"img-auth-desc": "[[Image Authorization]] script, see http://www.mediawiki.org/wiki/Manual:Image_Authorization",
+	"img-auth-desc": "[[Image Authorization]] script, see https://www.mediawiki.org/wiki/Manual:Image_Authorization",
 	"img-auth-accessdenied": "[[Image Authorization]] Access Denied",
 	"img-auth-nopathinfo": "[[Image Authorization]] Missing PATH_INFO - see english description",
 	"img-auth-notindir": "[[Image Authorization]] when the specified path is not in upload directory.",
