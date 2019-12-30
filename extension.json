@@ -25,7 +25,9 @@
 		]
 	},
 	"AutoloadNamespaces": {
-		"NSFileRepo\\": "src/",
+		"NSFileRepo\\": "src/"
+	},
+	"TestAutoloadNamespaces": {
 		"NSFileRepo\\Tests\\": "tests/phpunit/"
 	},
 	"AutoloadClasses": {
