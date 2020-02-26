@@ -2,6 +2,9 @@
 
 namespace NSFileRepo\Hooks;
 
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\PermissionManager;
+
 class UserCan {
 
 	/**
@@ -37,6 +40,11 @@ class UserCan {
 	protected $result = true;
 
 	/**
+	 * @var PermissionManager
+	 */
+	private $permManager;
+
+	/**
 	 * Check individual namespace protection
 	 * @param Title $title
 	 * @param user $user
@@ -49,12 +57,13 @@ class UserCan {
 			\RequestContext::getMain(),
 			new \MultiConfig( [
 				new \NSFileRepo\Config(),
-				\MediaWiki\MediaWikiServices::getInstance()->getMainConfig()
+				MediaWikiServices::getInstance()->getMainConfig()
 			] ),
 			$title,
 			$user,
 			$action,
-			$result
+			$result,
+			MediaWikiServices::getInstance()->getPermissionManager()
 		);
 
 		return $instance->process();
@@ -68,14 +77,24 @@ class UserCan {
 	 * @param \User $user
 	 * @param string $action
 	 * @param boolean $result
+	 * @param PermissionManager $permManager
 	 */
-	public function __construct( \IContextSource $context, \Config $config, \Title &$title, \User &$user, $action, &$result ) {
+	public function __construct(
+		\IContextSource $context,
+		\Config $config,
+		\Title &$title,
+		\User &$user,
+		$action,
+		&$result,
+		PermissionManager $permManager
+	) {
 		$this->context = $context;
 		$this->config = $config;
 		$this->title = $title;
 		$this->user = $user;
 		$this->action = $action;
 		$this->result =& $result;
+		$this->permManager = $permManager;
 	}
 
 	/**
@@ -106,7 +125,11 @@ class UserCan {
 		$titleIsNSMAIN =  $ntitle->getNamespace() === NS_MAIN;
 		$titleNSaboveThreshold = $ntitle->getNamespace() > $this->config->get( 'NamespaceThreshold' );
 		if( $titleIsNSMAIN || $titleNSaboveThreshold ) {
-			$errors = $ntitle->getUserPermissionsErrors( $this->action, $this->user );
+			$errors = $this->permManager->getPermissionErrors(
+				$this->action,
+				$this->user,
+				$ntitle
+			);
 			if( !empty( $errors ) ) {
 				$this->result = false;
 				return false;
