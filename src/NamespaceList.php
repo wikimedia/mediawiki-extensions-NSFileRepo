@@ -2,6 +2,8 @@
 
 namespace NSFileRepo;
 
+use MediaWiki\MediaWikiServices;
+
 class NamespaceList {
 
 	/**
@@ -93,7 +95,13 @@ class NamespaceList {
 
 		if( !empty( $permission ) ) {
 			$title = \Title::makeTitle( $nsId, 'Dummy' );
-			return !$title->userCan(  $permission, $this->user );
+			if ( class_exists( \MediaWiki\Permissions\PermissionManager::class ) ) {
+				// MediaWiki 1.33+
+				return MediaWikiServices::getInstance()->getPermissionManager()
+					->userCan( $permission, $this->user, $title );
+			} else {
+				return !$title->userCan( $permission, $this->user );
+			}
 		}
 
 		return false;

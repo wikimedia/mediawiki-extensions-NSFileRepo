@@ -5,6 +5,8 @@
  * It has been altered to enable NSFileRepo functionality in REL1_27
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Image authorisation script
  *
@@ -190,9 +192,19 @@ function wfImageAuthMain() {
 	// Check user authorization for this title
 	// Checks Whitelist too
 	$GLOBALS['wgUser']->load();
-	if ( !$title->userCan( 'read' ) ) {
-		wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
-		return;
+	if ( class_exists( \MediaWiki\Permissions\PermissionManager::class ) ) {
+		// MediaWiki 1.33+
+		if ( !MediaWikiServices::getInstance()->getPermissionManager()
+			->userCan( 'read', $GLOBALS['wgUser'], $title )
+		) {
+			wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
+			return;
+		}
+	} else {
+		if ( !$title->userCan( 'read' ) ) {
+			wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
+			return;
+		}
 	}
 
 	$forceDownload = false;

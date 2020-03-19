@@ -49,6 +49,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 
 			return true;
 		} );
+		$this->resetServices();
 	}
 
 	public function textInstance() {
@@ -75,7 +76,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 
 	public function testGetReadableNoUnreadables() {
 		$instance = $this->makeInstance( new \HashConfig([
-			\NSFileRepo\Config::CONFIG_SKIP_TALK => true
+			\NSFileRepo\Config::CONFIG_BLACKLIST => [ self::DUMMY_NS_A_ID ]
 		]) );
 
 		$readables = $instance->getReadable();
