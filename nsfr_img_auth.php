@@ -120,7 +120,13 @@ function wfImageAuthMain() {
 	}
 
 	// Get the local file repository
-	$repo = RepoGroup::singleton()->getRepo( 'local' );
+	if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+		// MediaWiki 1.34+
+		$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
+	} else {
+		$repoGroup = RepoGroup::singleton();
+	}
+	$repo = $repoGroup->getRepo( 'local' );
 	$zone = '';
 	$pathParts = explode( '/transcoded/', $path, 2 );
 	if( count( $pathParts ) === 2 ) {
@@ -142,7 +148,7 @@ function wfImageAuthMain() {
 		Hooks::run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
 		// Check to see if the file exists
 		if ( !$repo->fileExists( $filename ) ) {
-			$file = wfFindFile( $name ); //Give other repos a chance to handle this
+			$file = $repoGroup->findFile( $name ); //Give other repos a chance to handle this
 			if( !$file || !$file->exists() ) {
 				wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
 				return;
@@ -160,7 +166,7 @@ function wfImageAuthMain() {
 			$file = $repo->newFile( $name );
 		}
 		if ( !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
-			$file = wfFindFile( $name ); //Give other repos a chance to handle this
+			$file = $repoGroup->findFile( $name ); //Give other repos a chance to handle this
 			if( !$file || !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
 
 				global $wgUploadDirectory;
@@ -232,7 +238,7 @@ function wfImageAuthMain() {
 	// Stream the requested file
 	wfDebugLog( 'img_auth', "Streaming `" . $filename . "`." );
 	if( !$repo->fileExists( $filename ) ) {
-		$file = wfFindFile( $name );
+		$file = $repoGroup->findFile( $name );
 		if( $file ) {
 			$repo = $file->getRepo();
 			$filename = $file->getPath();

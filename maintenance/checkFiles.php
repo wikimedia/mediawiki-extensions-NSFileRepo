@@ -2,6 +2,8 @@
 
 require_once( dirname(dirname(dirname(dirname(__DIR__)))) . '/maintenance/Maintenance.php' );
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * This script checks if all files in DB have their
  * counterpart on FileSystem
@@ -25,6 +27,13 @@ class CheckFiles extends Maintenance {
 			__METHOD__
 		);
 
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
+		} else {
+			$repoGroup = RepoGroup::singleton();
+		}
+
 		foreach( $res as $row ) {
 			$sName = preg_replace( '/_/', ' ', $row->img_name );
 			$oTitle = Title::makeTitle( NS_FILE, $sName );
@@ -39,7 +48,7 @@ class CheckFiles extends Maintenance {
 					continue;
 			}
 
-			$oFile = wfFindFile( $sName );
+			$oFile = $repoGroup->findFile( $sName );
 			if( !$oFile || !$oFile->exists() ) {
 					print( "File " . $sName . " does not exist!" . PHP_EOL );
 			}
@@ -57,7 +66,7 @@ class CheckFiles extends Maintenance {
 
 			foreach( $res as $row ) {
 			$oTitle = Title::makeTitle( NS_FILE, $row->oi_name );
-			$repo = RepoGroup::singleton()->getRepo( 'local' );
+			$repo = $repoGroup->getRepo( 'local' );
 			$strippedName = NSLocalFile::getFilenameStripped( $row->oi_archive_name );
 			$file = OldLocalFile::newFromArchiveName( $oTitle, $repo, $strippedName );
 			if( !$file->getLocalRefPath() || !file_exists( $file->getLocalRefPath() ) ) {
