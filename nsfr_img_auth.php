@@ -90,12 +90,18 @@ function wfImageAuthMain() {
 		return;
 	}
 
+	if ( method_exists( MediaWikiServices::class, 'getFileBackendGroup' ) ) {
+		// MediaWiki 1.35+
+		$fileBackendGroup = MediaWikiServices::getInstance()->getFileBackendGroup();
+	} else {
+		$fileBackendGroup = FileBackendGroup::singleton();
+	}
 	// Various extensions may have their own backends that need access.
 	// Check if there is a special backend and storage base path for this file.
 	foreach ( $wgImgAuthUrlPathMap as $prefix => $storageDir ) {
 		$prefix = rtrim( $prefix, '/' ) . '/'; // implicit trailing slash
 		if ( strpos( $path, $prefix ) === 0 ) {
-			$be = FileBackendGroup::singleton()->backendFromPath( $storageDir );
+			$be = $fileBackendGroup->backendFromPath( $storageDir );
 			$filename = $storageDir . substr( $path, strlen( $prefix ) ); // strip prefix
 			// Check basic user authorization
 			if ( !RequestContext::getMain()->getUser()->isAllowed( 'read' ) ) {
