@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo.mps",
 			"!Silent",
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Eduardo.mps"
 		]
 	},
 	"nsfilerepo-desc": "Provê funcionalidades de arquivos carregados, baseadas no domínio",

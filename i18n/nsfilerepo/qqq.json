@@ -2,13 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Fryed-peach",
-			"Raymond",
-			"Shirayuki",
-			"Umherirrender",
-			"Robert Vogel",
-			"Macofe",
 			"Kghbln",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Macofe",
+			"Raymond",
+			"Robert Vogel",
+			"Shirayuki",
+			"Umherirrender"
 		]
 	},
 	"nsfilerepo-desc": "{{desc|name=NS File Repo|url=https://www.mediawiki.org/wiki/Extension:NSFileRepo}}",
