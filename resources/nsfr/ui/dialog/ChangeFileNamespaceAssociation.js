@@ -63,7 +63,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 		if ( action === 'save' && namespaceAssocHasBeenChanged ) {
 			var newFilePageName = this.makeNewFilePageName( selectedNamespace );
 			dfd = new $.Deferred();
-			mw.loader.using( 'mediawiki.api.edit' ).done( function() {
+			mw.loader.using( 'mediawiki.api' ).done( function() {
 				var mwApi = new mw.Api();
 				mwApi.postWithEditToken( {
 					action: 'move',
