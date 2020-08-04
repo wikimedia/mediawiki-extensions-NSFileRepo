@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * THIS SCRIPT IS A COPY OF MEDIAWIKI CORE img_auth.php ENTRY POINT
+ * It has been altered to enable NSFileRepo functionality in REL1_27
+ */
+
+ /**
  * The web entry point for serving non-public images to logged-in users.
  *
  * To use this, see https://www.mediawiki.org/wiki/Manual:Image_Authorization
@@ -121,6 +127,7 @@ function wfImageAuthMain() {
 	if ( $zone === 'thumb' || $zone === 'transcoded' ) {
 		$name = wfBaseName( dirname( $path ) );
 		$filename = $repo->getZonePath( $zone ) . substr( $path, strlen( "/" . $zone ) );
+		Hooks::run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
 		// Check to see if the file exists
 		if ( !$repo->fileExists( $filename ) ) {
 			wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
@@ -129,6 +136,7 @@ function wfImageAuthMain() {
 	} else {
 		$name = wfBaseName( $path ); // file is a source file
 		$filename = $repo->getZonePath( 'public' ) . $path;
+		Hooks::run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
 		// Check to see if the file exists and is not deleted
 		$bits = explode( '!', $name, 2 );
 		if ( substr( $path, 0, 9 ) === '/archive/' && count( $bits ) == 2 ) {
@@ -137,8 +145,15 @@ function wfImageAuthMain() {
 			$file = $repo->newFile( $name );
 		}
 		if ( !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
-			return;
+			$file = $services->getRepoGroup()->findFile( $name ); //Give other repos a chance to handle this
+			if( !$file || !$file->exists() || $file->isDeleted( File::DELETED_FILE ) ) {
+
+				global $wgUploadDirectory;
+				if( !file_exists( $wgUploadDirectory.$path ) ) {
+					wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
+					return;
+				}
+			}
 		}
 	}
 
@@ -180,7 +195,19 @@ function wfImageAuthMain() {
 		$headers['If-Modified-Since'] = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 	}
 
-	if ( $request->getCheck( 'download' ) ) {
+	$forceDownload = false;
+	array_walk(
+		$GLOBALS['egNSFileRepoForceDownload'],
+		function( $ext ) use ( $filename, &$forceDownload ) {
+			$quotedExt = preg_quote( ".$ext" );
+			$endsWithPattern = "#$quotedExt$#si";
+			if( preg_match( $endsWithPattern, $filename ) === 1 ) {
+				$forceDownload = true;
+			}
+		}
+	);
+
+	if ( $request->getCheck( 'download' ) || $forceDownload ) {
 		$headers['Content-Disposition'] = 'attachment';
 	}
 
@@ -190,6 +217,13 @@ function wfImageAuthMain() {
 	// Stream the requested file
 	list( $headers, $options ) = HTTPFileStreamer::preprocessHeaders( $headers );
 	wfDebugLog( 'img_auth', "Streaming `" . $filename . "`." );
+	if( !$repo->fileExists( $filename ) ) {
+		$file = $services->getRepoGroup()->findFile( $name );
+		if( $file ) {
+			$repo = $file->getRepo();
+			$filename = $file->getPath();
+		}
+	}
 	$repo->streamFileWithStatus( $filename, $headers, $options );
 }
 
