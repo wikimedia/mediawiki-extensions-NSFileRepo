@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class NSFileRepoHooks {
 
 	/**
@@ -52,12 +54,19 @@ class NSFileRepoHooks {
 	 * @param $result
 	 * @return bool
 	 */
-	public static function onImgAuthBeforeStream( &$title, &$path, &$name, &$result ) {
+	public static function onImgAuthBeforeStream( $title, $path, $name, &$result ) {
 		$nsfrhelper = new NSFileRepoHelper();
-		$title = $nsfrhelper->getTitleFromPath( $path );
+		$authTitle = $nsfrhelper->getTitleFromPath( $path );
 
-		if( $title instanceof Title === false ) {
+		if( $authTitle instanceof Title === false ) {
 			$result = array('img-auth-accessdenied', 'img-auth-badtitle', $name);
+			return false;
+		}
+
+		$context = RequestContext::getMain();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		if ( !$permissionManager->userCan( 'read', $context->getUser(), $authTitle ) ) {
+			$result = array( 'img-auth-accessdenied', 'img-auth-noread', $name );
 			return false;
 		}
 
