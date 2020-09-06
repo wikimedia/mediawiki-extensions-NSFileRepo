@@ -2,7 +2,7 @@ window.nsfr = window.nsfr || {};
 window.nsfr.ui = window.nsfr.ui || {};
 window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
-(function( mw, $ ) {
+( function ( mw, $ ) {
 	nsfr.ui.dialog.ChangeFileNamespaceAssociation = function NsfrUiDialogChangeFileNamespaceAssociation( config ) {
 		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.call( this, config );
 
@@ -55,15 +55,15 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.getActionProcess = function ( action ) {
-		var parentProcess = nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call( this, action );
-		var dialog = this;
-		var selectedNamespace = parseInt( this.targetNamespaceSelector.getValue() );
-		var namespaceAssocHasBeenChanged = this.currentNS !== selectedNamespace;
+		var parentProcess = nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call( this, action ),
+			dialog = this,
+			selectedNamespace = parseInt( this.targetNamespaceSelector.getValue() ),
+			namespaceAssocHasBeenChanged = this.currentNS !== selectedNamespace;
 
 		if ( action === 'save' && namespaceAssocHasBeenChanged ) {
 			var newFilePageName = this.makeNewFilePageName( selectedNamespace );
 			dfd = new $.Deferred();
-			mw.loader.using( 'mediawiki.api' ).done( function() {
+			mw.loader.using( 'mediawiki.api' ).done( function () {
 				var mwApi = new mw.Api();
 				mwApi.postWithEditToken( {
 					action: 'move',
@@ -71,20 +71,20 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 					to: newFilePageName,
 					movetalk: true,
 					ignorewarnings: true
-				} ).done( function() {
+				} ).done( function () {
 					dfd.resolve.apply( dialog, arguments );
 					dialog.emit( 'move-filepage-complete', dialog.currentPage, newFilePageName );
-				}).fail( function() {
+				} ).fail( function () {
 					dfd.reject.apply( dialog, arguments );
 				} );
-			} ).fail( function() {
+			} ).fail( function () {
 				dfd.reject.apply( dialog, arguments );
 			} );
 
 			parentProcess.first( dfd.promise() );
 		}
 
-		if( action ) {
+		if ( action ) {
 			parentProcess.next( function () {
 				dialog.close( { action: action } );
 			} );
@@ -94,7 +94,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.show = function () {
-		if( !this.windowManager ) {
+		if ( !this.windowManager ) {
 			this.windowManager = new OO.ui.WindowManager();
 			$( document.body ).append( this.windowManager.$element );
 			this.windowManager.addWindows( [ this ] );
@@ -106,26 +106,26 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	 * Hack to make the drop-down-menu show up in-front of the dialog
 	 * which has high z-index
 	 *
-	 * @param boolean visible
-	 * @returns undefined
+	 * @param {boolean} visible
+	 * @return undefined
 	 */
-	thePrototype.onTargetNamespaceSelectorToggle = function( visible ) {
+	thePrototype.onTargetNamespaceSelectorToggle = function ( visible ) {
 		var css = {
 			'z-index': 4 // Default
 		};
 		if ( visible ) {
-			css['z-index'] = 101;
+			css[ 'z-index' ] = 101;
 		}
 		$( '.oo-ui-defaultOverlay' ).children( '.oo-ui-menuSelectWidget' ).css( css );
 	};
 
 	thePrototype.makeNewFilePageName = function ( selectedNamespace ) {
-		var prefix = this.formattedNamespaces[6] + ':'; //NS_FILE
-		if( selectedNamespace !== 0 ) { //NS_MAIN
-			prefix += this.formattedNamespaces[selectedNamespace] + ':';
+		var prefix = this.formattedNamespaces[ 6 ] + ':'; // NS_FILE
+		if ( selectedNamespace !== 0 ) { // NS_MAIN
+			prefix += this.formattedNamespaces[ selectedNamespace ] + ':';
 		}
 
 		return prefix + this.unprefixedFileName;
 	};
 
-}( mediaWiki, jQuery ));
+}( mediaWiki, jQuery ) );
