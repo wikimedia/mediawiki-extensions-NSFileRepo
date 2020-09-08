@@ -74,7 +74,7 @@
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
 		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
 		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
-		"SkinTemplateNavigation": "NSFileRepo\\Hooks\\SkinTemplateNavigation::handle"
+		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle"
 	},
 	"config": {
 		"_prefix": "egNSFileRepo",
