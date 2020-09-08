@@ -10,7 +10,7 @@ use Message;
 use Title;
 use FormatJson;
 
-class SkinTemplateNavigation {
+class SkinTemplateNavigationUniversal {
 
 	/**
 	 *
