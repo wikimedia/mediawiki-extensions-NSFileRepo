@@ -62,7 +62,7 @@ class NamespaceList {
 
 		$namespaces = [];
 		foreach( $availableNamespaces as $nsId => $nsText ) {
-			#var_dump( $this->skip( $nsIdx, $permission ) );
+
 			if( $this->skip( $nsId, $permission ) ) {
 				continue;
 			}
@@ -97,7 +97,7 @@ class NamespaceList {
 			$title = \Title::makeTitle( $nsId, 'Dummy' );
 			if ( class_exists( \MediaWiki\Permissions\PermissionManager::class ) ) {
 				// MediaWiki 1.33+
-				return MediaWikiServices::getInstance()->getPermissionManager()
+				return !MediaWikiServices::getInstance()->getPermissionManager()
 					->userCan( $permission, $this->user, $title );
 			} else {
 				return !$title->userCan( $permission, $this->user );
