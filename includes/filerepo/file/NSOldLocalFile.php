@@ -105,9 +105,12 @@ class NSOldLocalFile extends OldLocalFile {
 			$conds['oi_timestamp'] = $dbr->timestamp( $timestamp );
 		}
 
-		$row = $dbr->selectRow( 'oldimage', self::selectFields(), $conds, __METHOD__ );
+		$fileQuery = static::getQueryInfo();
+		$row = $dbr->selectRow(
+			$fileQuery['tables'], $fileQuery['fields'], $conds, __METHOD__, [], $fileQuery['joins']
+		);
 		if ( $row ) {
-			return self::newFromRow( $row, $repo );
+			return static::newFromRow( $row, $repo );
 		} else {
 			return false;
 		}
