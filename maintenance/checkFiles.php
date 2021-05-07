@@ -80,5 +80,5 @@ class CheckFiles extends Maintenance {
 	}
 }
 
-$maintClass = 'CheckFiles';
+$maintClass = CheckFiles::class;
 require_once( RUN_MAINTENANCE_IF_MAIN );

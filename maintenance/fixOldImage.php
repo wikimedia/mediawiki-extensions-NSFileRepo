@@ -103,5 +103,5 @@ class FixOldImage extends Maintenance {
 	}
 }
 
-$maintClass = 'FixOldImage';
+$maintClass = FixOldImage::class;
 require_once( RUN_MAINTENANCE_IF_MAIN );

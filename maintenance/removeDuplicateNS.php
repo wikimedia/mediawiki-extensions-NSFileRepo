@@ -50,5 +50,5 @@ class RemoveDuplicateNS extends Maintenance {
 	}
 }
 
-$maintClass = 'RemoveDuplicateNS';
+$maintClass = RemoveDuplicateNS::class;
 require_once( RUN_MAINTENANCE_IF_MAIN );
