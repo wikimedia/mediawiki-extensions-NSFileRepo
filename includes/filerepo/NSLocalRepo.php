@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Class definitions for NSFileRepo
  */
@@ -13,12 +15,11 @@ class NSLocalRepo extends LocalRepo {
 	protected $oldFileFactoryKey = array( 'NSOldLocalFile', 'newFromKey' );
 
 	static function getHashPathForLevel( $name, $levels ) {
-		global $wgContLang;
 		$bits = explode( ':',$name );
 		$filename = $bits[ count( $bits ) - 1 ];
 		$path = parent::getHashPathForLevel( $filename, $levels );
 		return count( $bits ) > 1 ?
-			$wgContLang->getNsIndex( $bits[0] ) .'/'. $path : $path;
+			MediaWikiServices::getInstance()->getContentLanguage()->getNsIndex( $bits[0] ) .'/'. $path : $path;
 	}
 
 	/**
