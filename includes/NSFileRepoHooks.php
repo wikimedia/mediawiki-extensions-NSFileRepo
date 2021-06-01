@@ -1,17 +1,12 @@
 <?php
 
 class NSFileRepoHooks {
-
-	/**
-	 * Initial setup
-	 * @global array $wgLocalFileRepo
-	 */
-	public static function setup() {
-		$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
-	}
-
 	public static function register() {
 		require_once( __DIR__.'/DefaultSettings.php' );
+
+		array_unshift( $GLOBALS['wgExtensionFunctions'], function() {
+			$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
+		} );
 	}
 
 	/**
