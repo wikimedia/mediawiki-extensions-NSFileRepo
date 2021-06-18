@@ -4,6 +4,10 @@
  * Some default configuration that is needed for this extension
  */
 
+if ( defined( 'MW_PHPUNIT_TEST' ) ) {
+	return;
+}
+
 // Remove the default illegal char ':' - needed it to determine NS
 $GLOBALS['wgIllegalFileChars'] = str_replace( ":", "", $GLOBALS['wgIllegalFileChars'] );
 
