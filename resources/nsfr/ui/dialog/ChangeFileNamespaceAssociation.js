@@ -75,7 +75,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 					dfd.resolve.apply( dialog, arguments );
 					dialog.emit( 'move-filepage-complete', dialog.currentPage, newFilePageName );
 				}).fail( function() {
-					dfd.reject.apply( dialog, arguments );
+ 					dfd.reject.apply( dialog, [ new OO.ui.Error( arguments[0]) ] );
 				} );
 			} ).fail( function() {
 				dfd.reject.apply( dialog, arguments );
@@ -114,7 +114,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 			'z-index': 4 // Default
 		};
 		if ( visible ) {
-			css['z-index'] = 101;
+			css['z-index'] = 9999;
 		}
 		$( '.oo-ui-defaultOverlay' ).children( '.oo-ui-menuSelectWidget' ).css( css );
 	};
@@ -126,6 +126,20 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 		}
 
 		return prefix + this.unprefixedFileName;
+	};
+
+	thePrototype.showErrors = function ( errors ) {
+		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.showErrors.call( this, errors );
+		this.updateSize();
+	};
+
+	thePrototype.getBodyHeight = function () {
+		return this.$errors.height() + 285;
+	};
+
+	thePrototype.hideErrors = function () {
+		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.hideErrors.call( this );
+		this.updateSize();
 	};
 
 }( mediaWiki, jQuery ));
