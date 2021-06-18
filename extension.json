@@ -56,6 +56,9 @@
 				"nsfilerepo-move-file-namespace-dialog-button-done",
 				"nsfilerepo-move-file-namespace-dialog-button-cancel",
 				"nsfilerepo-move-file-namespace-dialog-namespaceselector-label"
+			],
+			"dependencies": [
+				"mediawiki.widgets"
 			]
 		}
 	},
