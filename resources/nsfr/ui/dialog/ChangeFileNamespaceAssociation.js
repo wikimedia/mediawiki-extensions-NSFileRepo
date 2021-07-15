@@ -75,7 +75,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 					dfd.resolve.apply( dialog, arguments );
 					dialog.emit( 'move-filepage-complete', dialog.currentPage, newFilePageName );
 				} ).fail( function () {
- 					dfd.reject.apply( dialog, [ new OO.ui.Error( arguments[0]) ] );
+					dfd.reject.apply( dialog, [ new OO.ui.Error( arguments[ 0 ] ) ] );
 				} );
 			} ).fail( function () {
 				dfd.reject.apply( dialog, arguments );
