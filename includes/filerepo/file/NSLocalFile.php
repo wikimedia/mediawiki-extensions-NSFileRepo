@@ -436,7 +436,7 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 		$this->newName = $repo->getNameFromTitle( $this->target );
 		$this->oldRel = $this->oldHash . NSLocalFile::getFileNameStripped( $this->oldName );
 		$this->newRel = $this->newHash . NSLocalFile::getFileNameStripped( $this->newName );
-		$this->db = $repo->getMasterDB();
+		$this->db = $repo->getPrimaryDB();
 	}
 
 	/**

@@ -10,7 +10,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.32.0"
+		"MediaWiki": ">= 1.37.0"
 	},
 	"callback": "NSFileRepoHooks::register",
 	"MessagesDirs": {
