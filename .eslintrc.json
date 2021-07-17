@@ -11,7 +11,6 @@
 	},
 	"rules": {
 		"no-unused-vars": "warn",
-		"one-var": "warn",
 		"vars-on-top": "warn",
 		"no-underscore-dangle": "warn",
 		"no-undef": "warn",
