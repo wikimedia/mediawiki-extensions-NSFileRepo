@@ -1,6 +1,6 @@
 {
 	"name": "NSFileRepo",
-	"version": "1.27.1",
+	"version": "3.2.5",
 	"author": [
 		"Jack D. Pond",
 		"Robert Vogel"
@@ -10,7 +10,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.27.0"
+		"MediaWiki": "~1.31"
 	},
 	"ExtensionFunctions": [
 		"NSFileRepoHooks::setup"
