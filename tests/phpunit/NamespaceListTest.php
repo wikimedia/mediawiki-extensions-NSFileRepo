@@ -28,7 +28,9 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 		$wgExtraNamespaces[self::DUMMY_NS_C_ID] = 'NSFRDummyC';
 		$wgExtraNamespaces[self::DUMMY_NS_C_ID + 1] = 'NSFRDummyC_talk';
 
-		\MWNamespace::getCanonicalNamespaces( true ); # reset namespace cache
+		$this->getServiceContainer()
+			->getNamespaceInfo()
+			->getCanonicalNamespaces( true ); # reset namespace cache
 
 		/**
 		 * Test hook handler that mimics Extension:Lockdown and revokes read
@@ -64,8 +66,9 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 
 		$readables = $instance->getReadable();
 		$hasTalk = false;
+		$namespaceInfo = $this->getServiceContainer()->getNamespaceInfo();
 		foreach( $readables as $namsepace ) {
-			if( \MWNamespace::isTalk( $namsepace->getId() ) ) {
+			if( $namespaceInfo->isTalk( $namsepace->getId() ) ) {
 				$hasTalk = true;
 				break;
 			}

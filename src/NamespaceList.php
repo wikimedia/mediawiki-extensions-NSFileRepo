@@ -61,6 +61,7 @@ class NamespaceList {
 		$availableNamespaces = $this->lang->getNamespaces();
 
 		$namespaces = [];
+		$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
 		foreach( $availableNamespaces as $nsId => $nsText ) {
 
 			if( $this->skip( $nsId, $permission ) ) {
@@ -71,7 +72,7 @@ class NamespaceList {
 				$nsText = wfMessage('nsfilerepo-nsmain')->plain();
 			}
 
-			$canonicalName = \MWNamespace::getCanonicalName( $nsId );
+			$canonicalName = $namespaceInfo->getCanonicalName( $nsId );
 			$namespaces[$nsId] = new MWNamespace( $nsId, $canonicalName , $nsText );
 		}
 
@@ -88,8 +89,9 @@ class NamespaceList {
 			return true;
 		}
 
+		$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
 		if( $this->config->get( Config::CONFIG_SKIP_TALK )
-				&& \MWNamespace::isTalk( $nsId ) ) {
+				&& $namespaceInfo->isTalk( $nsId ) ) {
 			return true;
 		}
 
