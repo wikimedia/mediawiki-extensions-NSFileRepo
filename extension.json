@@ -10,7 +10,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.37.0"
+		"MediaWiki": ">= 1.35.0"
 	},
 	"callback": "NSFileRepoHooks::register",
 	"MessagesDirs": {
@@ -22,9 +22,11 @@
 		]
 	},
 	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\NSFileRepo\\": "src/",
 		"NSFileRepo\\": "src/"
 	},
 	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\NSFileRepo\\Tests\\": "tests/phpunit/",
 		"NSFileRepo\\Tests\\": "tests/phpunit/"
 	},
 	"AutoloadClasses": {
@@ -66,9 +68,15 @@
 		"localBasePath": "resources",
 		"remoteExtPath": "NSFileRepo/resources"
 	},
+	"HookHandlers": {
+		"permission-checker": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\PermissionChecker",
+			"services": [ "MainConfig", "PermissionManager" ]
+		}
+	},
 	"Hooks": {
 		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
-		"userCan": "NSFileRepo\\Hooks\\UserCan::handle",
+		"getUserPermissionsErrors": "permission-checker",
 		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
