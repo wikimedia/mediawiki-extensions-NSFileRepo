@@ -3,13 +3,14 @@
 		"authors": [
 			")8",
 			"Liuxinyu970226",
+			"Xiplus",
 			"Yfdyh000"
 		]
 	},
-	"nsfilerepo-desc": "提供基于名字空间的特性到上传的文件",
-	"nsfilerepo-upload-target": "名字空间中的目标文件名称",
+	"nsfilerepo-desc": "提供基于命名空间的特性到上传的文件",
+	"nsfilerepo-upload-target": "命名空间中的目标文件名称",
 	"nsfilerepo-nsmain": "（主）",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "完成",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "取消",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "名字空间"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "命名空间"
 }
