@@ -61,7 +61,6 @@ function wfImageAuthMain() {
 	$permissionManager = $services->getPermissionManager();
 
 	$request = RequestContext::getMain()->getRequest();
-	$publicWiki = in_array( 'read', $permissionManager->getGroupPermissions( [ '*' ] ), true );
 
 	// Find the path assuming the request URL is relative to the local public zone URL
 	$baseUrl = $services->getRepoGroup()->getLocalRepo()->getZoneUrl( 'public' );
@@ -161,32 +160,32 @@ function wfImageAuthMain() {
 
 	$title = Title::makeTitleSafe( NS_FILE, $name );
 
-	if ( !$publicWiki ) {
-		// For private wikis, run extra auth checks and set cache control headers
-		$headers['Cache-Control'] = 'private';
-		$headers['Vary'] = 'Cookie';
 
-		if ( !$title instanceof Title ) { // files have valid titles
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
-			return;
-		}
+	// For private wikis, run extra auth checks and set cache control headers
+	$headers['Cache-Control'] = 'private';
+	$headers['Vary'] = 'Cookie';
 
-		// Run hook for extension authorization plugins
-		/** @var array $result */
-		$result = null;
-		if ( !Hooks::runner()->onImgAuthBeforeStream( $title, $path, $name, $result ) ) {
-			wfForbidden( $result[0], $result[1], array_slice( $result, 2 ) );
-			return;
-		}
-
-		// Check user authorization for this title
-		// Checks Whitelist too
-
-		if ( !$permissionManager->userCan( 'read', $user, $title ) ) {
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
-			return;
-		}
+	if ( !$title instanceof Title ) { // files have valid titles
+		wfForbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
+		return;
 	}
+
+	// Run hook for extension authorization plugins
+	/** @var array $result */
+	$result = null;
+	if ( !Hooks::runner()->onImgAuthBeforeStream( $title, $path, $name, $result ) ) {
+		wfForbidden( $result[0], $result[1], array_slice( $result, 2 ) );
+		return;
+	}
+
+	// Check user authorization for this title
+	// Checks Whitelist too
+
+	if ( !$permissionManager->userCan( 'read', $user, $title ) ) {
+		wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
+		return;
+	}
+
 
 	if ( isset( $_SERVER['HTTP_RANGE'] ) ) {
 		$headers['Range'] = $_SERVER['HTTP_RANGE'];
