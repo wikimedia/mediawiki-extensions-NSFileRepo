@@ -63,7 +63,6 @@ function wfImageAuthMain() {
 	global $wgImgAuthUrlPathMap;
 
 	$request = RequestContext::getMain()->getRequest();
-	$publicWiki = in_array( 'read', User::getGroupPermissions( [ '*' ] ), true );
 
 	// Get the requested file path (source file or thumbnail)
 	$matches = WebRequest::getPathInfo();
@@ -169,30 +168,28 @@ function wfImageAuthMain() {
 
 	$title = Title::makeTitleSafe( NS_FILE, $name );
 
-	if ( !$publicWiki ) {
-		// For private wikis, run extra auth checks and set cache control headers
-		$headers['Cache-Control'] = 'private';
-		$headers['Vary'] = 'Cookie';
+	// For private wikis, run extra auth checks and set cache control headers
+	$headers['Cache-Control'] = 'private';
+	$headers['Vary'] = 'Cookie';
 
-		if ( !$title instanceof Title ) { // files have valid titles
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
-			return;
-		}
+	if ( !$title instanceof Title ) { // files have valid titles
+		wfForbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
+		return;
+	}
 
-		// Run hook for extension authorization plugins
-		/** @var $result array */
-		$result = null;
-		if ( !Hooks::run( 'ImgAuthBeforeStream', [ &$title, &$path, &$name, &$result ] ) ) {
-			wfForbidden( $result[0], $result[1], array_slice( $result, 2 ) );
-			return;
-		}
+	// Run hook for extension authorization plugins
+	/** @var $result array */
+	$result = null;
+	if ( !Hooks::run( 'ImgAuthBeforeStream', [ &$title, &$path, &$name, &$result ] ) ) {
+		wfForbidden( $result[0], $result[1], array_slice( $result, 2 ) );
+		return;
+	}
 
-		// Check user authorization for this title
-		// Checks Whitelist too
-		if ( !$title->userCan( 'read' ) ) {
-			wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
-			return;
-		}
+	// Check user authorization for this title
+	// Checks Whitelist too
+	if ( !$title->userCan( 'read' ) ) {
+		wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
+		return;
 	}
 
 	if ( isset( $_SERVER['HTTP_RANGE'] ) ) {
