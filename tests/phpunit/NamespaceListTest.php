@@ -2,6 +2,8 @@
 
 namespace NSFileRepo\Tests;
 
+use MediaWiki\MediaWikiServices;
+
 class NamespaceListTest extends \MediaWikiLangTestCase {
 
 	const DUMMY_NS_A_ID = 12412;
@@ -36,7 +38,9 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 		 * Test hook handler that mimics Extension:Lockdown and revokes read
 		 * permissions on 'NSFRDummyA' and edit permission on 'NSFRDummyB'
 		 */
-		\Hooks::register( 'getUserPermissionsErrors', function( $title, $user, $action, &$result ) {
+		$this->getServiceContainer()
+			->getHookContainer()
+			->register( 'getUserPermissionsErrors', function( &$title, &$user, $action, &$result ) {
 			if( $action === 'read'
 					&& $title instanceof \Title
 					&& $title->getNamespace() === self::DUMMY_NS_A_ID ) {
@@ -105,6 +109,14 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 		$lang = \RequestContext::getMain()->getLanguage();
 
 		return new \NSFileRepo\NamespaceList( $user, $config, $lang );
+	}
+
+	/**
+	 * For b/c. Can be removed in REL1_36+
+	 * @return MediaWikiServices
+	 */
+	protected function getServiceContainer() {
+		return MediaWikiServices::getInstance();
 	}
 
 }
