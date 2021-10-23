@@ -36,16 +36,18 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 		 * Test hook handler that mimics Extension:Lockdown and revokes read
 		 * permissions on 'NSFRDummyA' and edit permission on 'NSFRDummyB'
 		 */
-		\Hooks::register( 'userCan', function( &$title, &$user, $action, &$result ) {
+		\Hooks::register( 'getUserPermissionsErrors', function( $title, $user, $action, &$result ) {
 			if( $action === 'read'
 					&& $title instanceof \Title
 					&& $title->getNamespace() === self::DUMMY_NS_A_ID ) {
+				$result= false;
 				return false;
 			}
 
 			if( $action === 'edit'
 					&& $title instanceof \Title
 					&& $title->getNamespace() === self::DUMMY_NS_B_ID ) {
+				$result= false;
 				return false;
 			}
 
