@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Fryed-peach",
 			"Kghbln",
 			"Liuxinyu970226",
@@ -18,6 +19,6 @@
 	"nsfilerepo-move-file-namespace-action-label": "Label for a content action on a file description page",
 	"nsfilerepo-move-file-namespace-dialog-title": "Title of a dialog that let's tha user change the file namespace association",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Label for a dialog button to confirm {{Identical|upload-dialog-button-done}}",
-	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Label for a dialog button to cancel {{Identical|upload-dialog-button-cancel}}",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Label for a dialog button to cancel {{Identical|Cancel}}",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Label for input field to choose a namespace from"
 }
