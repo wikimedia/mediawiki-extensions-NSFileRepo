@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Romaine",
 			"Siebrand",
 			"Sjoerddebruin"
 		]
 	},
 	"nsfilerepo-desc": "Biedt op naamruimte gebaseerde mogelijkheden voor geüploade bestanden",
-	"nsfilerepo-nsmain": "(Hoofdnaamruimte)"
+	"nsfilerepo-nsmain": "(Hoofdnaamruimte)",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annuleren",
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Naamruimte"
 }

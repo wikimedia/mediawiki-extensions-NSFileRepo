@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
+			"MuratTheTurkish",
 			"Vito Genovese"
 		]
 	},
-	"nsfilerepo-desc": "Yüklenmiş dosyalar için isim alanını temel alan özellikler sağlar",
+	"nsfilerepo-desc": "Yüklenen dosyalara ad alanı tabanlı özellikler sağlayın",
 	"nsfilerepo-upload-target": "Ad alanında hedef dosya adı",
 	"nsfilerepo-nsmain": "(Ana)",
 	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Bir dosya yeniden yüklenirken bu alan değiştirilemez",

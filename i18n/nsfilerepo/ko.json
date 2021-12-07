@@ -10,5 +10,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "파일 이름공간 설정",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "완료",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "취소",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "이름공간"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "이름공간",
+	"nsfilerepo-nsmain": "(일반)"
 }
