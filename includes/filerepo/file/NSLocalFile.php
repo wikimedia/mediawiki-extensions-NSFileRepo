@@ -426,17 +426,10 @@ class NSLocalFileMoveBatch extends LocalFileMoveBatch {
 	 * @param File $file
 	 * @param Title $target
 	 */
-	function __construct( File $file, Title $target ) {
-		$this->file = $file;
-		$this->target = $target;
-		$repo = $file->getRepo();
-		$this->oldHash = $repo->getHashPath( $this->file->getName() );
-		$this->newHash = $repo->getHashPath( $this->target->getDBkey() );
-		$this->oldName = $this->file->getName();
-		$this->newName = $repo->getNameFromTitle( $this->target );
+	public function __construct( LocalFile $file, Title $target ) {
+		parent::__construct( $file, $target );
 		$this->oldRel = $this->oldHash . NSLocalFile::getFileNameStripped( $this->oldName );
 		$this->newRel = $this->newHash . NSLocalFile::getFileNameStripped( $this->newName );
-		$this->db = $repo->getMasterDB();
 	}
 
 	/**
