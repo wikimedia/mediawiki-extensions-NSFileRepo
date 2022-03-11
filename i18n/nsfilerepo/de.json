@@ -2,10 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Imre",
-			"Metalhead64",
 			"Kghbln",
-			"Osnard",
-			"Mcandri13"
+			"Mcandri13",
+			"Metalhead64",
+			"Osnard"
 		]
 	},
 	"nsfilerepo-desc": "Namensraum-basierte Eigenschaften für das Hochladen von Dateien",

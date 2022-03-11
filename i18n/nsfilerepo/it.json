@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Darth Kule",
-			"Beta16"
+			"Ajeje Brazorf",
+			"Beta16",
+			"Darth Kule"
 		]
 	},
 	"nsfilerepo-desc": "Fornisce una funzione basata sui namespace per caricare file",
 	"nsfilerepo-upload-target": "Seleziona namespace di destinazione",
-	"nsfilerepo-nsmain": "(Principale)"
+	"nsfilerepo-nsmain": "(Principale)",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annulla"
 }
