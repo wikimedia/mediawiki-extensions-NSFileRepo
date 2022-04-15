@@ -1,4 +1,5 @@
 {
+	"name": "NSFileRepo",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
