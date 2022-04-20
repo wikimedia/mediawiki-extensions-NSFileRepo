@@ -13,5 +13,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "Set file namespace",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Done",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Cancel",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Namespace"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Namespace",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Namespace"
 }

@@ -21,6 +21,13 @@
 			"i18n/imgauth"
 		]
 	},
+	"attributes": {
+		"EnhancedUpload": {
+			"UploadFormPluginModules": [
+				"ext.nsfilerepo.namespace.upload"
+			]
+		}
+	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\NSFileRepo\\": "src/",
 		"NSFileRepo\\": "src/"
@@ -62,6 +69,14 @@
 			"dependencies": [
 				"mediawiki.widgets"
 			]
+		},
+		"ext.nsfilerepo.namespace.upload": {
+			"scripts": [
+				"ext.nsfilerepo.namespace.upload.js"
+			],
+			"messages": [
+				"nsfilerepo-upload-file-namespace-namespaceselector-label"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -84,14 +99,22 @@
 		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
 		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle"
 	},
+	"config_prefix": "egNSFileRepo",
 	"config": {
-		"_prefix": "egNSFileRepo",
-		"@note NamespaceThreshold": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default",
-		"NamespaceThreshold": 100,
-		"@note NamespaceBlacklist": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ...",
-		"NamespaceBlacklist": [ 102, 104, 106, 108, 274, 828 ],
-		"SkipTalk": true,
-		"ForceDownload": [ "js", "css", "xml", "html", "htm", "xhtml" ]
+		"NamespaceThreshold": {
+			"value": 100,
+			"desc": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default"
+		},
+		"NamespaceBlacklist": {
+			"value": [ 102, 104, 106, 108, 274, 828 ],
+			"desc": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ..."
+		},
+		"SkipTalk": {
+			"value": true
+		},
+		"ForceDownload": {
+			"value": [ "js", "css", "xml", "html", "htm", "xhtml" ]
+		}
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
