@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Rotemliss"
+			"Rotemliss",
+			"Ex-Diktator"
 		]
 	},
-	"nsfilerepo-desc": "הוספת תכונות מבוססות מרחב שם לקבצים שהועלו"
+	"nsfilerepo-desc": "הוספת תכונות מבוססות מרחב שם לקבצים שהועלו",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "ביטול"
 }
