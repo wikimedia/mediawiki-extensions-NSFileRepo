@@ -103,11 +103,11 @@
 	"config": {
 		"NamespaceThreshold": {
 			"value": 100,
-			"desc": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default"
+			"description": "This should probably be 3000 as recommended by MediaWiki. But for backwards compatibility we'll stick with this default"
 		},
 		"NamespaceBlacklist": {
 			"value": [ 102, 104, 106, 108, 274, 828 ],
-			"desc": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ..."
+			"description": "There are some widespread extensions that create namespaces. E.g. SemanticMediaWiki, PageForms, Widgets, Scribunto, ..."
 		},
 		"SkipTalk": {
 			"value": true
