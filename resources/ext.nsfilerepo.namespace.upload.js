@@ -1,7 +1,7 @@
-( function( mw, $, d, undefined ){
+( function ( mw ) {
 
 	var targetNamespaceSelector;
-	mw.hook( 'upload.init' ).add( function( $container ) {
+	mw.hook( 'upload.init' ).add( function ( $container ) {
 		targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
 			exclude: '',
 			dropdown: {
@@ -17,17 +17,17 @@
 		$container.$element.prepend( namespaceInputField.$element );
 	} );
 
-	mw.hook( 'upload.getUploadParams' ).add( function( params ) {
+	mw.hook( 'upload.getUploadParams' ).add( function ( params ) {
 		var namespaces = mw.config.get( 'wgFormattedNamespaces' );
 		var selectedNamespace = targetNamespaceSelector.getValue();
 
 		var prefix = '';
-		if( selectedNamespace !== '0' ) { //NS_MAIN
-			prefix = namespaces[selectedNamespace] + ':';
+		if ( selectedNamespace !== '0' ) { // NS_MAIN
+			prefix = namespaces[ selectedNamespace ] + ':';
 		}
 		var name = params.filename;
-		newName = prefix + name;
+		var newName = prefix + name;
 		params.filename = newName;
 	} );
 
-})( mediaWiki, jQuery, document );
+}( mediaWiki ) );
