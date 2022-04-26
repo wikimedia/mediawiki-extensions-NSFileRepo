@@ -3,6 +3,7 @@
 		"authors": [
 			"Gomoko",
 			"IAlex",
+			"Verdy p",
 			"Wladek92"
 		]
 	},
@@ -14,5 +15,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "Définir l’espace de noms du fichier",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Terminé",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annuler",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espace de noms"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espace de noms",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espace de noms"
 }
