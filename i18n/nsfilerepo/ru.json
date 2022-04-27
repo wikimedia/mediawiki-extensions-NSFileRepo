@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Facenapalm",
+			"Kareyac",
 			"Okras",
 			"Александр Сигачёв"
 		]
@@ -9,5 +10,6 @@
 	"nsfilerepo-desc": "Добавляет особенности работы с загружаемыми файлами в зависимости от пространства имён",
 	"nsfilerepo-upload-target": "Целевое имя файла в пространстве имён",
 	"nsfilerepo-nsmain": "(основное)",
-	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Отмена"
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Отмена",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Пространство имён"
 }
