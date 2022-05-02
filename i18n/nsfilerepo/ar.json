@@ -14,5 +14,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "تعيين نطاق الملف",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "تم",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "إلغاء",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "النطاق"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "النطاق",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "النطاق"
 }
