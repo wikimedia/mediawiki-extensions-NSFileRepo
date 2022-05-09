@@ -10,5 +10,6 @@
 	"nsfilerepo-nsmain": "(Haapt)",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Fäerdeg",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Ofbriechen",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Nummraum"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Nummraum",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Nummraum"
 }
