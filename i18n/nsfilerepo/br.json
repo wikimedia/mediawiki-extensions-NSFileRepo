@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fulup"
+			"Fulup",
+			"Y-M D"
 		]
 	},
-	"nsfilerepo-desc": "Pourchas a ra d'ar restroù enporzhiet arc'hwelioù diazezet war an esaouenn anv"
+	"nsfilerepo-desc": "Pourchas a ra d'ar restroù enporzhiet arc'hwelioù diazezet war an esaouenn anv",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Esaouenn anv"
 }
