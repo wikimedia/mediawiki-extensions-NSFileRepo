@@ -4,6 +4,7 @@
 			"Crazymadlover",
 			"Fitoschido",
 			"Macofe",
+			"OriginReboot",
 			"Syum90"
 		]
 	},
@@ -15,5 +16,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "Establecer espacio de nombres de archivos",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Hecho",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Cancelar",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espacio de nombres"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espacio de nombres",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espacio de nombres"
 }
