@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class NSFileRepoHooks {
 	public static function register() {
 		require_once( __DIR__.'/DefaultSettings.php' );
@@ -16,8 +18,21 @@ class NSFileRepoHooks {
 	 * @return boolean true
 	 */
 	public static function onBeforePageDisplay( &$out, &$skin ) {
-		if( $out->getTitle()->isSpecial( 'Upload' ) ) {
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$title = $out->getTitle();
+		$user = $out->getUser();
+
+		if ( $title->isSpecial( 'Upload' ) ) {
 			$out->addModules( 'ext.nsfilerepo.special.upload' );
+		}
+
+		if ( $permissionManager->userCan( 'upload', $user, $title ) ||
+		$title->isSpecial( 'EnhancedUpload' ) ) {
+
+			$config = new \NSFileRepo\Config();
+			$out->addJsConfigVars( 'egNSFileRepoSkipTalk', $config->get( 'SkipTalk' ) );
+			$out->addJsConfigVars( 'egNSFileRepoNamespaceBlacklist', $config->get( 'NamespaceBlacklist' ) );
+			$out->addJsConfigVars( 'egNSFileRepoNamespaceThreshold', $config->get( 'NamespaceThreshold' ) );
 		}
 
 		return true;
