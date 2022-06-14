@@ -76,6 +76,9 @@
 			],
 			"messages": [
 				"nsfilerepo-upload-file-namespace-namespaceselector-label"
+			],
+			"dependencies": [
+				"mediawiki.widgets"
 			]
 		}
 	},

@@ -3,8 +3,9 @@
 	var targetNamespaceSelector;
 	mw.hook( 'upload.init' ).add( function ( $container, value ) {
 		value = value || '';
+		var excludeNS = getInvalidNamespaces();
 		targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
-			exclude: '',
+			exclude: excludeNS,
 			dropdown: {
 				$overlay: true
 			}
@@ -87,5 +88,30 @@
 			params.filename = newName;
 		}
 	} );
+
+	function getInvalidNamespaces() {
+		var excludeNS = [];
+		var namespaces = mw.config.get( 'wgNamespaceIds' );
+		var namespacesThreshold = mw.config.get( 'egNSFileRepoNamespaceThreshold' );
+		var namespacesBlacklist = mw.config.get( 'egNSFileRepoNamespaceBlacklist' );
+		var skiptalk = mw.config.get( 'egNSFileRepoSkipTalk' );
+
+		for ( var namespace in namespaces ) {
+			var nsId = namespaces[ namespace ];
+			if ( nsId < namespacesThreshold && nsId !== 0 ) {
+				excludeNS.push( nsId );
+				continue;
+			}
+			if ( namespacesBlacklist.includes( nsId ) ) {
+				excludeNS.push( nsId );
+				continue;
+			}
+			if ( skiptalk && nsId % 2 !== 0 ) {
+				excludeNS.push( nsId );
+			}
+		}
+
+		return excludeNS;
+	}
 
 }( mediaWiki ) );
