@@ -74,6 +74,18 @@
 			"scripts": [
 				"ext.nsfilerepo.namespace.upload.js"
 			],
+			"dependencies": [
+				"ext.nsfilerepo.upload.paramsProcessor"
+			]
+		},
+		"ext.nsfilerepo.upload.paramsProcessor": {
+			"packageFiles": [
+				"nsfr/EnhancedUploadParamsProcessor.js",
+				{
+					"name": "nsfr/config.json",
+					"callback": "NSFileRepo\\ClientConfig::makeConfigJson"
+				}
+			],
 			"messages": [
 				"nsfilerepo-upload-file-namespace-namespaceselector-label"
 			],
@@ -101,6 +113,16 @@
 		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
 		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
 		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle"
+	},
+	"QUnitTestModule": {
+		"localBasePath": "",
+		"remoteExtPath": "NSFileRepo",
+		"scripts": [
+			"tests/qunit/ext.nsfilerepo.upload.paramsProcessor.test.js"
+		],
+		"dependencies": [
+			"ext.nsfilerepo.upload.paramsProcessor"
+		]
 	},
 	"config_prefix": "egNSFileRepo",
 	"config": {
