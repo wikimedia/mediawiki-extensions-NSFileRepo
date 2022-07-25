@@ -13,6 +13,7 @@
 					formattedNamespaces: mw.config.get( 'wgFormattedNamespaces' ),
 					currentPage: mw.config.get( 'wgPageName' )
 				} );
+				// eslint-disable-next-line no-unused-vars
 				me.dialog.on( 'move-filepage-complete', function ( oldPageName, newPageName ) {
 					window.location.reload();
 				} );

@@ -3,15 +3,16 @@ window.nsfr.ui = window.nsfr.ui || {};
 window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
 ( function ( mw, $ ) {
-	nsfr.ui.dialog.ChangeFileNamespaceAssociation = function NsfrUiDialogChangeFileNamespaceAssociation( config ) {
-		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.call( this, config );
+	nsfr.ui.dialog.ChangeFileNamespaceAssociation =
+		function NsfrUiDialogChangeFileNamespaceAssociation( config ) {
+			nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.call( this, config );
 
-		this.unprefixedFileName = config.unprefixedFileName;
-		this.currentNS = config.currentNS;
-		this.excludeNS = config.excludeNS;
-		this.formattedNamespaces = config.formattedNamespaces;
-		this.currentPage = config.currentPage;
-	};
+			this.unprefixedFileName = config.unprefixedFileName;
+			this.currentNS = config.currentNS;
+			this.excludeNS = config.excludeNS;
+			this.formattedNamespaces = config.formattedNamespaces;
+			this.currentPage = config.currentPage;
+		};
 	OO.inheritClass( nsfr.ui.dialog.ChangeFileNamespaceAssociation, OO.ui.ProcessDialog );
 
 	var theStatic = nsfr.ui.dialog.ChangeFileNamespaceAssociation.static;
@@ -31,7 +32,9 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
 	var thePrototype = nsfr.ui.dialog.ChangeFileNamespaceAssociation.prototype;
 	thePrototype.initialize = function () {
-		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.initialize.apply( this, arguments );
+		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.initialize.apply(
+			this, arguments
+		);
 		this.content = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
 		this.targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
@@ -55,14 +58,17 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.getActionProcess = function ( action ) {
-		var parentProcess = nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call( this, action ),
-			dialog = this,
-			selectedNamespace = parseInt( this.targetNamespaceSelector.getValue() ),
-			namespaceAssocHasBeenChanged = this.currentNS !== selectedNamespace;
+		var parentProcess =
+			nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call(
+				this, action
+			);
+		var dialog = this;
+		var selectedNamespace = parseInt( this.targetNamespaceSelector.getValue() );
+		var namespaceAssocHasBeenChanged = this.currentNS !== selectedNamespace;
 
 		if ( action === 'save' && namespaceAssocHasBeenChanged ) {
 			var newFilePageName = this.makeNewFilePageName( selectedNamespace );
-			dfd = new $.Deferred();
+			var dfd = new $.Deferred();
 			mw.loader.using( 'mediawiki.api' ).done( function () {
 				var mwApi = new mw.Api();
 				mwApi.postWithEditToken( {
@@ -107,7 +113,6 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	 * which has high z-index
 	 *
 	 * @param {boolean} visible
-	 * @return undefined
 	 */
 	thePrototype.onTargetNamespaceSelectorToggle = function ( visible ) {
 		var css = {
@@ -116,6 +121,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 		if ( visible ) {
 			css[ 'z-index' ] = 9999;
 		}
+		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.oo-ui-defaultOverlay' ).children( '.oo-ui-menuSelectWidget' ).css( css );
 	};
 
@@ -129,7 +135,9 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.showErrors = function ( errors ) {
-		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.showErrors.call( this, errors );
+		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.showErrors.call(
+			this, errors
+		);
 		this.updateSize();
 	};
 
