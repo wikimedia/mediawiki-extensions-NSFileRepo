@@ -7,6 +7,7 @@ nsfr.EnhancedUploadParamsProcessor = function () {
 OO.initClass( nsfr.EnhancedUploadParamsProcessor );
 
 nsfr.EnhancedUploadParamsProcessor.prototype.init = function () {
+	// eslint-disable-next-line no-underscore-dangle
 	var excludeNS = this._getInvalidNamespaces();
 	this.targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
 		exclude: excludeNS,
@@ -39,10 +40,12 @@ nsfr.EnhancedUploadParamsProcessor.prototype.getParams = function ( params, item
 	if ( !skipNamespace ) {
 		params.namespace = this.targetNamespaceSelector.getValue();
 	}
+	// eslint-disable-next-line no-underscore-dangle
 	params.filename = this._makeUploadFilenameFromParams( params );
 	return params;
 };
 
+// eslint-disable-next-line no-underscore-dangle
 nsfr.EnhancedUploadParamsProcessor.prototype._makeUploadFilenameFromParams = function ( params ) {
 	var prefix = params.prefix || '';
 	var filename = params.filename || '';
@@ -87,7 +90,7 @@ nsfr.EnhancedUploadParamsProcessor.prototype._makeUploadFilenameFromParams = fun
 	}
 
 	// Avoid double prefixing
-	if ( prefixStub === filename.substr( 0, prefixStub.length ) ) {
+	if ( prefixStub === filename.slice( 0, prefixStub.length ) ) {
 		prefixStub = '';
 	}
 
@@ -96,6 +99,7 @@ nsfr.EnhancedUploadParamsProcessor.prototype._makeUploadFilenameFromParams = fun
 	return prefix + filename;
 };
 
+// eslint-disable-next-line no-underscore-dangle
 nsfr.EnhancedUploadParamsProcessor.prototype._getInvalidNamespaces = function () {
 	var excludeNS = [];
 	var namespaces = mw.config.get( 'wgNamespaceIds' );
@@ -109,6 +113,7 @@ nsfr.EnhancedUploadParamsProcessor.prototype._getInvalidNamespaces = function ()
 			excludeNS.push( nsId );
 			continue;
 		}
+		// eslint-disable-next-line no-restricted-syntax
 		if ( namespacesBlacklist.includes( nsId ) ) {
 			excludeNS.push( nsId );
 			continue;

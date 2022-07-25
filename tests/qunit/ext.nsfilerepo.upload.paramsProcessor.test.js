@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function () {
 	QUnit.module( 'ext.nsfilerepo.upload.paramsProcessor.test', QUnit.newMwEnvironment() );
 
 	var inputWithoutOption = [

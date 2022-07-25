@@ -2,16 +2,17 @@ window.nsfr = window.nsfr || {};
 window.nsfr.ui = window.nsfr.ui || {};
 window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
-(function( mw, $ ) {
-	nsfr.ui.dialog.ChangeFileNamespaceAssociation = function NsfrUiDialogChangeFileNamespaceAssociation( config ) {
-		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.call( this, config );
+( function ( mw, $ ) {
+	nsfr.ui.dialog.ChangeFileNamespaceAssociation =
+		function NsfrUiDialogChangeFileNamespaceAssociation( config ) {
+			nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.call( this, config );
 
-		this.unprefixedFileName = config.unprefixedFileName;
-		this.currentNS = config.currentNS;
-		this.excludeNS = config.excludeNS;
-		this.formattedNamespaces = config.formattedNamespaces;
-		this.currentPage = config.currentPage;
-	};
+			this.unprefixedFileName = config.unprefixedFileName;
+			this.currentNS = config.currentNS;
+			this.excludeNS = config.excludeNS;
+			this.formattedNamespaces = config.formattedNamespaces;
+			this.currentPage = config.currentPage;
+		};
 	OO.inheritClass( nsfr.ui.dialog.ChangeFileNamespaceAssociation, OO.ui.ProcessDialog );
 
 	var theStatic = nsfr.ui.dialog.ChangeFileNamespaceAssociation.static;
@@ -31,7 +32,9 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
 	var thePrototype = nsfr.ui.dialog.ChangeFileNamespaceAssociation.prototype;
 	thePrototype.initialize = function () {
-		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.initialize.apply( this, arguments );
+		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.initialize.apply(
+			this, arguments
+		);
 		this.content = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
 		this.targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
@@ -55,15 +58,18 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.getActionProcess = function ( action ) {
-		var parentProcess = nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call( this, action );
+		var parentProcess =
+			nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.getActionProcess.call(
+				this, action
+			);
 		var dialog = this;
 		var selectedNamespace = parseInt( this.targetNamespaceSelector.getValue() );
 		var namespaceAssocHasBeenChanged = this.currentNS !== selectedNamespace;
 
 		if ( action === 'save' && namespaceAssocHasBeenChanged ) {
 			var newFilePageName = this.makeNewFilePageName( selectedNamespace );
-			dfd = new $.Deferred();
-			mw.loader.using( 'mediawiki.api' ).done( function() {
+			var dfd = new $.Deferred();
+			mw.loader.using( 'mediawiki.api' ).done( function () {
 				var mwApi = new mw.Api();
 				mwApi.postWithEditToken( {
 					action: 'move',
@@ -71,20 +77,20 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 					to: newFilePageName,
 					movetalk: true,
 					ignorewarnings: true
-				} ).done( function() {
+				} ).done( function () {
 					dfd.resolve.apply( dialog, arguments );
 					dialog.emit( 'move-filepage-complete', dialog.currentPage, newFilePageName );
-				}).fail( function() {
- 					dfd.reject.apply( dialog, [ new OO.ui.Error( arguments[0]) ] );
+				} ).fail( function () {
+					dfd.reject.apply( dialog, [ new OO.ui.Error( arguments[ 0 ] ) ] );
 				} );
-			} ).fail( function() {
+			} ).fail( function () {
 				dfd.reject.apply( dialog, arguments );
 			} );
 
 			parentProcess.first( dfd.promise() );
 		}
 
-		if( action ) {
+		if ( action ) {
 			parentProcess.next( function () {
 				dialog.close( { action: action } );
 			} );
@@ -94,7 +100,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.show = function () {
-		if( !this.windowManager ) {
+		if ( !this.windowManager ) {
 			this.windowManager = new OO.ui.WindowManager();
 			$( document.body ).append( this.windowManager.$element );
 			this.windowManager.addWindows( [ this ] );
@@ -106,30 +112,32 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	 * Hack to make the drop-down-menu show up in-front of the dialog
 	 * which has high z-index
 	 *
-	 * @param boolean visible
-	 * @returns undefined
+	 * @param {boolean} visible
 	 */
-	thePrototype.onTargetNamespaceSelectorToggle = function( visible ) {
+	thePrototype.onTargetNamespaceSelectorToggle = function ( visible ) {
 		var css = {
 			'z-index': 4 // Default
 		};
 		if ( visible ) {
-			css['z-index'] = 9999;
+			css[ 'z-index' ] = 9999;
 		}
+		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.oo-ui-defaultOverlay' ).children( '.oo-ui-menuSelectWidget' ).css( css );
 	};
 
 	thePrototype.makeNewFilePageName = function ( selectedNamespace ) {
-		var prefix = this.formattedNamespaces[6] + ':'; //NS_FILE
-		if( selectedNamespace !== 0 ) { //NS_MAIN
-			prefix += this.formattedNamespaces[selectedNamespace] + ':';
+		var prefix = this.formattedNamespaces[ 6 ] + ':'; // NS_FILE
+		if ( selectedNamespace !== 0 ) { // NS_MAIN
+			prefix += this.formattedNamespaces[ selectedNamespace ] + ':';
 		}
 
 		return prefix + this.unprefixedFileName;
 	};
 
 	thePrototype.showErrors = function ( errors ) {
-		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.showErrors.call( this, errors );
+		nsfr.ui.dialog.ChangeFileNamespaceAssociation.parent.prototype.showErrors.call(
+			this, errors
+		);
 		this.updateSize();
 	};
 
@@ -142,4 +150,4 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 		this.updateSize();
 	};
 
-}( mediaWiki, jQuery ));
+}( mediaWiki, jQuery ) );
