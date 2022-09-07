@@ -2,11 +2,7 @@ window.nsfr = window.nsfr || {};
 
 nsfr.EnhancedUploadParamsProcessor = function () {
 	this.config = require( './config.json' );
-};
 
-OO.initClass( nsfr.EnhancedUploadParamsProcessor );
-
-nsfr.EnhancedUploadParamsProcessor.prototype.init = function () {
 	// eslint-disable-next-line no-underscore-dangle
 	var excludeNS = this._getInvalidNamespaces();
 	this.targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
@@ -16,15 +12,19 @@ nsfr.EnhancedUploadParamsProcessor.prototype.init = function () {
 		}
 	} );
 
-	var namespaceInputField = new OO.ui.FieldLayout( this.targetNamespaceSelector, {
+	this.targetNamespaceSelectorLayout = new OO.ui.FieldLayout( this.targetNamespaceSelector, {
 		label: mw.message( 'nsfilerepo-upload-file-namespace-namespaceselector-label' ).plain(),
 		align: 'left'
 	} );
-
-	return namespaceInputField;
 };
 
-nsfr.EnhancedUploadParamsProcessor.prototype.setNamespaceValue = function ( prefix ) {
+OO.inheritClass( nsfr.EnhancedUploadParamsProcessor, enhancedUpload.UiParamsProcessor );
+
+nsfr.EnhancedUploadParamsProcessor.prototype.getElement = function () {
+	return this.targetNamespaceSelectorLayout;
+};
+
+nsfr.EnhancedUploadParamsProcessor.prototype.setDefaultPrefix = function ( prefix ) {
 	var namespace = prefix.split( ':' );
 	var namespaces = mw.config.get( 'wgFormattedNamespaces' );
 	for ( var namespaceId in namespaces ) {
