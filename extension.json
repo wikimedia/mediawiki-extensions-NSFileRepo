@@ -90,7 +90,9 @@
 				"nsfilerepo-upload-file-namespace-namespaceselector-label"
 			],
 			"dependencies": [
-				"mediawiki.widgets"
+				"ext.enhancedUpload.paramsProcessor",
+				"mediawiki.widgets",
+				"oojs-ui"
 			]
 		}
 	},
