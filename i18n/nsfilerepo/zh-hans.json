@@ -4,7 +4,8 @@
 			")8",
 			"Liuxinyu970226",
 			"Xiplus",
-			"Yfdyh000"
+			"Yfdyh000",
+			"NekoCharm"
 		]
 	},
 	"nsfilerepo-desc": "提供基于命名空间的特性到上传的文件",
@@ -12,5 +13,6 @@
 	"nsfilerepo-nsmain": "（主）",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "完成",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "取消",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "命名空间"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "命名空间",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "命名空间"
 }
