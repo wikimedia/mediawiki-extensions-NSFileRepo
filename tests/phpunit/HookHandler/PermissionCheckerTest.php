@@ -9,16 +9,15 @@ use PHPUnit\Framework\TestCase;
 use Title;
 use User;
 
+/**
+ * @covers \MediaWiki\Extension\NSFileRepo\HookHandler\PermissionChecker
+ */
 class PermissionCheckerTest extends TestCase {
 
 	/**
-	 * @covers PermissionChecker::onGetUserPermissionsErrors
-	 * @param Title $title
-	 * @param bool $expectedResult
-	 * @return void
 	 * @dataProvider provideTestOnGetUserPermissionsErrorsData
 	 */
-	public function testOnGetUserPermissionsErrors( $title, $expectedResult ) {
+	public function testOnGetUserPermissionsErrors( Title $title, bool $expectedResult ) {
 		$mainConfig = new HashConfig( [
 			'WhitelistRead' => [ 'File:My whiteliste read file.pdf' ]
 		] );
@@ -39,10 +38,6 @@ class PermissionCheckerTest extends TestCase {
 		$this->assertEquals( $expectedResult, $result );
 	}
 
-	/**
-	 *
-	 * @return array
-	 */
 	public function provideTestOnGetUserPermissionsErrorsData() {
 		return [
 			'should-bail-out-for-wgWhitelistRead' => [

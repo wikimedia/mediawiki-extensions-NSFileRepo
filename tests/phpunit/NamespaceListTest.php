@@ -2,6 +2,9 @@
 
 namespace NSFileRepo\Tests;
 
+/**
+ * @covers \NSFileRepo\NamespaceList
+ */
 class NamespaceListTest extends \MediaWikiLangTestCase {
 
 	const DUMMY_NS_A_ID = 12412;
@@ -58,7 +61,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 		$this->resetServices();
 	}
 
-	public function textInstance() {
+	public function testInstance() {
 		$namespacelist = $this->makeInstance();
 		$this->assertInstanceOf( 'NSFileRepo\NamespaceList', $namespacelist );
 	}
