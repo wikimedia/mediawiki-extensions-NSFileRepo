@@ -88,15 +88,15 @@ class SkinTemplateNavigationUniversal {
 		$this->links['actions']['move-file-namespace'] = [
 			'class' => 'nsfr-move-file-namespace',
 			'text' => Message::newFromKey( 'nsfilerepo-move-file-namespace-action-label' )->plain(),
-			'href' => '#',
-			'data' => [
-				'currentNamespace' => $filetitle->getNamespace(),
-				'unprefixedFilename' => $filetitle->getDBkey(),
-				'excludeNS' => FormatJson::encode( $excludeNS )
-			]
+			'href' => '#'
 		];
 
 		$this->sktemplate->getOutput()->addModules( 'ext.nsfilerepo.filepage.bootstrap' );
+		$this->sktemplate->getOutput()->addJsConfigVars( 'wgNSFRMoveFileNamespace', [
+			'currentNamespace' => $filetitle->getNamespace(),
+			'unprefixedFilename' => $filetitle->getDBkey(),
+			'excludeNS' => FormatJson::encode( $excludeNS )
+		] );
 
 		return true;
 	}
