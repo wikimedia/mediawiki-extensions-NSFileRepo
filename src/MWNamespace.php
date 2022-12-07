@@ -62,7 +62,7 @@ class MWNamespace implements \JsonSerializable {
 	 *
 	 * @return array
 	 */
-	public function jsonSerialize(): array {
+	public function jsonSerialize() {
 		return [
 			'id' => $this->getId(),
 			'canonicalName' => $this->getCanonicalName(),
