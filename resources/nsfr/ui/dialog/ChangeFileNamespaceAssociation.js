@@ -143,7 +143,7 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 
 	thePrototype.getBodyHeight = function () {
 		if ( !this.$errors.hasClass( 'oo-ui-element-hidden' ) ) {
-			return this.$element.find( '.oo-ui-processDialog-errors' )[0].scrollHeight;
+			return this.$element.find( '.oo-ui-processDialog-errors' )[ 0 ].scrollHeight;
 		}
 		return 80;
 	};

@@ -6,7 +6,6 @@
 			me.dialog.show();
 		} else {
 			mw.loader.using( [ 'ext.nsfilerepo.filepage' ] ).done( function () {
-				var $me = $( me );
 				me.dialog = new nsfr.ui.dialog.ChangeFileNamespaceAssociation( {
 					unprefixedFileName: config.unprefixedFilename,
 					currentNS: config.currentNamespace,
