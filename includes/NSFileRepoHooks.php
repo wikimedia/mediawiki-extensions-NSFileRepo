@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class NSFileRepoHooks {
 	public static function register() {
 		require_once( __DIR__.'/DefaultSettings.php' );
