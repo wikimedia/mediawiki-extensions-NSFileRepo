@@ -7,5 +7,11 @@
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Prekliči",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Imenski prostor",
 	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Imenski prostor",
-	"nsfilerepo-nsmain": "(Osnovno)"
+	"nsfilerepo-nsmain": "(Osnovno)",
+	"nsfilerepo-desc": "Za naložene datoteke zagotavlja možnosti glede na imenski prostor",
+	"nsfilerepo-upload-target": "Ime ciljne datoteke v imenskem prostoru",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Tega polja pri ponovnem nalaganju datoteke ni mogoče spremeniti",
+	"nsfilerepo-move-file-namespace-action-label": "Določite imenski prostor datoteke",
+	"nsfilerepo-move-file-namespace-dialog-title": "Določite imenski prostor datoteke",
+	"nsfilerepo-move-file-namespace-dialog-button-done": "Končano"
 }
