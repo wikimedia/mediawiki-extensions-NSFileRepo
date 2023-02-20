@@ -142,8 +142,9 @@ window.nsfr.ui.dialog = window.nsfr.ui.dialog || {};
 	};
 
 	thePrototype.getBodyHeight = function () {
+		// eslint-disable-next-line no-jquery/no-class-state
 		if ( !this.$errors.hasClass( 'oo-ui-element-hidden' ) ) {
-			return this.$element.find( '.oo-ui-processDialog-errors' )[0].scrollHeight;
+			return this.$element.find( '.oo-ui-processDialog-errors' )[ 0 ].scrollHeight;
 		}
 		return 80;
 	};
