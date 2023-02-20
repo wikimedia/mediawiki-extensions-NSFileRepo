@@ -24,13 +24,7 @@ class FixOldImage extends Maintenance {
 
 		$count = 0;
 		$log = '';
-
-		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
-			// MediaWiki 1.34+
-			$repo = MediaWikiServices::getInstance()->getRepoGroup()->getRepo( 'local' );
-		} else {
-			$repo = RepoGroup::singleton()->getRepo( 'local' );
-		}
+		$repo = MediaWikiServices::getInstance()->getRepoGroup()->getRepo( 'local' );
 
 		foreach( $images as $image ) {
 			$nameBits = explode( ':', $image->oi_name );
