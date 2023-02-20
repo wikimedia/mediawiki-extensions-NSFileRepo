@@ -27,12 +27,7 @@ class CheckFiles extends Maintenance {
 			__METHOD__
 		);
 
-		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
-			// MediaWiki 1.34+
-			$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
-		} else {
-			$repoGroup = RepoGroup::singleton();
-		}
+		$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
 
 		foreach( $res as $row ) {
 			$sName = preg_replace( '/_/', ' ', $row->img_name );
