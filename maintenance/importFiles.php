@@ -127,6 +127,7 @@ class ImportFiles extends Maintenance {
 	 */
 	public function processFile( $file ) {
 		$filename = $file->getFileName();
+		$services = MediaWikiServices::getInstance();
 
 		// NSFileRep: Use the text till first '_' as namespace
 		$pos = strpos( $filename, '_' );
@@ -142,7 +143,7 @@ class ImportFiles extends Maintenance {
 		$filename = preg_replace( '#(_)+#si', '_', $filename );
 
 		$targetTitle = Title::makeTitle( NS_FILE, $filename );
-		$repo = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo();
+		$repo = $services->getRepoGroup()->getLocalRepo();
 
 		$this->output( "Using target title {$targetTitle->getPrefixedDBkey()} " );
 
@@ -163,7 +164,7 @@ class ImportFiles extends Maintenance {
 		$commentText = $this->getOption( 'comment', '' );
 
 		if ( !$this->hasOption( 'dry' ) ) {
-			$mwProps = new MWFileProps( MediaWiki\MediaWikiServices::getInstance()->getMimeAnalyzer() );
+			$mwProps = new MWFileProps( $services->getMimeAnalyzer() );
 			$props = $mwProps->getPropsFromPath( $file->getPathname(), true );
 			$flags = 0;
 			$publishOptions = [];
@@ -185,10 +186,11 @@ class ImportFiles extends Maintenance {
 
 		$commentText = SpecialUpload::getInitialPageText( $commentText, '' );
 		$summary = $this->getOption( 'summary', '' );
+		$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 
 		if ( $this->hasOption( 'dry' ) ) {
 			$this->output( "done.\n" );
-		} elseif ( $repoFile->recordUpload2( $archive->value, $summary, $commentText, $props, false ) ) {
+		} elseif ( $repoFile->recordUpload3( $archive->value, $summary, $commentText, $user, $props ) ) {
 			$this->output( "done.\n" );
 		}
 
