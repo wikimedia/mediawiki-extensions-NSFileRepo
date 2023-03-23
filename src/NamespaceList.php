@@ -89,7 +89,8 @@ class NamespaceList {
 			return true;
 		}
 
-		$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
+		$services = MediaWikiServices::getInstance();
+		$namespaceInfo = $services->getNamespaceInfo();
 		if( $this->config->get( Config::CONFIG_SKIP_TALK )
 				&& $namespaceInfo->isTalk( $nsId ) ) {
 			return true;
@@ -97,13 +98,8 @@ class NamespaceList {
 
 		if( !empty( $permission ) ) {
 			$title = \Title::makeTitle( $nsId, 'Dummy' );
-			if ( class_exists( \MediaWiki\Permissions\PermissionManager::class ) ) {
-				// MediaWiki 1.33+
-				return !MediaWikiServices::getInstance()->getPermissionManager()
-					->userCan( $permission, $this->user, $title );
-			} else {
-				return !$title->userCan( $permission, $this->user );
-			}
+			return !$services->getPermissionManager()
+				->userCan( $permission, $this->user, $title );
 		}
 
 		return false;
