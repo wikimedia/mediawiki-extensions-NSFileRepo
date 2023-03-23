@@ -113,7 +113,7 @@ nsfr.EnhancedUploadParamsProcessor.prototype._getInvalidNamespaces = function ()
 			excludeNS.push( nsId );
 			continue;
 		}
-		// eslint-disable-next-line no-restricted-syntax
+		// eslint-disable-next-line es-x/no-string-prototype-includes, es-x/no-array-prototype-includes
 		if ( namespacesBlacklist.includes( nsId ) ) {
 			excludeNS.push( nsId );
 			continue;
