@@ -12,5 +12,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "Sett filnavnerom",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Ferdig",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Avbryt",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Navnerom"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Navnerom",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Navnerom"
 }
