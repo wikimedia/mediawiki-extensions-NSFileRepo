@@ -7,10 +7,10 @@
 			"Wladek92"
 		]
 	},
-	"nsfilerepo-desc": "Ajoute des fonctionnalités aux fichiers téléversés par espace de nom",
+	"nsfilerepo-desc": "Fournit des fonctionnalités basées sur l’espace de noms aux fichiers téléversés",
 	"nsfilerepo-upload-target": "Nom du fichier cible dans l’espace de noms",
 	"nsfilerepo-nsmain": "(Principal)",
-	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Il n'est pas possible de modifier ce champ en rechargeant un fichier",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Il n’est pas possible de modifier ce champ en retéléversant un fichier",
 	"nsfilerepo-move-file-namespace-action-label": "Définir l’espace de noms du fichier",
 	"nsfilerepo-move-file-namespace-dialog-title": "Définir l’espace de noms du fichier",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Terminé",
