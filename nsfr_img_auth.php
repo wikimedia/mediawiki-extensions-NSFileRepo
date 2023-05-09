@@ -119,6 +119,7 @@ function wfImageAuthMain() {
 	$repo = $services->getRepoGroup()->getRepo( 'local' );
 	$zone = strstr( ltrim( $path, '/' ), '/', true );
 
+	$hookContainer = \MediaWiki\MediaWikiServices::getInstance()->getHookContainer();
 	// Get the full file storage path and extract the source file name.
 	// (e.g. 120px-Foo.png => Foo.png or page2-120px-Foo.png => Foo.png).
 	// This only applies to thumbnails/transcoded, and each of them should
@@ -126,7 +127,7 @@ function wfImageAuthMain() {
 	if ( $zone === 'thumb' || $zone === 'transcoded' ) {
 		$name = wfBaseName( dirname( $path ) );
 		$filename = $repo->getZonePath( $zone ) . substr( $path, strlen( "/" . $zone ) );
-		Hooks::run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
+		$hookContainer->run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
 		// Check to see if the file exists
 		if ( !$repo->fileExists( $filename ) ) {
 			wfForbidden( 'img-auth-accessdenied', 'img-auth-nofile', $filename );
@@ -135,7 +136,7 @@ function wfImageAuthMain() {
 	} else {
 		$name = wfBaseName( $path ); // file is a source file
 		$filename = $repo->getZonePath( 'public' ) . $path;
-		Hooks::run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
+		$hookContainer->run( 'ImgAuthBeforeCheckFileExists', [ &$path, &$name, &$filename ] );
 		// Check to see if the file exists and is not deleted
 		$bits = explode( '!', $name, 2 );
 		if ( substr( $path, 0, 9 ) === '/archive/' && count( $bits ) == 2 ) {
@@ -173,7 +174,7 @@ function wfImageAuthMain() {
 	// Run hook for extension authorization plugins
 	/** @var array $result */
 	$result = null;
-	if ( !Hooks::runner()->onImgAuthBeforeStream( $title, $path, $name, $result ) ) {
+	if ( !$hookContainer->run( 'ImgAuthBeforeStream', [ $title, $path, $name, $result ] ) ) {
 		wfForbidden( $result[0], $result[1], array_slice( $result, 2 ) );
 		return;
 	}
@@ -211,7 +212,7 @@ function wfImageAuthMain() {
 	}
 
 	// Allow modification of headers before streaming a file
-	Hooks::runner()->onImgAuthModifyHeaders( $title->getTitleValue(), $headers );
+	$hookContainer->run( 'ImgAuthModifyHeaders', [ $title->getTitleValue(), $headers ] );
 
 	// Stream the requested file
 	list( $headers, $options ) = HTTPFileStreamer::preprocessHeaders( $headers );
