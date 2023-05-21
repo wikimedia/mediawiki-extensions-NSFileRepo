@@ -38,7 +38,7 @@ class PermissionCheckerTest extends TestCase {
 		$this->assertEquals( $expectedResult, $result );
 	}
 
-	public function provideTestOnGetUserPermissionsErrorsData() {
+	public static function provideTestOnGetUserPermissionsErrorsData() {
 		return [
 			'should-bail-out-for-wgWhitelistRead' => [
 				Title::newFromText( 'File:My_whiteliste_read_file.pdf' ),
