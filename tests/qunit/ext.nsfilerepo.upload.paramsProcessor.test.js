@@ -187,7 +187,6 @@
 		for ( var i = 0; i < 4; i++ ) {
 			var params = inputWithOption[ i ][ 0 ];
 			var processor = new nsfr.EnhancedUploadParamsProcessor();
-			processor.init();
 			var retrievedParams = processor.getParams( params, inputWithOption[ i ][ 1 ], false );
 			assert.deepEqual( retrievedParams, expectedParamsWithOption[ i ], 'params' );
 		}
