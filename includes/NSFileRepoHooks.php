@@ -5,10 +5,7 @@ use MediaWiki\MediaWikiServices;
 class NSFileRepoHooks {
 	public static function register() {
 		require_once __DIR__ . '/DefaultSettings.php';
-
-		array_unshift( $GLOBALS['wgExtensionFunctions'], static function () {
-			$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
-		} );
+		$GLOBALS['wgLocalFileRepo']['class'] = "NSLocalRepo";
 	}
 
 	/**
