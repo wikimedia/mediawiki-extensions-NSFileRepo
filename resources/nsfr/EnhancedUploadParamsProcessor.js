@@ -60,6 +60,11 @@ nsfr.EnhancedUploadParamsProcessor.prototype._makeUploadFilenameFromParams = fun
 	if ( prefixParts.length > 1 ) {
 		prefixNamespace = prefixParts[ 0 ];
 		prefixParts.splice( 0, 1 );
+
+		// Formatted namespaces does not contain underscores, they are replaced with spaces
+		// So we should replace all underscores with spaces to correctly recognize namespace
+		// Example: Namespace "ZT_ID" after formatting will change to "ZT ID"
+		prefixNamespace = prefixNamespace.replace( /_/g, ' ' );
 	}
 
 	var prefixStub = prefixParts.join( ':' );
