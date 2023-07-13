@@ -27,6 +27,16 @@
 			"UploadFormPluginModules": [
 				"ext.nsfilerepo.namespace.upload"
 			]
+		},
+		"DrawioEditor": {
+			"InspectorPluginModules": [
+				"ext.nsfilerepo.namespace.drawioeditor"
+			]
+		},
+		"CognitiveProcessDesigner": {
+			"InspectorPluginModules": [
+				"ext.nsfilerepo.namespace.cpd"
+			]
 		}
 	},
 	"AutoloadNamespaces": {
@@ -77,6 +87,24 @@
 			],
 			"dependencies": [
 				"ext.nsfilerepo.upload.paramsProcessor"
+			]
+		},
+		"ext.nsfilerepo.namespace.cpd": {
+			"scripts": [
+				"ext.nsfilerepo.namespace.cpd.js",
+				"nsfr/NamespaceFilenameProcessor.js"
+			],
+			"dependencies": [
+				"oojs-ui"
+			]
+		},
+		"ext.nsfilerepo.namespace.drawioeditor": {
+			"scripts": [
+				"ext.nsfilerepo.namespace.drawioeditor.js",
+				"nsfr/NamespaceFilenameProcessor.js"
+			],
+			"dependencies": [
+				"oojs-ui"
 			]
 		},
 		"ext.nsfilerepo.upload.paramsProcessor": {
