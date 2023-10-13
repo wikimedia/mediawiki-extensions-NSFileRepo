@@ -8,7 +8,7 @@ nsfr.EnhancedUploadParamsProcessor = function () {
 	this.targetNamespaceSelector = new mw.widgets.NamespaceInputWidget( {
 		exclude: excludeNS,
 		dropdown: {
-			$overlay: true
+			$overlay: this.$overlay
 		}
 	} );
 
