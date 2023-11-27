@@ -2,8 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Patriot Kor",
-			"Patriot Kur"
+			"Patriot Kur",
+			"Гусейн"
 		]
 	},
-	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Ləğv karde"
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Ləğv karde",
+	"nsfilerepo-nsmain": "(Əsosə)"
 }
