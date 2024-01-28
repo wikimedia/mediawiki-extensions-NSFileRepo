@@ -12,5 +12,6 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "'Mboste 'u namespace d'u file",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Fatte",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annulle",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Namespace"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Namespace",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Namespace"
 }
