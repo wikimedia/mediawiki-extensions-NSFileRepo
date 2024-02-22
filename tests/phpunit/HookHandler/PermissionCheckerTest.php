@@ -35,7 +35,11 @@ class PermissionCheckerTest extends TestCase {
 		$result = true;
 		$handler->onGetUserPermissionsErrors( $title, $user, $action, $result );
 
-		$this->assertEquals( $expectedResult, $result );
+		if ( $expectedResult === false ) {
+			$this->assertIsArray( $result, "Expected an array of errors when permission check fails" );
+		} else {
+			$this->assertTrue( $result, "Expected true for permission check success" );
+		}
 	}
 
 	public static function provideTestOnGetUserPermissionsErrorsData() {

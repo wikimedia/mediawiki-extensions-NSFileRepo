@@ -66,7 +66,7 @@ class PermissionChecker implements GetUserPermissionsErrorsHook {
 		// Additional check for NS_MAIN: If a user is not allowed to read NS_MAIN he should also be not allowed
 		//to view files with no namespace-prefix as they are logically assigned to namespace NS_MAIN
 		$titleIsNSMAIN = $ntitle->getNamespace() === NS_MAIN;
-		$titleNSaboveThreshold = $ntitle->getNamespace() > $this->config->get( 'NamespaceThreshold' );
+		$titleNSaboveThreshold = $ntitle->getNamespace() >= $this->config->get( 'NamespaceThreshold' );
 		if ( $titleIsNSMAIN || $titleNSaboveThreshold ) {
 			$errors = $this->permManager->getPermissionErrors(
 				$action,
@@ -74,7 +74,7 @@ class PermissionChecker implements GetUserPermissionsErrorsHook {
 				$ntitle
 			);
 			if ( !empty( $errors ) ) {
-				$result = false;
+				$result = $errors;
 				return false;
 			}
 		}
