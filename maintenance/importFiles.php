@@ -29,6 +29,7 @@ class ImportFiles extends Maintenance {
 	 *
 	 */
 	public function __construct() {
+		parent::__construct();
 		$this->addOption( 'overwrite', 'Overwrite existing files?' );
 		$this->addOption( 'dry', 'Dry run. Do not actually upload files to the repo' );
 		$this->addOption( 'summary', 'A summary for all file uploads' );
