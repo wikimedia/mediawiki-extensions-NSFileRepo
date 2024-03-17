@@ -96,7 +96,7 @@ class ImportFiles extends Maintenance {
 			}
 			if ( !empty( $fileExtensions ) ) {
 				$fileExt = strtolower( $file->getExtension() );
-				if ( !in_array( $fileExt,  $fileExtensions ) ) {
+				if ( !in_array( $fileExt, $fileExtensions ) ) {
 					continue;
 				}
 			}

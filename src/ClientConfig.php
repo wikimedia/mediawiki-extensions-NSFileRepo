@@ -11,7 +11,7 @@ class ClientConfig {
 	public static function makeConfigJson() {
 		$config = new \NSFileRepo\Config();
 		return [
-			'egNSFileRepoSkipTalk' => $config->get( 'SkipTalk' ) ,
+			'egNSFileRepoSkipTalk' => $config->get( 'SkipTalk' ),
 			'egNSFileRepoNamespaceBlacklist' => $config->get( 'NamespaceBlacklist' ),
 			'egNSFileRepoNamespaceThreshold' => $config->get( 'NamespaceThreshold' )
 		];
