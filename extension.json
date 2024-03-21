@@ -37,6 +37,11 @@
 			"InspectorPluginModules": [
 				"ext.nsfilerepo.namespace.cpd"
 			]
+		},
+		"EnhancedStandardUIs": {
+			"FilelistPluginModules": [
+				"ext.nsfilerepo.filelist"
+			]
 		}
 	},
 	"AutoloadNamespaces": {
@@ -55,6 +60,9 @@
 		"NSOldLocalFile": "includes/filerepo/file/NSOldLocalFile.php",
 		"NSFileRepoFSFileBackend": "includes/filebackend/NSFileRepoFSFileBackend.php",
 		"NSFileRepoHelper": "includes/utility/NSFileRepoHelper.php"
+	},
+	"DefaultUserOptions": {
+		"filelist-show-namespace_text": 1
 	},
 	"ResourceModules": {
 		"ext.nsfilerepo.special.upload": {
@@ -123,6 +131,14 @@
 				"mediawiki.widgets",
 				"oojs-ui"
 			]
+		},
+		"ext.nsfilerepo.filelist": {
+			"packageFiles": [
+				"ext.nsfilerepo.filelist.js"
+			],
+			"messages": [
+				"nsfilerepo-enhanced-filelist-grid-namespace-title"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -133,6 +149,13 @@
 		"permission-checker": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\PermissionChecker",
 			"services": [ "MainConfig", "PermissionManager" ]
+		},
+		"addNamespaces": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddNamespaceToFilelist",
+			"services": [ "MainConfig" ]
+		},
+		"userpreference": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddUserPreference"
 		}
 	},
 	"Hooks": {
@@ -143,7 +166,9 @@
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
 		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
 		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
-		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle"
+		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle",
+		"MWStakeCommonWebAPIsQueryStoreResult": "addNamespaces",
+		"GetPreferences": "userpreference"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",
