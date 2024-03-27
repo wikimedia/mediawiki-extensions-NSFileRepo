@@ -14,7 +14,7 @@ class FixOldImage extends Maintenance {
 	}
 
 	function execute() {
-		$dbw = wfGetDB( DB_PRIMARY );
+		$dbw = $this->getDB( DB_PRIMARY );
 		print( "USING DB: " . $dbw->getDBName() . "\n" );
 		$images = $dbw->select( 'oldimage',
 			array( 'oi_name', 'oi_archive_name' ),
