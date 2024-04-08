@@ -285,7 +285,7 @@ class NSLocalFile extends LocalFile {
 			return $this->readOnlyFatalStatus();
 		}
 
-		$this->lock(); // begin
+		$this->acquireFileLock( 10 ); // begin
 
 		$archiveName = wfTimestamp( TS_MW ) . '!'. $this->getName();
 /* This is the part that changed from LocalFile */
@@ -302,7 +302,7 @@ class NSLocalFile extends LocalFile {
 		}
 
 		$this->purgeThumbnails();
-		$this->unlock(); // done
+		$this->releaseFileLock(); // done
 
 		return $status;
 	}
@@ -329,11 +329,11 @@ class NSLocalFile extends LocalFile {
 		$batch = new NSLocalFileMoveBatch( $this, $target );
 /* End of changes */
 
-		$this->lock(); // begin
+		$this->acquireFileLock( 10 ); // begin
 		$batch->addCurrent();
 		$archiveNames = $batch->addOlds();
 		$status = $batch->execute();
-		$this->unlock(); // done
+		$this->releaseFileLock(); // done
 
 		wfDebugLog( 'imagemove', "Finished moving {$this->name}" );
 
