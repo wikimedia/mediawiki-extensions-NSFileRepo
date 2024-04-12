@@ -15,7 +15,7 @@ class NSFileRepoHooks {
 	 * @return boolean true
 	 */
 	public static function onBeforePageDisplay( &$out, &$skin ) {
-		if ( $out->getTitle()->isSpecial( 'Upload' ) ) {
+		if ( $out->getTitle() && $out->getTitle()->isSpecial( 'Upload' ) ) {
 			$out->addModules( 'ext.nsfilerepo.special.upload' );
 		}
 
