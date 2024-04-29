@@ -5,14 +5,18 @@
 			"Liuxinyu970226",
 			"NekoCharm",
 			"Xiplus",
-			"Yfdyh000"
+			"Yfdyh000",
+			"\u6c88\u6f84\u5fc3"
 		]
 	},
-	"nsfilerepo-desc": "提供基于命名空间的特性到上传的文件",
-	"nsfilerepo-upload-target": "命名空间中的目标文件名称",
-	"nsfilerepo-nsmain": "（主）",
-	"nsfilerepo-move-file-namespace-dialog-button-done": "完成",
-	"nsfilerepo-move-file-namespace-dialog-button-cancel": "取消",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "命名空间",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "命名空间"
+	"nsfilerepo-desc": "\u63d0\u4f9b\u57fa\u4e8e\u547d\u540d\u7a7a\u95f4\u7684\u7279\u6027\u5230\u4e0a\u4f20\u7684\u6587\u4ef6",
+	"nsfilerepo-upload-target": "\u547d\u540d\u7a7a\u95f4\u4e2d\u7684\u76ee\u6807\u6587\u4ef6\u540d\u79f0",
+	"nsfilerepo-nsmain": "\uff08\u4e3b\uff09",
+	"nsfilerepo-move-file-namespace-dialog-button-done": "\u5b8c\u6210",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "\u53d6\u6d88",
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "\u547d\u540d\u7a7a\u95f4",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "\u547d\u540d\u7a7a\u95f4",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "\u91cd\u65b0\u4e0a\u4f20\u6587\u4ef6\u65f6\u65e0\u6cd5\u4fee\u6539\u6b64\u5b57\u6bb5",
+	"nsfilerepo-move-file-namespace-action-label": "\u8bbe\u7f6e\u6587\u4ef6\u547d\u540d\u7a7a\u95f4",
+	"nsfilerepo-move-file-namespace-dialog-title": "\u8bbe\u7f6e\u6587\u4ef6\u547d\u540d\u7a7a\u95f4"
 }
