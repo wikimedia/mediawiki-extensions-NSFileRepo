@@ -102,7 +102,8 @@ class SkinTemplateNavigationUniversal {
 	}
 
 	private function isFilePage() {
-		return $this->sktemplate->getTitle()->getNamespace() === NS_FILE;
+		$title = $this->sktemplate->getTitle();
+		return $title && $title->getNamespace() === NS_FILE;
 	}
 
 	private function makeExcludeNS( $editableNamespaces ) {
