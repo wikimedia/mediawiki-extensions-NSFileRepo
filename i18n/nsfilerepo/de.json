@@ -17,5 +17,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Fertig",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Abbrechen",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Namensraum",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Namensraum"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Namensraum",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Namensraum"
 }

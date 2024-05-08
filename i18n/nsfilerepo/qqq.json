@@ -22,5 +22,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Label for a dialog button to confirm {{Identical|upload-dialog-button-done}}",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Label for a dialog button to cancel {{Identical|Cancel}}",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Label for input field to choose a namespace from\n{{Identical|Namespace}}",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Label for input field to choose a namespace from\n{{Identical|Namespace}}"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Label for input field to choose a namespace from\n{{Identical|Namespace}}",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Label for grid column which contains namespace label for each file\n{{Identical|Namespace}}"
 }
