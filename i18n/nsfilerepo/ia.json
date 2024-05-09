@@ -13,5 +13,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Facite",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Cancellar",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Spatio de nomines",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Spatio de nomines"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Spatio de nomines",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Spatio de nomines"
 }
