@@ -10,5 +10,6 @@
 	"nsfilerepo-upload-target": "Seleziona namespace di destinazione",
 	"nsfilerepo-nsmain": "(Principale)",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annulla",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Namespace"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Namespace",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Namespace"
 }

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Volvox"
 		]
 	},
 	"nsfilerepo-desc": "Gëtt Nummraum baséiert Funktioune fir eropgeluede Fichieren",
@@ -11,5 +12,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Fäerdeg",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Ofbriechen",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Nummraum",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Nummraum"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Nummraum",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Nummraum"
 }
