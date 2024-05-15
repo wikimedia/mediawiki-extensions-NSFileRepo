@@ -16,5 +16,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Klaar",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annuleren",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Naamruimte",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Naamruimte"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Naamruimte",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Naamruimte"
 }
