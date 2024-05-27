@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ykhwong",
-			"아라"
+			"아라",
+			"Markingdots"
 		]
 	},
 	"nsfilerepo-desc": "올린 파일을 이름공간 기반으로 기능 제공",
@@ -12,5 +13,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "완료",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "취소",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "이름공간",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "이름공간"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "이름공간",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "이름공간"
 }
