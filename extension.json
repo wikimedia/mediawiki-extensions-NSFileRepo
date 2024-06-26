@@ -156,12 +156,16 @@
 		},
 		"userpreference": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddUserPreference"
+		},
+		"specialFilelistAvailableNamespaces": {
+			"class": "NSFileRepo\\Hooks\\SpecialFilelistAvailableNamespaces",
+			"services": [ "DBLoadBalancer" ]
 		}
 	},
 	"Hooks": {
 		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
 		"getUserPermissionsErrors": "permission-checker",
-		"BeforePageDisplay": "NSFileRepoHooks::onBeforePageDisplay",
+		"BeforePageDisplay": [ "NSFileRepoHooks::onBeforePageDisplay", "specialFilelistAvailableNamespaces" ],
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
 		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
