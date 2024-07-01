@@ -15,5 +15,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "完成",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "取消",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "命名空間",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "命名空間"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "命名空間",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "命名空間"
 }
