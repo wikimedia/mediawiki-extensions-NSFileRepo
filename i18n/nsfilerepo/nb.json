@@ -13,5 +13,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Ferdig",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Avbryt",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Navnerom",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Navnerom"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Navnerom",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Navnerom"
 }
