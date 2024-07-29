@@ -3,6 +3,7 @@
 		"authors": [
 			"Gomoko",
 			"IAlex",
+			"SleaY",
 			"Verdy p",
 			"Wladek92"
 		]
@@ -16,5 +17,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Terminé",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annuler",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espace de noms",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espace de noms"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espace de noms",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Espace de noms"
 }
