@@ -18,5 +18,8 @@
 		"no-shadow-restricted-names": "warn",
 		"no-implicit-globals": "warn",
 		"no-jquery/no-global-selector": "warn"
+	},
+	"parserOptions": {
+		"ecmaVersion": 6
 	}
 }

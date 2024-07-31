@@ -12,6 +12,14 @@ nsfr.EnhancedUploadParamsProcessor = function () {
 		}
 	} );
 
+	// Add aria-label to 'Namespace' textbox
+	this.targetNamespaceSelector.$element.find( 'span[role="textbox"]' ).each( ( index, element ) => {
+		const $element = $( element );
+		if ( !$element.attr( 'aria-label' ) ) {
+			$element.attr( 'aria-label', OO.ui.msg( 'nsfilerepo-upload-file-namespace-namespaceselector-label' ) );
+		}
+	} );
+
 	this.targetNamespaceSelectorLayout = new OO.ui.FieldLayout( this.targetNamespaceSelector, {
 		label: mw.message( 'nsfilerepo-upload-file-namespace-namespaceselector-label' ).plain(),
 		align: 'left'
