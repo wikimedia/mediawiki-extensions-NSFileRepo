@@ -4,7 +4,8 @@
 			"Gomoko",
 			"IAlex",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"SleaY"
 		]
 	},
 	"nsfilerepo-desc": "Fournit des fonctionnalités basées sur l’espace de noms aux fichiers téléversés",
@@ -16,5 +17,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Terminé",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Annuler",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espace de noms",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espace de noms"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espace de noms",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Espace de noms"
 }
