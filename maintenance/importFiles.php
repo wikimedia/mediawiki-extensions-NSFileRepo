@@ -11,8 +11,6 @@
 
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
-use MediaWiki\MediaWikiServices;
-
 class ImportFiles extends Maintenance {
 
 	/**
@@ -128,7 +126,7 @@ class ImportFiles extends Maintenance {
 	 */
 	public function processFile( $file ) {
 		$filename = $file->getFileName();
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 
 		// NSFileRep: Use the text till first '_' as namespace
 		$pos = strpos( $filename, '_' );

@@ -3,7 +3,6 @@
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
 use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
-use MediaWiki\MediaWikiServices;
 
 class FixOldImage extends Maintenance {
 	/** @var string */
@@ -29,7 +28,7 @@ class FixOldImage extends Maintenance {
 
 		$count = 0;
 		$log = '';
-		$repo = MediaWikiServices::getInstance()->getRepoGroup()->getRepo( 'local' );
+		$repo = $this->getServiceContainer()->getRepoGroup()->getRepo( 'local' );
 
 		foreach ( $images as $image ) {
 			$nameBits = explode( ':', $image->oi_name );
