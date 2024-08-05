@@ -5,6 +5,8 @@ namespace MediaWiki\Extension\NSFileRepo\Tests;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 
+use MediaWiki\MainConfigNames;
+
 /**
  * @covers \MediaWiki\Extension\NSFileRepo\NamespaceList
  */
@@ -14,25 +16,21 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	public const DUMMY_NS_B_ID = 12512;
 	public const DUMMY_NS_C_ID = 12612;
 
-	protected function setUp(): void {
-		global $wgExtraNamespaces, $wgNamespaceContentModels, $wgContentHandlers;
-
+	protected function setUp() : void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgExtraNamespaces' => $wgExtraNamespaces,
-			'wgNamespaceContentModels' => $wgNamespaceContentModels,
-			'wgContentHandlers' => $wgContentHandlers,
-		] );
+		$extraNamespaces = $this->getConfVal( MainConfigNames::ExtraNamespaces );
 
-		$wgExtraNamespaces[self::DUMMY_NS_A_ID] = 'NSFRDummyA';
-		$wgExtraNamespaces[self::DUMMY_NS_A_ID + 1] = 'NSFRDummyA_talk';
+		$extraNamespaces[self::DUMMY_NS_A_ID] = 'NSFRDummyA';
+		$extraNamespaces[self::DUMMY_NS_A_ID + 1] = 'NSFRDummyA_talk';
 
-		$wgExtraNamespaces[self::DUMMY_NS_B_ID] = 'NSFRDummyB';
-		$wgExtraNamespaces[self::DUMMY_NS_B_ID + 1] = 'NSFRDummyB_talk';
+		$extraNamespaces[self::DUMMY_NS_B_ID] = 'NSFRDummyB';
+		$extraNamespaces[self::DUMMY_NS_B_ID + 1] = 'NSFRDummyB_talk';
 
-		$wgExtraNamespaces[self::DUMMY_NS_C_ID] = 'NSFRDummyC';
-		$wgExtraNamespaces[self::DUMMY_NS_C_ID + 1] = 'NSFRDummyC_talk';
+		$extraNamespaces[self::DUMMY_NS_C_ID] = 'NSFRDummyC';
+		$extraNamespaces[self::DUMMY_NS_C_ID + 1] = 'NSFRDummyC_talk';
+
+		$this->overrideConfigValue( MainConfigNames::ExtraNamespaces, $extraNamespaces );
 
 		$this->getServiceContainer()
 			->getNamespaceInfo()
