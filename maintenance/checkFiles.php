@@ -3,7 +3,6 @@
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
 use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
-use MediaWiki\MediaWikiServices;
 
 /**
  * This script checks if all files in DB have their
@@ -28,7 +27,7 @@ class CheckFiles extends Maintenance {
 			__METHOD__
 		);
 
-		$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
+		$repoGroup = $this->getServiceContainer()->getRepoGroup();
 
 		foreach ( $res as $row ) {
 			$sName = preg_replace( '/_/', ' ', $row->img_name );
