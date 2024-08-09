@@ -105,7 +105,7 @@ class NSLocalFile extends LocalFile {
 		$bits = explode( ':',$this->getName() );
 		if ( count($bits) > 1 ) $thumbName = $bits[0] . ":" . $thumbName;
 /* End of changes */
-		return $thumbName;
+		return self::getFileNameStripped( $thumbName );
 	}
 
 	/**
