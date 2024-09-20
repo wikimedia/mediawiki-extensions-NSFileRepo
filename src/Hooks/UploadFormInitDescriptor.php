@@ -104,7 +104,7 @@ class UploadFormInitDescriptor {
 			'NSFR_Namespace' => [
 				'label'    => wfMessage('namespace')->plain(),
 				'section'  => 'description',
-				'class'    => 'HTMLSelectField',
+				'class'    => \HTMLSelectField::class,
 				'options'  => $this->namespaceSelectOptions,
 				'required' => true,
 				'default' => $this->selectedNamespace
