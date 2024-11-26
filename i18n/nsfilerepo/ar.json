@@ -15,5 +15,6 @@
 	"nsfilerepo-move-file-namespace-dialog-button-done": "تم",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "إلغاء",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "النطاق",
-	"nsfilerepo-upload-file-namespace-namespaceselector-label": "النطاق"
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "النطاق",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "النطاق"
 }
