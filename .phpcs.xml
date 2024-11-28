@@ -4,22 +4,4 @@
 	<file>.</file>
 	<arg name="extensions" value="php"/>
 	<arg name="encoding" value="UTF-8"/>
-	<exclude-pattern>maintenance/checkFiles.php</exclude-pattern>
-	<exclude-pattern>maintenance/fixOldImage.php</exclude-pattern>
-	<exclude-pattern>maintenance/removeDuplicateNS.php</exclude-pattern>
-	<exclude-pattern>includes/filebackend/NSFileRepoFSFileBackend.php</exclude-pattern>
-	<exclude-pattern>includes/NSFileRepoHooks.php</exclude-pattern>
-	<exclude-pattern>includes/filerepo/NSLocalRepo.php</exclude-pattern>
-	<exclude-pattern>includes/filerepo/file/NSLocalFile.php</exclude-pattern>
-	<exclude-pattern>includes/filerepo/file/NSOldLocalFile.php</exclude-pattern>
-	<exclude-pattern>includes/utility/NSFileRepoHelper.php</exclude-pattern>
-	<exclude-pattern>includes/DefaultSettings.php</exclude-pattern>
-	<exclude-pattern>src/Hooks/UploadFormBeforeProcessing.php</exclude-pattern>
-	<exclude-pattern>src/Hooks/SkinTemplateNavigationUniversal.php</exclude-pattern>
-	<exclude-pattern>src/Hooks/UploadFormInitDescriptor.php</exclude-pattern>
-	<exclude-pattern>src/NamespaceList.php</exclude-pattern>
-	<exclude-pattern>src/Config.php</exclude-pattern>
-	<exclude-pattern>src/MWNamespace.php</exclude-pattern>
-	<exclude-pattern>tests/phpunit/NamespaceListTest.php</exclude-pattern>
-	<exclude-pattern>nsfr_img_auth.php</exclude-pattern>
 </ruleset>

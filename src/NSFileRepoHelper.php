@@ -1,6 +1,15 @@
 <?php
 
+namespace MediaWiki\Extension\NSFileRepo;
+
+use Title;
+use UploadBase;
+
+/**
+ * Helper class for NSFileRepo
+ */
 class NSFileRepoHelper {
+	/** @var string */
 	protected $pathRegEx = '#\\/(thumb\\/|archive\\/|deleted\\/)?(\d*?)?\\/[a-f0-9]{1}\\/[a-f0-9]{2}\\/(.*?)$#';
 
 	/**
@@ -9,22 +18,23 @@ class NSFileRepoHelper {
 	 * Examples for $path:
 	 * /thumb/1502/7/78/Some_File.png/300px-Some_File.png
 	 * /1502/7/78/Some_File.png
-	 * @param $path
+	 * @param string $path
 	 * @return null|Title
 	 */
 	public function getTitleFromPath( $path ) {
 		$filename = wfBaseName( $path );
-		if( UploadBase::isThumbName( $filename ) ) {
-			//HINT: Thumbname-to-filename-conversion taken from includes/Upload/UploadBase.php
-			//Check for filenames like 50px- or 180px-, these are mostly thumbnails
-			$filename = substr( $filename , strpos( $filename , '-' ) +1 );
+		if ( UploadBase::isThumbName( $filename ) ) {
+			// HINT: Thumbname-to-filename-conversion taken from includes/Upload/UploadBase.php
+			// Check for filenames like 50px- or 180px-, these are mostly thumbnails
+			$filename = substr( $filename, strpos( $filename, '-' ) + 1 );
 		}
 
 		$title = Title::newFromText( $filename );
 
-		$matches = array();
-		preg_match( $this->pathRegEx , $path, $matches );
-		if( empty( $matches[2] ) ) { //Not a file from a namespace?
+		$matches = [];
+		preg_match( $this->pathRegEx, $path, $matches );
+		if ( empty( $matches[2] ) ) {
+			// Not a file from a namespace?
 			return $title;
 		}
 

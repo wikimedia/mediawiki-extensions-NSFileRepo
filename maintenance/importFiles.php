@@ -9,7 +9,7 @@
  * A file 'ABC_My_File.png' will be uploaded to the wiki as 'ABC:My File.png'
  */
 
-require_once dirname( dirname( dirname( __DIR__ ) ) ) . '/maintenance/Maintenance.php';
+require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
 use MediaWiki\MediaWikiServices;
 

@@ -2,6 +2,9 @@
 
 namespace NSFileRepo\Hooks;
 
+use MediaWiki\Extension\NSFileRepo\Config;
+use MediaWiki\Extension\NSFileRepo\NamespaceList;
+
 class UploadFormInitDescriptor {
 
 	/**
@@ -22,11 +25,20 @@ class UploadFormInitDescriptor {
 	 */
 	protected $descriptor = [];
 
+	/** @var array */
+	protected $namespaceSelectOptions = [];
+
+	/** @var string */
+	protected $selectedNamespace = '';
+
+	/** @var array */
+	protected $fieldDef = [];
+
 	/**
 	 *
 	 * @param \IContextSource $context
 	 * @param \Config $config
-	 * @param array $descriptor
+	 * @param array &$descriptor
 	 */
 	public function __construct( \IContextSource $context, \Config $config, &$descriptor ) {
 		$this->context = $context;
@@ -36,19 +48,22 @@ class UploadFormInitDescriptor {
 
 	/**
 	 * Add fields to Special:Upload
-	 * @param array $descriptor
-	 * @return boolean
+	 * @param array &$descriptor
+	 * @return bool
 	 */
 	public static function handle( &$descriptor ) {
 		$instance = new self(
 			\RequestContext::getMain(),
-			new \NSFileRepo\Config(),
+			new Config(),
 			$descriptor
 		);
 
 		return $instance->process();
 	}
 
+	/**
+	 * @return true
+	 */
 	public function process() {
 		$this->setDefaultNamespace();
 		$this->setNamespaceSelectOptions();
@@ -58,18 +73,19 @@ class UploadFormInitDescriptor {
 		return true;
 	}
 
-	protected $selectedNamespace = '';
-
+	/**
+	 * @return void
+	 */
 	protected function setDefaultNamespace() {
 		$this->selectedNamespace = '-';
-		//"wpDestFile" is set on query string. e.g after click on redlink or on re-upload
-		if( !empty( $this->descriptor['DestFile']['default'] ) ) {
+		// "wpDestFile" is set on query string. e.g after click on redlink or on re-upload
+		if ( !empty( $this->descriptor['DestFile']['default'] ) ) {
 			$target = $this->descriptor['DestFile']['default'];
 			$target = str_replace( '_', ' ', $target );
 			$targetPieces = explode( ':', $target );
 
 			$nsText = '';
-			if( count( $targetPieces) > 1 ) {
+			if ( count( $targetPieces ) > 1 ) {
 				$nsText = str_replace( ' ', '_', $targetPieces[0] );
 				$target = $targetPieces[1];
 			}
@@ -79,30 +95,32 @@ class UploadFormInitDescriptor {
 		}
 	}
 
-	protected $namespaceSelectOptions = [];
-
+	/**
+	 * @return void
+	 */
 	protected function setNamespaceSelectOptions() {
-		$namespaceList = new \NSFileRepo\NamespaceList(
+		$namespaceList = new NamespaceList(
 			$this->context->getUser(),
 			$this->config,
 			$this->context->getLanguage()
 		);
 
-		foreach( $namespaceList->getEditable() as $nsId => $namespace ) {
+		foreach ( $namespaceList->getEditable() as $nsId => $namespace ) {
 			$this->namespaceSelectOptions[$namespace->getDisplayName()]
 				= $namespace->getCanonicalName();
-			if( $nsId === NS_MAIN ) {
+			if ( $nsId === NS_MAIN ) {
 				$this->namespaceSelectOptions[$namespace->getDisplayName()] = '-';
 			}
 		}
 	}
 
-	protected $fieldDef = [];
-
+	/**
+	 * @return void
+	 */
 	protected function setFieldDefinitions() {
 		$this->fieldDef = [
 			'NSFR_Namespace' => [
-				'label'    => wfMessage('namespace')->plain(),
+				'label'    => wfMessage( 'namespace' )->plain(),
 				'section'  => 'description',
 				'class'    => \HTMLSelectField::class,
 				'options'  => $this->namespaceSelectOptions,
@@ -120,7 +138,7 @@ class UploadFormInitDescriptor {
 			],
 		];
 
-		//Prevent change of this fields value when it's a reupload
+		// Prevent change of this fields value when it's a reupload
 		if ( isset( $this->descriptor['ForReUpload'] ) ) {
 			$this->fieldDef['NSFR_Namespace']['disabled'] = true;
 			$this->fieldDef['NSFR_Namespace']['help-message']
@@ -128,12 +146,15 @@ class UploadFormInitDescriptor {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	protected function modifyDescriptor() {
 		$pos = array_search( 'UploadDescription', array_keys( $this->descriptor ) );
 
 		$this->descriptor =
 			array_slice( $this->descriptor, 0, $pos, true ) +
 			$this->fieldDef +
-			array_slice( $this->descriptor, $pos, count( $this->descriptor ) - 1, true ) ;
+			array_slice( $this->descriptor, $pos, count( $this->descriptor ) - 1, true );
 	}
 }

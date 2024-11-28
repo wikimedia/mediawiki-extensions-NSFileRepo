@@ -1,12 +1,15 @@
 <?php
 
-namespace NSFileRepo;
+namespace MediaWiki\Extension\NSFileRepo;
 
 class Config extends \GlobalVarConfig {
-	const CONFIG_SKIP_TALK = 'SkipTalk';
-	const CONFIG_THRESHOLD = 'NamespaceThreshold';
-	const CONFIG_BLACKLIST = 'NamespaceBlacklist';
+	public const CONFIG_SKIP_TALK = 'SkipTalk';
+	public const CONFIG_THRESHOLD = 'NamespaceThreshold';
+	public const CONFIG_BLACKLIST = 'NamespaceBlacklist';
 
+	/**
+	 * @inheritDoc
+	 */
 	public function __construct() {
 		parent::__construct( 'egNSFileRepo' );
 	}

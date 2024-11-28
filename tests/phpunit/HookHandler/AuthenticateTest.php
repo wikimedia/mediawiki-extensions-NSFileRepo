@@ -3,16 +3,18 @@
 namespace MediaWiki\Extension\NSFileRepo\Tests\HookHandler;
 
 use HashConfig;
-use MediaWiki\Extension\NSFileRepo\HookHandler\PermissionChecker;
+use MediaWiki\Extension\NSFileRepo\HookHandler\Authenticate;
 use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Permissions\PermissionStatus;
+use MediaWiki\Title\TitleFactory;
 use PHPUnit\Framework\TestCase;
 use Title;
 use User;
 
 /**
- * @covers \MediaWiki\Extension\NSFileRepo\HookHandler\PermissionChecker
+ * @covers \MediaWiki\Extension\NSFileRepo\HookHandler\Authenticate
  */
-class PermissionCheckerTest extends TestCase {
+class AuthenticateTest extends TestCase {
 
 	/**
 	 * @dataProvider provideTestOnGetUserPermissionsErrorsData
@@ -24,11 +26,18 @@ class PermissionCheckerTest extends TestCase {
 		$permissionManager = $this->createMock( PermissionManager::class );
 		// We are mainly testing bail-out logic. So we assume, that every
 		// non-bail-out test will lead to access prevention.
-		$permissionManager->method( 'getPermissionErrors' )->willReturn( [
-			'I-am-always-failing-if-not-bailed-out-before'
-		] );
+		$permissionManager->method( 'getPermissionStatus' )->willReturn(
+			PermissionStatus::newFatal( 'I-am-always-failing-if-not-bailed-out-before' )
+		);
+		$titleFactoryMock = $this->createMock( TitleFactory::class );
+		$titleFactoryMock->method( 'newFromText' )->willReturnCallback( function ( $text ) {
+				$titleMock = $this->createMock( Title::class );
+				$titleMock->method( 'getNamespace' )
+					->willReturn( strPos( $text, ':' ) === false ? NS_MAIN : NS_FILE );
+				return $titleMock;
+		} );
 
-		$handler = new PermissionChecker( $mainConfig, $permissionManager );
+		$handler = new Authenticate( $permissionManager, $mainConfig, $titleFactoryMock );
 
 		$user = $this->createMock( User::class );
 		$action = 'read';

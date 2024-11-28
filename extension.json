@@ -13,7 +13,7 @@
 	"requires": {
 		"MediaWiki": ">= 1.39.0"
 	},
-	"callback": "NSFileRepoHooks::register",
+	"callback": "\\MediaWiki\\Extension\\NSFileRepo\\Setup::register",
 	"MessagesDirs": {
 		"NSFileRepo": [
 			"i18n/nsfilerepo"
@@ -45,21 +45,11 @@
 		}
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\NSFileRepo\\": "src/",
-		"NSFileRepo\\": "src/"
+		"MediaWiki\\Extension\\NSFileRepo\\": "src/"
 	},
 	"TestAutoloadNamespaces": {
 		"MediaWiki\\Extension\\NSFileRepo\\Tests\\": "tests/phpunit/",
 		"NSFileRepo\\Tests\\": "tests/phpunit/"
-	},
-	"AutoloadClasses": {
-		"NSFileRepoHooks": "includes/NSFileRepoHooks.php",
-		"NSLocalRepo": "includes/filerepo/NSLocalRepo.php",
-		"NSLocalFile": "includes/filerepo/file/NSLocalFile.php",
-		"NSLocalFileMoveBatch": "includes/filerepo/file/NSLocalFile.php",
-		"NSOldLocalFile": "includes/filerepo/file/NSOldLocalFile.php",
-		"NSFileRepoFSFileBackend": "includes/filebackend/NSFileRepoFSFileBackend.php",
-		"NSFileRepoHelper": "includes/utility/NSFileRepoHelper.php"
 	},
 	"DefaultUserOptions": {
 		"filelist-show-namespace_text": 1
@@ -120,7 +110,7 @@
 				"nsfr/EnhancedUploadParamsProcessor.js",
 				{
 					"name": "nsfr/config.json",
-					"callback": "NSFileRepo\\ClientConfig::makeConfigJson"
+					"callback": "\\MediaWiki\\Extension\\NSFileRepo\\ClientConfig::makeConfigJson"
 				}
 			],
 			"messages": [
@@ -146,9 +136,9 @@
 		"remoteExtPath": "NSFileRepo/resources"
 	},
 	"HookHandlers": {
-		"permission-checker": {
-			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\PermissionChecker",
-			"services": [ "MainConfig", "PermissionManager" ]
+		"authenticate": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\Authenticate",
+			"services": [ "PermissionManager", "MainConfig", "TitleFactory" ]
 		},
 		"addNamespaces": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddNamespaceToFilelist",
@@ -157,22 +147,26 @@
 		"userpreference": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddUserPreference"
 		},
-		"specialFilelistAvailableNamespaces": {
-			"class": "NSFileRepo\\Hooks\\SpecialFilelistAvailableNamespaces",
+		"addModules": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddModules",
 			"services": [ "DBLoadBalancer" ]
+		},
+		"handleUpload": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\HandleUpload",
+			"services": [ "TitleFactory" ]
 		}
 	},
 	"Hooks": {
-		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
-		"getUserPermissionsErrors": "permission-checker",
-		"BeforePageDisplay": [ "NSFileRepoHooks::onBeforePageDisplay", "specialFilelistAvailableNamespaces" ],
+
+		"getUserPermissionsErrors": "authenticate",
+		"BeforePageDisplay": "addModules",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
-		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
-		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
-		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
+		"ImgAuthBeforeStream": "authenticate",
 		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle",
 		"MWStakeCommonWebAPIsQueryStoreResult": "addNamespaces",
-		"GetPreferences": "userpreference"
+		"GetPreferences": "userpreference",
+		"UploadVerifyFile": "handleUpload",
+		"UploadForm:BeforeProcessing": "handleUpload"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",
