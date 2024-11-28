@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\NSFileRepo\HookHandler;
 
 use Config;
+use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MWStake\MediaWiki\Component\CommonWebAPIs\Hook\MWStakeCommonWebAPIsQueryStoreResultHook;
 use MWStake\MediaWiki\Component\CommonWebAPIs\Rest\FileQueryStore;
 use MWStake\MediaWiki\Component\DataStore\ResultSet;
@@ -33,7 +34,7 @@ class AddNamespaceToFilelist implements MWStakeCommonWebAPIsQueryStoreResultHook
 			return;
 		}
 		$data = $result->getRecords();
-		$namespaceList = new \NSFileRepo\NamespaceList(
+		$namespaceList = new NamespaceList(
 			$this->context->getUser(),
 			$this->config,
 			$this->context->getLanguage()

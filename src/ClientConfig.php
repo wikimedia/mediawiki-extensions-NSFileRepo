@@ -1,6 +1,6 @@
 <?php
 
-namespace NSFileRepo;
+namespace MediaWiki\Extension\NSFileRepo;
 
 class ClientConfig {
 
@@ -9,7 +9,7 @@ class ClientConfig {
 	 * @return array
 	 */
 	public static function makeConfigJson() {
-		$config = new \NSFileRepo\Config();
+		$config = new Config();
 		return [
 			'egNSFileRepoSkipTalk' => $config->get( 'SkipTalk' ),
 			'egNSFileRepoNamespaceBlacklist' => $config->get( 'NamespaceBlacklist' ),

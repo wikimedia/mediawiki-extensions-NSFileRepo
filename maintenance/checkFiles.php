@@ -1,7 +1,8 @@
 <?php
 
-require_once( dirname(dirname(dirname(dirname(__DIR__)))) . '/maintenance/Maintenance.php' );
+require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
+use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -10,64 +11,64 @@ use MediaWiki\MediaWikiServices;
  */
 class CheckFiles extends Maintenance {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 
 		$this->requireExtension( 'NSFileRepo' );
 	}
 
-	function execute() {
+	public function execute() {
 		$dbr = $this->getDB( DB_REPLICA );
 		print( "Using DB: " . $dbr->getDBName() ) . PHP_EOL;
 
-		$aImgNames = array();
-		$res = $dbr->select('image',
-			array( 'img_name' ),
-			array(),
+		$aImgNames = [];
+		$res = $dbr->select( 'image',
+			[ 'img_name' ],
+			[],
 			__METHOD__
 		);
 
 		$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
 
-		foreach( $res as $row ) {
+		foreach ( $res as $row ) {
 			$sName = preg_replace( '/_/', ' ', $row->img_name );
 			$oTitle = Title::makeTitle( NS_FILE, $sName );
 
-			if( !$oTitle->exists() ) {
+			if ( !$oTitle->exists() ) {
 					print ( "Title for " . $sName . " does not exist" . PHP_EOL );
 					continue;
 			}
 
-			if( $oTitle->getNamespace() !== NS_FILE ) {
+			if ( $oTitle->getNamespace() !== NS_FILE ) {
 					print ( "Title for " . $sName . " is not in NS_FILE" . PHP_EOL );
 					continue;
 			}
 
 			$oFile = $repoGroup->findFile( $sName );
-			if( !$oFile || !$oFile->exists() ) {
+			if ( !$oFile || !$oFile->exists() ) {
 					print( "File " . $sName . " does not exist!" . PHP_EOL );
 			}
 			$sFileLocalPath = $oFile->getLocalRefPath();
-			if( !$sFileLocalPath || !file_exists( $sFileLocalPath ) ) {
+			if ( !$sFileLocalPath || !file_exists( $sFileLocalPath ) ) {
 				print( "Image " . $sName . " not found!" . PHP_EOL );
 			}
 		}
 
-		$res = $dbr->select('oldimage',
-			array( 'oi_name', 'oi_archive_name' ),
-			array(),
+		$res = $dbr->select( 'oldimage',
+			[ 'oi_name', 'oi_archive_name' ],
+			[],
 			__METHOD__
 		);
 
-			foreach( $res as $row ) {
+		foreach ( $res as $row ) {
 			$oTitle = Title::makeTitle( NS_FILE, $row->oi_name );
 			$repo = $repoGroup->getRepo( 'local' );
-			$strippedName = NSLocalFile::getFilenameStripped( $row->oi_archive_name );
+			$strippedName = NamespaceLocalFile::getFileNameStrippedStatic( $row->oi_archive_name );
 			$file = OldLocalFile::newFromArchiveName( $oTitle, $repo, $strippedName );
-			if( !$file->getLocalRefPath() || !file_exists( $file->getLocalRefPath() ) ) {
+			if ( !$file->getLocalRefPath() || !file_exists( $file->getLocalRefPath() ) ) {
 				$file = OldLocalFile::newFromArchiveName( $oTitle, $repo, $row->oi_archive_name );
 				print( "Archive file: " . $row->oi_archive_name . " not found" . PHP_EOL );
-				if( $file->getLocalRefPath() && file_exists( $file->getLocalRefPath() ) ) {
+				if ( $file->getLocalRefPath() && file_exists( $file->getLocalRefPath() ) ) {
 					print( "\t...but wrong version of this file exists: " . $file->getLocalRefPath() . PHP_EOL );
 				}
 			}
@@ -76,4 +77,4 @@ class CheckFiles extends Maintenance {
 }
 
 $maintClass = CheckFiles::class;
-require_once( RUN_MAINTENANCE_IF_MAIN );
+require_once RUN_MAINTENANCE_IF_MAIN;

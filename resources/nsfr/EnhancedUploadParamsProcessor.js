@@ -1,4 +1,4 @@
-window.nsfr = window.nsfr || {};
+nsfr = window.nsfr || {};
 
 nsfr.EnhancedUploadParamsProcessor = function () {
 	this.config = require( './config.json' );
@@ -13,8 +13,8 @@ nsfr.EnhancedUploadParamsProcessor = function () {
 	} );
 
 	// Add aria-label to 'Namespace' textbox
-	this.targetNamespaceSelector.$element.find( 'span[role="textbox"]' ).each( ( index, element ) => {
-		const $element = $( element );
+	this.targetNamespaceSelector.$element.find( 'span[role="textbox"]' ).each( function( index, element ) {
+		var $element = $( element );
 		if ( !$element.attr( 'aria-label' ) ) {
 			$element.attr( 'aria-label', OO.ui.msg( 'nsfilerepo-upload-file-namespace-namespaceselector-label' ) );
 		}
