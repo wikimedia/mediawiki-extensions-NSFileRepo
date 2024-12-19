@@ -4,7 +4,6 @@ namespace MediaWiki\Extension\NSFileRepo\Tests;
 
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
-
 use MediaWiki\MainConfigNames;
 
 /**
@@ -16,7 +15,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	public const DUMMY_NS_B_ID = 12512;
 	public const DUMMY_NS_C_ID = 12612;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$extraNamespaces = $this->getConfVal( MainConfigNames::ExtraNamespaces );
