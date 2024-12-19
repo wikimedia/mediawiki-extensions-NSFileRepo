@@ -10,7 +10,7 @@ class Setup {
 	public static function register() {
 		$GLOBALS['wgLocalFileRepo']['class'] = NamespaceLocalRepo::class;
 
-		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
+		if ( PHP_SAPI !== 'cli' ) {
 			// Remove the default illegal char ':' - needed it to determine NS
 			$GLOBALS['wgIllegalFileChars'] = str_replace( ":", "", $GLOBALS['wgIllegalFileChars'] );
 		}

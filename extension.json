@@ -157,7 +157,6 @@
 		}
 	},
 	"Hooks": {
-
 		"getUserPermissionsErrors": "authenticate",
 		"BeforePageDisplay": "addModules",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
@@ -195,5 +194,6 @@
 			"value": [ "js", "css", "xml", "html", "htm", "xhtml" ]
 		}
 	},
+	"load_composer_autoloader": true,
 	"manifest_version": 2
 }
