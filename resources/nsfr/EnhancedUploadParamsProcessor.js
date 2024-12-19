@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-implicit-globals, no-global-assign
 nsfr = window.nsfr || {};
 
 nsfr.EnhancedUploadParamsProcessor = function () {
@@ -13,7 +14,7 @@ nsfr.EnhancedUploadParamsProcessor = function () {
 	} );
 
 	// Add aria-label to 'Namespace' textbox
-	this.targetNamespaceSelector.$element.find( 'span[role="textbox"]' ).each( function( index, element ) {
+	this.targetNamespaceSelector.$element.find( 'span[role="textbox"]' ).each( function ( index, element ) {
 		var $element = $( element );
 		if ( !$element.attr( 'aria-label' ) ) {
 			$element.attr( 'aria-label', OO.ui.msg( 'nsfilerepo-upload-file-namespace-namespaceselector-label' ) );

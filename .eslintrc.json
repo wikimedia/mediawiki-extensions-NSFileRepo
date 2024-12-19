@@ -9,6 +9,7 @@
 		"jQuery": "readonly",
 		"mediaWiki": "readonly",
 		"nsfr": "readonly",
+		"enhancedUpload": "readonly",
 		"QUnit": "readonly"
 	},
 	"rules": {

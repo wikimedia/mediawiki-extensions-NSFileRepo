@@ -12,6 +12,8 @@ class CheckFiles extends Maintenance {
 
 	public function __construct() {
 		parent::__construct();
+		// Remove the default illegal char ':' - needed it to determine NS
+		$GLOBALS['wgIllegalFileChars'] = str_replace( ":", "", $GLOBALS['wgIllegalFileChars'] );
 
 		$this->requireExtension( 'NSFileRepo' );
 	}
