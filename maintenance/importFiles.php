@@ -9,6 +9,8 @@
  * A file 'ABC_My_File.png' will be uploaded to the wiki as 'ABC:My File.png'
  */
 
+use MediaWiki\MainConfigNames;
+
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
 class ImportFiles extends Maintenance {
@@ -76,8 +78,9 @@ class ImportFiles extends Maintenance {
 	 * @return array
 	 */
 	public function getFileList() {
-		global $wgFileExtensions;
-		$fileExtensions = array_map( 'strtolower', $wgFileExtensions );
+		$fileExtensions = array_map( 'strtolower',
+			$this->getConfig()->get( MainConfigNames::FileExtensions )
+		);
 
 		$realPath = realPath( $this->src );
 		$this->output( 'Fetching file list from "' . $realPath . '"' );
