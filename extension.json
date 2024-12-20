@@ -11,7 +11,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.4333.0"
+		"MediaWiki": ">= 1.43.0"
 	},
 	"callback": "\\MediaWiki\\Extension\\NSFileRepo\\Setup::register",
 	"MessagesDirs": {
