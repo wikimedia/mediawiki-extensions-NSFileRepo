@@ -1,6 +1,6 @@
 {
 	"name": "NSFileRepo",
-	"version": "2.0",
+	"version": "4.0.0-alpha",
 	"author": [
 		"Jack D. Pond",
 		"[https://www.hallowelt.com Hallo Welt! GmbH]",
@@ -11,7 +11,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.40.0"
+		"MediaWiki": ">= 1.4333.0"
 	},
 	"callback": "\\MediaWiki\\Extension\\NSFileRepo\\Setup::register",
 	"MessagesDirs": {
