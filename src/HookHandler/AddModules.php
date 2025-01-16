@@ -46,8 +46,8 @@ class AddModules implements BeforePageDisplayHook {
 				$namespaces[] = $row->namespace;
 			}
 			sort( $namespaces );
-			array_map( static function ( &$namespace ) {
-				$namespace = [
+			$namespaces = array_map( static function ( $namespace ) {
+				return [
 					'data' => $namespace,
 					'label' => $namespace
 				];
