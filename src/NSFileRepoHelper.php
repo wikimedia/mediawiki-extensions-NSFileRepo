@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\NSFileRepo;
 
-use Title;
+use MediaWiki\Title\Title;
 use UploadBase;
 
 /**
