@@ -8,9 +8,9 @@ use MediaWiki\Extension\NSFileRepo\NSFileRepoHelper;
 use MediaWiki\Hook\ImgAuthBeforeStreamHook;
 use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
 use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Title\Title;
 use MultiConfig;
 use RequestContext;
-use Title;
 use TitleFactory;
 
 class Authenticate implements ImgAuthBeforeStreamHook, GetUserPermissionsErrorsHook {

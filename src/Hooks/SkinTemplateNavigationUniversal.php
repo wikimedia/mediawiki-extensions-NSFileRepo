@@ -6,9 +6,9 @@ use Config;
 use FormatJson;
 use IContextSource;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
+use MediaWiki\Title\Title;
 use Message;
 use SkinTemplate;
-use Title;
 
 class SkinTemplateNavigationUniversal {
 

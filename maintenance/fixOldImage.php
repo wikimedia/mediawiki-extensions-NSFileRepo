@@ -3,6 +3,7 @@
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
 use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
+use MediaWiki\Title\Title;
 
 class FixOldImage extends Maintenance {
 	/** @var string */

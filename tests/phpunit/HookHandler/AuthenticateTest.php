@@ -6,9 +6,9 @@ use HashConfig;
 use MediaWiki\Extension\NSFileRepo\HookHandler\Authenticate;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\PermissionStatus;
+use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use PHPUnit\Framework\TestCase;
-use Title;
 use User;
 
 /**

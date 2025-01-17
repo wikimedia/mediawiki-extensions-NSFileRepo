@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\NSFileRepo;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 class NamespaceList {
 
@@ -105,7 +106,7 @@ class NamespaceList {
 		}
 
 		if ( !empty( $permission ) ) {
-			$title = \Title::makeTitle( $nsId, 'Dummy' );
+			$title = Title::makeTitle( $nsId, 'Dummy' );
 			return !$services->getPermissionManager()
 				->userCan( $permission, $this->user, $title );
 		}

@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\NSFileRepo\Tests;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Title\Title;
 
 /**
  * @covers \MediaWiki\Extension\NSFileRepo\NamespaceList
@@ -44,14 +45,14 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 			->getHookContainer()
 			->register( 'getUserPermissionsErrors', static function ( &$title, &$user, $action, &$result ) {
 				if ( $action === 'read'
-					&& $title instanceof \Title
+					&& $title instanceof Title
 					&& $title->getNamespace() === self::DUMMY_NS_A_ID ) {
 					$result = false;
 					return false;
 				}
 
 				if ( $action === 'edit'
-					&& $title instanceof \Title
+					&& $title instanceof Title
 					&& $title->getNamespace() === self::DUMMY_NS_B_ID ) {
 					$result = false;
 					return false;
