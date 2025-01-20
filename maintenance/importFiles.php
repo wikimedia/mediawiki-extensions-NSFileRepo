@@ -11,6 +11,7 @@
 
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
