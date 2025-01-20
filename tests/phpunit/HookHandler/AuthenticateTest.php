@@ -8,8 +8,8 @@ use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
+use MediaWiki\User\User;
 use PHPUnit\Framework\TestCase;
-use User;
 
 /**
  * @covers \MediaWiki\Extension\NSFileRepo\HookHandler\Authenticate
