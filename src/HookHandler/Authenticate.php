@@ -10,8 +10,8 @@ use MediaWiki\Hook\ImgAuthBeforeStreamHook;
 use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Title\Title;
+use MediaWiki\Title\TitleFactory;
 use MultiConfig;
-use TitleFactory;
 
 class Authenticate implements ImgAuthBeforeStreamHook, GetUserPermissionsErrorsHook {
 
