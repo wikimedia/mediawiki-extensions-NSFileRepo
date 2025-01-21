@@ -3,11 +3,11 @@
 namespace MediaWiki\Extension\NSFileRepo\HookHandler;
 
 use Config;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MWStake\MediaWiki\Component\CommonWebAPIs\Hook\MWStakeCommonWebAPIsQueryStoreResultHook;
 use MWStake\MediaWiki\Component\CommonWebAPIs\Rest\FileQueryStore;
 use MWStake\MediaWiki\Component\DataStore\ResultSet;
-use RequestContext;
 
 class AddNamespaceToFilelist implements MWStakeCommonWebAPIsQueryStoreResultHook {
 

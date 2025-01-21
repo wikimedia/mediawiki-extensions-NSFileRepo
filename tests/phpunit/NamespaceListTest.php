@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\NSFileRepo\Tests;
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MediaWiki\MainConfigNames;
@@ -108,8 +109,8 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 			$config = new \HashConfig( [] );
 		}
 
-		$user = \RequestContext::getMain()->getUser();
-		$lang = \RequestContext::getMain()->getLanguage();
+		$user = RequestContext::getMain()->getUser();
+		$lang = RequestContext::getMain()->getLanguage();
 
 		return new NamespaceList( $user, $config, $lang );
 	}

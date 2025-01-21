@@ -5,6 +5,7 @@ namespace NSFileRepo\Hooks;
 use Config;
 use FormatJson;
 use IContextSource;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MediaWiki\Title\Title;
 use Message;
@@ -44,7 +45,7 @@ class SkinTemplateNavigationUniversal {
 	 */
 	public static function handle( SkinTemplate $sktemplate, &$links ) {
 		$instance = new self(
-			\RequestContext::getMain(),
+			RequestContext::getMain(),
 			new \MediaWiki\Extension\NSFileRepo\Config(),
 			$sktemplate,
 			$links

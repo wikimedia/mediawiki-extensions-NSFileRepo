@@ -2,6 +2,7 @@
 
 namespace NSFileRepo\Hooks;
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 
@@ -53,7 +54,7 @@ class UploadFormInitDescriptor {
 	 */
 	public static function handle( &$descriptor ) {
 		$instance = new self(
-			\RequestContext::getMain(),
+			RequestContext::getMain(),
 			new Config(),
 			$descriptor
 		);
