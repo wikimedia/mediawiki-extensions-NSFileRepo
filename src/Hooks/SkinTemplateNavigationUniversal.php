@@ -7,8 +7,8 @@ use FormatJson;
 use IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
+use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
-use Message;
 use SkinTemplate;
 
 class SkinTemplateNavigationUniversal {
