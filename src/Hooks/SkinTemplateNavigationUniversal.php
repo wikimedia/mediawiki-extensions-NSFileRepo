@@ -2,9 +2,9 @@
 
 namespace NSFileRepo\Hooks;
 
-use Config;
 use FormatJson;
 use IContextSource;
+use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MediaWiki\Message\Message;
