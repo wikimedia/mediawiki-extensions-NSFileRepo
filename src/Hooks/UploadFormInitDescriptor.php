@@ -3,6 +3,7 @@
 namespace NSFileRepo\Hooks;
 
 use MediaWiki\Config\Config as MediaWikiConfig;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
@@ -17,7 +18,7 @@ class UploadFormInitDescriptor {
 
 	/**
 	 *
-	 * @var \IContextSource
+	 * @var IContextSource
 	 */
 	protected $context = null;
 
@@ -38,11 +39,11 @@ class UploadFormInitDescriptor {
 
 	/**
 	 *
-	 * @param \IContextSource $context
+	 * @param IContextSource $context
 	 * @param MediaWikiConfig $config
 	 * @param array &$descriptor
 	 */
-	public function __construct( \IContextSource $context, MediaWikiConfig $config, &$descriptor ) {
+	public function __construct( IContextSource $context, MediaWikiConfig $config, &$descriptor ) {
 		$this->context = $context;
 		$this->config = $config;
 		$this->descriptor =& $descriptor;
