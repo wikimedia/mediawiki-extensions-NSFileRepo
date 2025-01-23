@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\NSFileRepo\HookHandler;
 
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config as NSFileRepoConfig;
 use MediaWiki\Extension\NSFileRepo\NSFileRepoHelper;
