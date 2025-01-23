@@ -39,10 +39,10 @@ class UploadFormInitDescriptor {
 	/**
 	 *
 	 * @param \IContextSource $context
-	 * @param Config $config
+	 * @param MediaWikiConfig $config
 	 * @param array &$descriptor
 	 */
-	public function __construct( \IContextSource $context, Config $config, &$descriptor ) {
+	public function __construct( \IContextSource $context, MediaWikiConfig $config, &$descriptor ) {
 		$this->context = $context;
 		$this->config = $config;
 		$this->descriptor =& $descriptor;
