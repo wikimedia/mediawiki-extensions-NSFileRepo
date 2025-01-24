@@ -136,7 +136,11 @@
 		},
 		"ext.nsfilerepo.filelist": {
 			"packageFiles": [
-				"ext.nsfilerepo.filelist.js"
+				"ext.nsfilerepo.filelist.js",
+				{
+					"name": "buckets.json",
+					"callback": "\\MediaWiki\\Extension\\NSFileRepo\\ClientConfig::makeNamespaceBuckets"
+				}
 			],
 			"messages": [
 				"nsfilerepo-enhanced-filelist-grid-namespace-title"
@@ -160,8 +164,7 @@
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddUserPreference"
 		},
 		"addModules": {
-			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddModules",
-			"services": [ "DBLoadBalancer" ]
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\AddModules"
 		},
 		"handleUpload": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\HandleUpload",

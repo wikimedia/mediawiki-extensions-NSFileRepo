@@ -9,6 +9,7 @@ use MediaWiki\MainConfigNames;
 use MediaWiki\Title\Title;
 
 /**
+ * @group Database
  * @covers \MediaWiki\Extension\NSFileRepo\NamespaceList
  */
 class NamespaceListTest extends \MediaWikiLangTestCase {
@@ -20,7 +21,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$extraNamespaces = $this->getConfVal( MainConfigNames::ExtraNamespaces );
+		$extraNamespaces = $this->getConfVar( MainConfigNames::ExtraNamespaces );
 
 		$extraNamespaces[self::DUMMY_NS_A_ID] = 'NSFRDummyA';
 		$extraNamespaces[self::DUMMY_NS_A_ID + 1] = 'NSFRDummyA_talk';
