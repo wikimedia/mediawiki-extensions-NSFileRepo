@@ -1,5 +1,5 @@
 mw.hook( 'enhanced.filelist.gridconfig' ).add( function ( columnCfg ) {
-	var nsBuckets = mw.config.get( 'bsgNSFileRepoAvailableNamespaces' ) || [];
+	var buckets = require( './buckets.json' );
 	// eslint-disable-next-line camelcase
 	columnCfg.namespace_text = {
 		headerText: mw.message( 'nsfilerepo-enhanced-filelist-grid-namespace-title' ).text(),
@@ -7,7 +7,7 @@ mw.hook( 'enhanced.filelist.gridconfig' ).add( function ( columnCfg ) {
 		sortable: true,
 		filter: {
 			type: 'list',
-			list: nsBuckets,
+			list: buckets,
 			closePopupOnChange: true
 		},
 		hidden: !mw.user.options.get( 'filelist-show-namespace_text' )
