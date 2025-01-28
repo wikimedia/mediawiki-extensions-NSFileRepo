@@ -6,7 +6,7 @@ use LocalRepo;
 use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
 use MediaWiki\Extension\NSFileRepo\File\NamespaceOldLocalFile;
 use MediaWiki\MediaWikiServices;
-use Status;
+use MediaWiki\Status\Status;
 
 /**
  * Class definitions for NSFileRepo
