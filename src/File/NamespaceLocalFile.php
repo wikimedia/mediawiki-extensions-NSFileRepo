@@ -7,6 +7,7 @@ use MediaWiki\Deferred\AutoCommitUpdate;
 use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Extension\NSFileRepo\NamespaceFileMoveBatch;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use OldLocalFile;
 
@@ -166,7 +167,7 @@ class NamespaceLocalFile extends LocalFile {
 
 	/**
 	 * @param Title $target
-	 * @return \MediaWiki\Status\Status
+	 * @return Status
 	 */
 	public function move( $target ) {
 		$localRepo = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo();
