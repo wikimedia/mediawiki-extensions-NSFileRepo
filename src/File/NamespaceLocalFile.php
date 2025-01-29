@@ -112,7 +112,7 @@ class NamespaceLocalFile extends LocalFile {
 			return $this->getArchiveThumbPath( $archiveName, $suffix );
 		}
 		$suffix = $this->getFileNameStripped( $suffix );
-		return parent::getArchiveThumbPath( $archiveName, $suffix );
+		return parent::getArchiveThumbUrl( $archiveName, $suffix );
 	}
 
 	/**
@@ -163,6 +163,42 @@ class NamespaceLocalFile extends LocalFile {
 			return $final;
 		}
 		return $name;
+	}
+
+	/**
+	 * Delete a list of thumbnails visible at urls
+	 * @stable to override
+	 * @param string $dir Base dir of the files.
+	 * @param array $files Array of strings: relative filenames (to $dir)
+	 */
+	protected function purgeThumbList( $dir, $files ) {
+		$fileListDebug = strtr(
+			var_export( $files, true ),
+			[ "\n" => '' ]
+		);
+		wfDebug( __METHOD__ . ": $fileListDebug" );
+
+		if ( $this->repo->supportsSha1URLs() ) {
+			$reference = $this->getSha1();
+		} else {
+			$reference = $this->getFileNameStripped( $this->getName() );
+		}
+
+		$purgeList = [];
+		foreach ( $files as $file ) {
+			# Check that the reference (filename or sha1) is part of the thumb name
+			# This is a basic check to avoid erasing unrelated directories
+			if ( str_contains( $file, $reference )
+				|| str_contains( $file, "-thumbnail" )
+			) {
+				$purgeList[] = "{$dir}/{$file}";
+			}
+		}
+
+		# Delete the thumbnails
+		$this->repo->quickPurgeBatch( $purgeList );
+		# Clear out the thumbnail directory if empty
+		$this->repo->quickCleanDir( $dir );
 	}
 
 	/**
