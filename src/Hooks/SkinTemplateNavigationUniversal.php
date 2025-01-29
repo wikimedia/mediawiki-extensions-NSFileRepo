@@ -2,11 +2,11 @@
 
 namespace NSFileRepo\Hooks;
 
-use FormatJson;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
 use SkinTemplate;
