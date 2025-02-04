@@ -4,7 +4,7 @@ mw.hook( 'enhanced.filelist.gridconfig' ).add( function ( columnCfg ) {
 	columnCfg.namespace_text = {
 		headerText: mw.message( 'nsfilerepo-enhanced-filelist-grid-namespace-title' ).text(),
 		type: 'text',
-		sortable: true,
+		sortable: false,
 		filter: {
 			type: 'list',
 			list: nsBuckets,
