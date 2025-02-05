@@ -42,6 +42,18 @@
 			"FilelistPluginModules": [
 				"ext.nsfilerepo.filelist"
 			]
+		},
+		"PDFCreator": {
+			"PreProcessors": {
+				"NSFileRepoImages": {
+					"class": "MediaWiki\\Extension\\NSFileRepo\\Integration\\PDFCreator\\PreProcessor\\ImageProcessor",
+					"services": [ "TitleFactory", "MainConfig", "RepoGroup" ]
+				},
+				"NSFileRepoAttachments": {
+					"class": "MediaWiki\\Extension\\NSFileRepo\\Integration\\PDFCreator\\PreProcessor\\AttachmentProcessor",
+					"services": [ "TitleFactory", "MainConfig", "RepoGroup" ]
+				}
+			}
 		}
 	},
 	"AutoloadNamespaces": {
