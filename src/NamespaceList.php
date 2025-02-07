@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\NSFileRepo;
 
 use MediaWiki\Config\Config as MediaWikiConfig;
+use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -23,7 +24,7 @@ class NamespaceList {
 
 	/**
 	 *
-	 * @var \Language
+	 * @var Language
 	 */
 	protected $lang = null;
 
@@ -31,9 +32,9 @@ class NamespaceList {
 	 *
 	 * @param User $user
 	 * @param MediaWikiConfig $config
-	 * @param \Language $lang
+	 * @param Language $lang
 	 */
-	public function __construct( User $user, MediaWikiConfig $config, \Language $lang ) {
+	public function __construct( User $user, MediaWikiConfig $config, Language $lang ) {
 		$this->user = $user;
 		$this->config = new \MultiConfig( [
 			$config,
