@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\NSFileRepo\Tests\HookHandler;
 
-use HashConfig;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Extension\NSFileRepo\HookHandler\Authenticate;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Permissions\PermissionStatus;

@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\NSFileRepo\Tests;
 
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
@@ -71,7 +72,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	}
 
 	public function testGetReadableNoTalks() {
-		$instance = $this->makeInstance( new \HashConfig( [
+		$instance = $this->makeInstance( new HashConfig( [
 			Config::CONFIG_SKIP_TALK => true
 		] ) );
 
@@ -89,7 +90,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 	}
 
 	public function testGetReadableNoUnreadables() {
-		$instance = $this->makeInstance( new \HashConfig( [
+		$instance = $this->makeInstance( new HashConfig( [
 			Config::CONFIG_BLACKLIST => [ self::DUMMY_NS_A_ID ]
 		] ) );
 
@@ -107,7 +108,7 @@ class NamespaceListTest extends \MediaWikiLangTestCase {
 
 	protected function makeInstance( $config = null ) {
 		if ( $config === null ) {
-			$config = new \HashConfig( [] );
+			$config = new HashConfig( [] );
 		}
 
 		$user = RequestContext::getMain()->getUser();

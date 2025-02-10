@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\NSFileRepo;
 
 use MediaWiki\Config\Config as MediaWikiConfig;
+use MediaWiki\Config\HashConfig;
 use MediaWiki\Config\MultiConfig;
 use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
@@ -39,7 +40,7 @@ class NamespaceList {
 		$this->user = $user;
 		$this->config = new MultiConfig( [
 			$config,
-			new \HashConfig( [
+			new HashConfig( [
 				Config::CONFIG_SKIP_TALK => true,
 				Config::CONFIG_THRESHOLD => 0,
 				Config::CONFIG_BLACKLIST => []
