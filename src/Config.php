@@ -2,7 +2,9 @@
 
 namespace MediaWiki\Extension\NSFileRepo;
 
-class Config extends \GlobalVarConfig {
+use MediaWiki\Config\GlobalVarConfig;
+
+class Config extends GlobalVarConfig {
 	public const CONFIG_SKIP_TALK = 'SkipTalk';
 	public const CONFIG_THRESHOLD = 'NamespaceThreshold';
 	public const CONFIG_BLACKLIST = 'NamespaceBlacklist';
