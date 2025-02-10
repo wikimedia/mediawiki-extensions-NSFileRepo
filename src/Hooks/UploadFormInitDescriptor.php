@@ -7,6 +7,7 @@ use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
+use MediaWiki\HTMLForm\Field\HTMLSelectField;
 
 class UploadFormInitDescriptor {
 
@@ -125,7 +126,7 @@ class UploadFormInitDescriptor {
 			'NSFR_Namespace' => [
 				'label'    => wfMessage( 'namespace' )->plain(),
 				'section'  => 'description',
-				'class'    => \HTMLSelectField::class,
+				'class'    => HTMLSelectField::class,
 				'options'  => $this->namespaceSelectOptions,
 				'required' => true,
 				'default' => $this->selectedNamespace
