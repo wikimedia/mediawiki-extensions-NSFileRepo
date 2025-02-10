@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\NSFileRepo;
 
 use MediaWiki\Config\Config as MediaWikiConfig;
+use MediaWiki\Config\MultiConfig;
 use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
@@ -36,7 +37,7 @@ class NamespaceList {
 	 */
 	public function __construct( User $user, MediaWikiConfig $config, Language $lang ) {
 		$this->user = $user;
-		$this->config = new \MultiConfig( [
+		$this->config = new MultiConfig( [
 			$config,
 			new \HashConfig( [
 				Config::CONFIG_SKIP_TALK => true,

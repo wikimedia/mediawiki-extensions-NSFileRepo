@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\NSFileRepo\HookHandler;
 
 use MediaWiki\Config\Config;
+use MediaWiki\Config\MultiConfig;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config as NSFileRepoConfig;
 use MediaWiki\Extension\NSFileRepo\NSFileRepoHelper;
@@ -11,7 +12,6 @@ use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
-use MultiConfig;
 
 class Authenticate implements ImgAuthBeforeStreamHook, GetUserPermissionsErrorsHook {
 
