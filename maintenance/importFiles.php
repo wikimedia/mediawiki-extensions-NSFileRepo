@@ -10,6 +10,7 @@
  */
 
 use MediaWiki\MainConfigNames;
+use MediaWiki\Maintenance\Maintenance;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
