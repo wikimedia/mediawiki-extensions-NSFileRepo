@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Maintenance\Maintenance;
+
 require_once dirname( __DIR__, 3 ) . '/maintenance/Maintenance.php';
 
 /**
