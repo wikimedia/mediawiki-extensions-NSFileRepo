@@ -261,6 +261,11 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 	private function detectNamespace( string $name, string $path ): string {
 		$title = $this->namespaceFileHelper->getTitleFromPath( $path );
 		if ( $title instanceof Title && $title->getNamespace() !== NS_MAIN ) {
+			$bits = explode( '!', $name, 2 );
+			if ( count( $bits ) === 2 ) {
+				return $bits[0] . '!' . $title->getNsText() . ':' . $bits[1];
+			}
+
 			// Not using "$title->getPrefixedDBKey()" because "$wgCapitalLinkOverrides[NS_FILE]" may be "false"
 			return $title->getNsText() . ':' . $name;
 		}
