@@ -175,7 +175,6 @@
 		"getUserPermissionsErrors": "authenticate",
 		"BeforePageDisplay": "addModules",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
-		"ImgAuthBeforeStream": "authenticate",
 		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle",
 		"MWStakeCommonWebAPIsQueryStoreResult": "addNamespaces",
 		"GetPreferences": "userpreference",
