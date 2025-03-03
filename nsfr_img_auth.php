@@ -45,6 +45,8 @@
  * @ingroup entrypoint
  */
 
+use MediaWiki\Permissions\PermissionManager;
+
 define( 'MW_NO_OUTPUT_COMPRESSION', 1 );
 define( 'MW_ENTRY_POINT', 'img_auth' );
 require __DIR__ . '/includes/WebStart.php';
@@ -178,15 +180,10 @@ function wfImageAuthMain() {
 		wfForbidden( $result[0], $result[1], array_slice( $result, 2 ) );
 		return;
 	}
-
-	// Check user authorization for this title
-	// Checks Whitelist too
-
-	if ( !$permissionManager->userCan( 'read', $user, $title ) ) {
+	if ( !authenticateNamespaceTitle( $path, $user, $permissionManager ) ) {
 		wfForbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
 		return;
 	}
-
 
 	if ( isset( $_SERVER['HTTP_RANGE'] ) ) {
 		$headers['Range'] = $_SERVER['HTTP_RANGE'];
@@ -258,4 +255,22 @@ function wfForbidden( $msg1, $msg2, ...$args ) {
 		'msgHdr' => $msgHdr,
 		'detailMsg' => $detailMsg,
 	] );
+}
+
+/**
+ * @param string $path
+ * @param User $user
+ * @param PermissionManager $permissionManager
+ * @return bool
+ */
+function authenticateNamespaceTitle( string $path, User $user, PermissionManager $permissionManager ) {
+	$nsfrHelper = new NSFileRepoHelper();
+	$authTitle = $nsfrHelper->getTitleFromPath( $path );
+	if ( $authTitle instanceof Title === false ) {
+		return false;
+	}
+	if ( !$permissionManager->userCan( 'read', $user, $authTitle ) ) {
+		return false;
+	}
+	return true;
 }

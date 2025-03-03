@@ -40,32 +40,6 @@ class NSFileRepoHooks {
 	}
 
 	/**
-	 * @param Title $title
-	 * @param $path
-	 * @param $name
-	 * @param $result
-	 * @return bool
-	 */
-	public static function onImgAuthBeforeStream( $title, $path, $name, &$result ) {
-		$nsfrhelper = new NSFileRepoHelper();
-		$authTitle = $nsfrhelper->getTitleFromPath( $path );
-
-		if( $authTitle instanceof Title === false ) {
-			$result = array('img-auth-accessdenied', 'img-auth-badtitle', $name);
-			return false;
-		}
-
-		$context = RequestContext::getMain();
-		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
-		if ( !$permissionManager->userCan( 'read', $context->getUser(), $authTitle ) ) {
-			$result = array( 'img-auth-accessdenied', 'img-auth-noread', $name );
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Checks if the destination file name contains a valid namespace prefix
 	 * @param string $destName
 	 * @param string $tempPath

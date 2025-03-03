@@ -168,7 +168,6 @@
 		"BeforePageDisplay": [ "NSFileRepoHooks::onBeforePageDisplay", "specialFilelistAvailableNamespaces" ],
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
-		"ImgAuthBeforeStream": "NSFileRepoHooks::onImgAuthBeforeStream",
 		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
 		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle",
 		"MWStakeCommonWebAPIsQueryStoreResult": "addNamespaces",
