@@ -1,7 +1,7 @@
 ( function () {
 	QUnit.module( 'ext.nsfilerepo.upload.paramsProcessor.test', QUnit.newMwEnvironment() );
 
-	var inputWithoutOption = [
+	const inputWithoutOption = [
 		[
 			{
 				prefix: 'Special:',
@@ -55,7 +55,7 @@
 			'<div><div>Test</div></div>'
 		]
 	];
-	var inputWithOption = [
+	const inputWithOption = [
 		[
 			{
 				prefix: 'Special:',
@@ -109,7 +109,7 @@
 			'<div><div>Test</div></div>'
 		]
 	];
-	var expectedParamsWithoutOption = [
+	const expectedParamsWithoutOption = [
 		{
 			filename: 'Special:Test.txt',
 			format: 'txt',
@@ -139,7 +139,7 @@
 			prefix: 'Special:DEF:'
 		}
 	];
-	var expectedParamsWithOption = [
+	const expectedParamsWithOption = [
 		{
 			filename: 'Special:Test.txt',
 			format: 'txt',
@@ -174,20 +174,20 @@
 		}
 	];
 
-	QUnit.test( 'ext.nsfilerepo.upload.paramsProcessor.test', function ( assert ) {
-		for ( var i = 0; i < 4; i++ ) {
-			var processor = new nsfr.EnhancedUploadParamsProcessor();
-			var params = inputWithoutOption[ i ][ 0 ];
-			var retrievedParams = processor.getParams( params, inputWithoutOption[ i ][ 1 ], true );
+	QUnit.test( 'ext.nsfilerepo.upload.paramsProcessor.test', ( assert ) => {
+		for ( let i = 0; i < 4; i++ ) {
+			const processor = new nsfr.EnhancedUploadParamsProcessor();
+			const params = inputWithoutOption[ i ][ 0 ];
+			const retrievedParams = processor.getParams( params, inputWithoutOption[ i ][ 1 ], true );
 			assert.deepEqual( retrievedParams, expectedParamsWithoutOption[ i ], 'params' );
 		}
 	} );
 
-	QUnit.test( 'ext.nsfilerepo.upload.paramsProcessor.test-options', function ( assert ) {
-		for ( var i = 0; i < 4; i++ ) {
-			var params = inputWithOption[ i ][ 0 ];
-			var processor = new nsfr.EnhancedUploadParamsProcessor();
-			var retrievedParams = processor.getParams( params, inputWithOption[ i ][ 1 ], false );
+	QUnit.test( 'ext.nsfilerepo.upload.paramsProcessor.test-options', ( assert ) => {
+		for ( let i = 0; i < 4; i++ ) {
+			const params = inputWithOption[ i ][ 0 ];
+			const processor = new nsfr.EnhancedUploadParamsProcessor();
+			const retrievedParams = processor.getParams( params, inputWithOption[ i ][ 1 ], false );
 			assert.deepEqual( retrievedParams, expectedParamsWithOption[ i ], 'params' );
 		}
 	} );
