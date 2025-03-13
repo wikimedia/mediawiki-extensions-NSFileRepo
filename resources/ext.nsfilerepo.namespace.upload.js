@@ -1,6 +1,6 @@
 ( function ( mw ) {
 
-	mw.hook( 'enhancedUpload.makeParamProcessor' ).add( function ( paramsProcessor ) {
+	mw.hook( 'enhancedUpload.makeParamProcessor' ).add( ( paramsProcessor ) => {
 		paramsProcessor.processor = new nsfr.EnhancedUploadParamsProcessor();
 	} );
 

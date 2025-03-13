@@ -2,10 +2,10 @@
 	// eslint-disable-next-line no-underscore-dangle
 	function _setDestName() {
 		// eslint-disable-next-line no-jquery/no-global-selector
-		var prefix = $( '#mw-input-wpNSFR_Namespace' ).val();
+		const prefix = $( '#mw-input-wpNSFR_Namespace' ).val();
 		// eslint-disable-next-line no-jquery/no-global-selector
-		var destName = $( '#wpDestFile' ).val();
-		var destFileParts = [ destName ];
+		const destName = $( '#wpDestFile' ).val();
+		const destFileParts = [ destName ];
 		if ( prefix !== '-' ) {
 			destFileParts.unshift( prefix );
 		}
@@ -20,7 +20,7 @@
 	$( d ).on( 'change', '#wpDestFile', _setDestName );
 
 	// eslint-disable no-jquery/no-global-selector
-	$( d ).on( 'submit', '#mw-upload-form', function () {
+	$( d ).on( 'submit', '#mw-upload-form', () => {
 		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '#wpDestFile' ).val( $( '#mw-input-wpNSFR_DestFile' ).val() );
 	} );

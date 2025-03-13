@@ -1,12 +1,19 @@
-/* eslint-env node */
+'use strict';
+
 module.exports = function ( grunt ) {
-	var conf = grunt.file.readJSON( 'extension.json' );
+	const conf = grunt.file.readJSON( 'extension.json' );
 
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 
 	grunt.initConfig( {
-		// eslint-disable-next-line es-x/no-object-assign
+		eslint: {
+			options: {
+				cache: true,
+				fix: grunt.option( 'fix' )
+			},
+			all: '.'
+		},
 		banana: Object.assign(
 			conf.MessagesDirs,
 			{
@@ -14,17 +21,7 @@ module.exports = function ( grunt ) {
 					requireLowerCase: 'initial'
 				}
 			}
-		),
-		eslint: {
-			options: {
-				cache: true
-			},
-			all: [
-				'**/*.{js,json}',
-				'!node_modules/**',
-				'!vendor/**'
-			]
-		}
+		)
 	} );
 
 	grunt.registerTask( 'test', [ 'eslint', 'banana' ] );

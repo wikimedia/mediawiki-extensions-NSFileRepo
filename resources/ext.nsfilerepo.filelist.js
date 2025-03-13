@@ -1,5 +1,5 @@
-mw.hook( 'enhanced.filelist.gridconfig' ).add( function ( columnCfg ) {
-	var buckets = require( './buckets.json' );
+mw.hook( 'enhanced.filelist.gridconfig' ).add( ( columnCfg ) => {
+	const buckets = require( './buckets.json' );
 	// eslint-disable-next-line camelcase
 	columnCfg.namespace_text = {
 		headerText: mw.message( 'nsfilerepo-enhanced-filelist-grid-namespace-title' ).text(),
