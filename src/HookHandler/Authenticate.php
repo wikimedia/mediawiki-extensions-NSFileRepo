@@ -4,26 +4,18 @@ namespace MediaWiki\Extension\NSFileRepo\HookHandler;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Config\MultiConfig;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\Config as NSFileRepoConfig;
-use MediaWiki\Extension\NSFileRepo\NSFileRepoHelper;
-use MediaWiki\Hook\ImgAuthBeforeStreamHook;
 use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 
-class Authenticate implements ImgAuthBeforeStreamHook, GetUserPermissionsErrorsHook {
+class Authenticate implements GetUserPermissionsErrorsHook {
 
 	/**
 	 * @var PermissionManager
 	 */
 	private $permissionManager;
-
-	/**
-	 * @var NSFileRepoHelper
-	 */
-	private $nsfrHelper;
 
 	/**
 	 * @var MultiConfig
@@ -44,7 +36,6 @@ class Authenticate implements ImgAuthBeforeStreamHook, GetUserPermissionsErrorsH
 		PermissionManager $permissionManager, Config $mainConfig, TitleFactory $titleFactory
 	) {
 		$this->permissionManager = $permissionManager;
-		$this->nsfrHelper = new NSFileRepoHelper();
 		$this->titleFactory = $titleFactory;
 		$this->config = new MultiConfig( [
 			new NSFileRepoConfig(),
@@ -88,25 +79,6 @@ class Authenticate implements ImgAuthBeforeStreamHook, GetUserPermissionsErrorsH
 				$result = $permissionStatus->getMessages();
 				return false;
 			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function onImgAuthBeforeStream( &$title, &$path, &$name, &$result ) {
-		$authTitle = $this->nsfrHelper->getTitleFromPath( $path );
-
-		if ( $authTitle instanceof Title === false ) {
-			$result = [ 'img-auth-accessdenied', 'img-auth-badtitle', $name ];
-			return false;
-		}
-
-		if ( !$this->permissionManager->userCan( 'read', RequestContext::getMain()->getUser(), $authTitle ) ) {
-			$result = [ 'img-auth-accessdenied', 'img-auth-noread', $name ];
-			return false;
 		}
 
 		return true;
