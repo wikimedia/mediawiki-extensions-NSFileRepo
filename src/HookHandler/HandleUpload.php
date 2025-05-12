@@ -51,14 +51,13 @@ class HandleUpload implements UploadForm_BeforeProcessingHook, UploadVerifyFileH
 	public function onUploadVerifyFile( $upload, $mime, &$error ) {
 		$destName = $upload->getDesiredDestName();
 		if ( !$destName ) {
-			return true;
+			return;
 		}
 		$title = $this->titleFactory->newFromText( $destName );
 		// There is a colon in the name, but it was not a valid namespace prefix!
-		if ( str_contains( $title->getText(), ':' ) ) {
+		if ( !$title || str_contains( $title->getText(), ':' ) ) {
 			$error = 'illegal-filename';
 			return false;
 		}
-		return true;
 	}
 }
