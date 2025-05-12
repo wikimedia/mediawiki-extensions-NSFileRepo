@@ -40,12 +40,14 @@ class AddNamespaceToFilelist implements MWStakeCommonWebAPIsQueryStoreResultHook
 			$this->context->getLanguage()
 		);
 		$namespaces = $namespaceList->getReadable();
+		$mainNamespace = $namespaces[0];
 		foreach ( $data as $record ) {
 			$prefixed = $record->get( 'prefixed' );
+			$prefixed = str_replace( ' ', '_', $prefixed );
 
 			if ( !str_contains( $prefixed, ':' ) ) {
-				$record->set( 'namespace_text', $namespaces[0]->getDisplayName() );
-				$record->set( 'namespace', $namespaces[0]->getId() );
+				$record->set( 'namespace_text', $mainNamespace->getDisplayName() );
+				$record->set( 'namespace', $mainNamespace->getId() );
 				continue;
 			}
 			$titleParts = explode( ':', $prefixed, 2 );
@@ -62,8 +64,8 @@ class AddNamespaceToFilelist implements MWStakeCommonWebAPIsQueryStoreResultHook
 			}
 			// if title contains ':' but no valid namespace change namespace to main namespace
 			if ( !$namespaceChanged ) {
-				$record->set( 'namespace_text', $namespaces[0]->getDisplayName() );
-				$record->set( 'namespace', $namespaces[0]->getId() );
+				$record->set( 'namespace_text', $mainNamespace->getDisplayName() );
+				$record->set( 'namespace', $mainNamespace->getId() );
 			}
 		}
 
