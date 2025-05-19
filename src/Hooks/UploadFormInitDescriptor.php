@@ -103,7 +103,7 @@ class UploadFormInitDescriptor {
 		$this->fieldDef = [
 			'NSFR_Namespace' => [
 				'label'    => wfMessage('namespace')->plain(),
-				'section'  => 'description',
+				'section'  => 'upload-description',
 				'class'    => 'HTMLSelectField',
 				'options'  => $this->namespaceSelectOptions,
 				'required' => true,
@@ -111,7 +111,7 @@ class UploadFormInitDescriptor {
 			],
 			'NSFR_DestFile' => [
 				'type' => 'text',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'label-message' => 'nsfilerepo-upload-target',
 				'size' => 60,
 				'default' => '',

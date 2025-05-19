@@ -165,7 +165,8 @@
 	"Hooks": {
 		"UploadForm:BeforeProcessing": "NSFileRepo\\Hooks\\UploadFormBeforeProcessing::handle",
 		"getUserPermissionsErrors": "permission-checker",
-		"BeforePageDisplay": [ "NSFileRepoHooks::onBeforePageDisplay", "specialFilelistAvailableNamespaces" ],
+		"BeforePageDisplay": "specialFilelistAvailableNamespaces",
+		"SpecialPageBeforeExecute": "NSFileRepoHooks::onSpecialPageBeforeExecute",
 		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
 		"ImgAuthBeforeCheckFileExists": "NSFileRepoHooks::onImgAuthBeforeCheckFileExists",
 		"UploadVerification": "NSFileRepoHooks::onUploadVerification",
