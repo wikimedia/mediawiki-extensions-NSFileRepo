@@ -208,6 +208,13 @@
 			"value": [ "js", "css", "xml", "html", "htm", "xhtml" ]
 		}
 	},
+	"RestRoutes": [
+		{
+			"path": "/nsfr/v1/accessible_namespaces",
+			"class": "\\MediaWiki\\Extension\\NSFileRepo\\Rest\\NamespaceListHandler",
+			"services": [ "ContentLanguage" ]
+		}
+	],
 	"load_composer_autoloader": true,
 	"manifest_version": 2
 }
