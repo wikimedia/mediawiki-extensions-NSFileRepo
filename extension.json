@@ -173,8 +173,8 @@
 	},
 	"Hooks": {
 		"getUserPermissionsErrors": "authenticate",
-		"BeforePageDisplay": "addModules",
-		"UploadFormInitDescriptor": "NSFileRepo\\Hooks\\UploadFormInitDescriptor::handle",
+		"SpecialPageBeforeExecute": "addModules",
+		"UploadFormInitDescriptor": "handleUpload",
 		"SkinTemplateNavigation::Universal": "NSFileRepo\\Hooks\\SkinTemplateNavigationUniversal::handle",
 		"MWStakeCommonWebAPIsQueryStoreResult": "addNamespaces",
 		"GetPreferences": "userpreference",
