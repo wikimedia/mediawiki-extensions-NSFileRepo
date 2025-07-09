@@ -7,7 +7,7 @@ use MediaWiki\Extension\PDFCreator\Utility\ImageFinder as PDFCreatorImageFinder;
 class ImageFinder extends PDFCreatorImageFinder {
 
 	/**
-	 * @return void
+	 * @inheritDoc
 	 */
 	protected function getFileResolver() {
 		return new FileResolver(
