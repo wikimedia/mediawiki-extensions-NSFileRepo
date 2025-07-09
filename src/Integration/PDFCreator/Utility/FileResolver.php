@@ -69,7 +69,7 @@ class FileResolver {
 		}
 
 		$matches = [];
-		preg_match( '#(\/thumb)?\/(\d{4})\/[a-z,0-9]{1}\/[a-z,0-9]{2}\/(.*)#', $srcUrl, $matches );
+		preg_match( '#(\/thumb)?\/(\d{4})\/[a-z0-9]{1}\/[a-z0-9]{2}\/(.*)#', $srcUrl, $matches );
 		if ( !empty( $matches ) ) {
 			$namespace = $matches[2];
 			$dummyTitle = $this->titleFactory->newFromText( 'Dummy', $namespace );
@@ -77,13 +77,13 @@ class FileResolver {
 			$fileTitle = $this->titleFactory->newFromText( 'File:' . $srcFilename );
 			$file = $this->repoGroup->findFile( $fileTitle );
 		} else {
-			return null;
+			preg_match( '#\/([a-z0-9])\/([a-z0-9]{2})\/(.*)#', $srcUrl, $matches );
+			if ( !empty( $matches ) ) {
+				$fileTitle = $this->titleFactory->newFromText( $srcFilename, NS_FILE );
+				$file = $this->repoGroup->findFile( $fileTitle );
+			}
 		}
 
-		if ( !$file ) {
-			$file = null;
-		}
-
-		return $file;
+		return $file ?: null;
 	}
 }
