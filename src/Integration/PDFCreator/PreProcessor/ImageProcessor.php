@@ -65,4 +65,12 @@ class ImageProcessor implements IPreProcessor {
 			$images[$filename] = $result->getAbsolutePath();
 		}
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getPosition(): int {
+		// This processor must run after PDFCreator\PreProcessor\ObjectProcessor.
+		return 50;
+	}
 }
