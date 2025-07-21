@@ -4,39 +4,13 @@ namespace MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility;
 
 use DOMElement;
 use File;
-use MediaWiki\Config\Config;
+use MediaWiki\Extension\PDFCreator\Utility\FileResolver as PDFCreatorFileResolver;
 use MediaWiki\Extension\PDFCreator\Utility\ThumbFilenameExtractor;
-use MediaWiki\Title\TitleFactory;
-use RepoGroup;
 
-class FileResolver {
-
-	/** @var Config */
-	private $config;
-
-	/** @var RepoGroup */
-	private $repoGroup;
-
-	/** @var TitleFactory */
-	private $titleFactory;
+class FileResolver extends PDFCreatorFileResolver {
 
 	/**
-	 * @param Config $config
-	 * @param RepoGroup $repoGroup
-	 * @param TitleFactory $titleFactory
-	 */
-	public function __construct(
-		Config $config, RepoGroup $repoGroup, TitleFactory $titleFactory
-	) {
-		$this->config = $config;
-		$this->repoGroup = $repoGroup;
-		$this->titleFactory = $titleFactory;
-	}
-
-	/**
-	 * @param DOMElement $element
-	 * @param string $attrSrc
-	 * @return File|null
+	 * @inheritDoc
 	 */
 	public function execute( DOMElement $element, string $attrSrc = 'src' ): ?File {
 		$pathsForRegex = [
