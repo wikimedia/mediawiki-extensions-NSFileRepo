@@ -87,7 +87,7 @@ class NamespaceLocalFile extends LocalFile {
 	 */
 	public function getArchivePath( $suffix = false ) {
 		if ( !$suffix ) {
-			return $this->getArchivePath( $suffix );
+			return parent::getArchivePath( $suffix );
 		}
 		$suffix = $this->getFileNameStripped( $suffix );
 		return parent::getArchivePath( $suffix );
@@ -98,7 +98,7 @@ class NamespaceLocalFile extends LocalFile {
 	 */
 	public function getArchiveThumbPath( $archiveName, $suffix = false ) {
 		if ( !$suffix ) {
-			return $this->getArchiveThumbPath( $archiveName, $suffix );
+			return parent::getArchiveThumbPath( $archiveName, $suffix );
 		}
 		$suffix = $this->getFileNameStripped( $suffix );
 		return parent::getArchiveThumbPath( $archiveName, $suffix );
@@ -109,7 +109,7 @@ class NamespaceLocalFile extends LocalFile {
 	 */
 	public function getArchiveThumbUrl( $archiveName, $suffix = false ) {
 		if ( !$suffix ) {
-			return $this->getArchiveThumbPath( $archiveName, $suffix );
+			return parent::getArchiveThumbPath( $archiveName, $suffix );
 		}
 		$suffix = $this->getFileNameStripped( $suffix );
 		return parent::getArchiveThumbUrl( $archiveName, $suffix );
@@ -120,7 +120,7 @@ class NamespaceLocalFile extends LocalFile {
 	 */
 	public function getArchiveVirtualUrl( $suffix = false ) {
 		if ( !$suffix ) {
-			return $this->getArchiveVirtualUrl( $suffix );
+			return parent::getArchiveVirtualUrl( $suffix );
 		}
 		$suffix = $this->getFileNameStripped( $suffix );
 		return parent::getArchiveVirtualUrl( $suffix );
@@ -131,7 +131,7 @@ class NamespaceLocalFile extends LocalFile {
 	 */
 	public function getThumbVirtualUrl( $suffix = false ) {
 		if ( !$suffix ) {
-			return $this->getThumbVirtualUrl( $suffix );
+			return parent::getThumbVirtualUrl( $suffix );
 		}
 		$suffix = $this->getFileNameStripped( $suffix );
 		return parent::getThumbVirtualUrl( $suffix );
