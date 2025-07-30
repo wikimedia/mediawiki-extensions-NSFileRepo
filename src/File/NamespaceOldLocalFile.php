@@ -19,13 +19,6 @@ class NamespaceOldLocalFile extends \OldLocalFile {
 	}
 
 	/**
-	 * @return string|null
-	 */
-	public function getArchiveName(): ?string {
-		return $this->internalFile->getFileNameStripped( parent::getArchiveName() );
-	}
-
-	/**
 	 * @inheritDoc
 	 */
 	public function publish( $src, $flags = 0, array $options = [] ) {
