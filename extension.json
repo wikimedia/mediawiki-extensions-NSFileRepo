@@ -169,6 +169,9 @@
 		"handleUpload": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\HandleUpload",
 			"services": [ "TitleFactory" ]
+		},
+		"oldImageLinkHandler": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\OldImageLinkHandler"
 		}
 	},
 	"Hooks": {
@@ -179,7 +182,8 @@
 		"MWStakeCommonWebAPIsQueryStoreResult": "addNamespaces",
 		"GetPreferences": "userpreference",
 		"UploadVerifyFile": "handleUpload",
-		"UploadForm:BeforeProcessing": "handleUpload"
+		"UploadForm:BeforeProcessing": "handleUpload",
+		"HtmlPageLinkRendererBegin": "oldImageLinkHandler"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",

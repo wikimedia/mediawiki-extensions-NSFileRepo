@@ -5,7 +5,6 @@ namespace MediaWiki\Extension\NSFileRepo\File;
 class NamespaceOldLocalFile extends \OldLocalFile {
 
 	/**
-	 *
 	 * @var NamespaceLocalFile
 	 */
 	protected $internalFile;
@@ -16,6 +15,13 @@ class NamespaceOldLocalFile extends \OldLocalFile {
 	public function __construct( $title, $repo, $time, $archiveName ) {
 		parent::__construct( $title, $repo, $time, $archiveName );
 		$this->internalFile = new NamespaceLocalFile( $title, $repo );
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getArchiveName(): ?string {
+		return $this->internalFile->getFileNameStripped( parent::getArchiveName() );
 	}
 
 	/**
