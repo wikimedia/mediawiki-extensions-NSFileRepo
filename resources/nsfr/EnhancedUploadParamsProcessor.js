@@ -127,7 +127,7 @@ nsfr.EnhancedUploadParamsProcessor.prototype._getInvalidNamespaces = function ()
 			excludeNS.push( nsId );
 			continue;
 		}
-		// eslint-disable-next-line es-x/no-array-prototype-includes
+
 		if ( namespacesBlacklist.includes( nsId ) ) {
 			excludeNS.push( nsId );
 			continue;
