@@ -12,19 +12,16 @@ use MediaWiki\HTMLForm\Field\HTMLSelectField;
 class UploadFormInitDescriptor {
 
 	/**
-	 *
 	 * @var MediaWikiConfig
 	 */
 	protected $config = null;
 
 	/**
-	 *
 	 * @var IContextSource
 	 */
 	protected $context = null;
 
 	/**
-	 *
 	 * @var array
 	 */
 	protected $descriptor = [];
@@ -39,7 +36,6 @@ class UploadFormInitDescriptor {
 	protected $fieldDef = [];
 
 	/**
-	 *
 	 * @param IContextSource $context
 	 * @param MediaWikiConfig $config
 	 * @param array &$descriptor

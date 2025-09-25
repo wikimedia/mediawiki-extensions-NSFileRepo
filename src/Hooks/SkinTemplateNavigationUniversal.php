@@ -14,31 +14,26 @@ use SkinTemplate;
 class SkinTemplateNavigationUniversal {
 
 	/**
-	 *
 	 * @var Config
 	 */
 	protected $config = null;
 
 	/**
-	 *
 	 * @var IContextSource
 	 */
 	protected $context = null;
 
 	/**
-	 *
 	 * @var SkinTemplate
 	 */
 	protected $sktemplate = null;
 
 	/**
-	 *
 	 * @var array
 	 */
 	protected $links = [];
 
 	/**
-	 *
 	 * @param SkinTemplate $sktemplate
 	 * @param array &$links
 	 * @return bool
@@ -55,7 +50,6 @@ class SkinTemplateNavigationUniversal {
 	}
 
 	/**
-	 *
 	 * @param IContextSource $context
 	 * @param Config $config
 	 * @param SkinTemplate $sktemplate
@@ -69,7 +63,6 @@ class SkinTemplateNavigationUniversal {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	public function process() {

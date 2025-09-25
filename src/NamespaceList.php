@@ -13,25 +13,21 @@ use MediaWiki\User\User;
 class NamespaceList {
 
 	/**
-	 *
 	 * @var User
 	 */
 	protected $user = null;
 
 	/**
-	 *
 	 * @var MediaWikiConfig
 	 */
 	protected $config = null;
 
 	/**
-	 *
 	 * @var Language
 	 */
 	protected $lang = null;
 
 	/**
-	 *
 	 * @param User $user
 	 * @param MediaWikiConfig $config
 	 * @param Language $lang

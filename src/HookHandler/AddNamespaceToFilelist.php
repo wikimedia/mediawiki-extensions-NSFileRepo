@@ -18,7 +18,6 @@ class AddNamespaceToFilelist implements MWStakeCommonWebAPIsQueryStoreResultHook
 	private $context;
 
 	/**
-	 *
 	 * @param Config $config
 	 */
 	public function __construct( Config $config ) {
