@@ -176,7 +176,11 @@ class ImportFiles extends Maintenance {
 			$publishOptions = [];
 			$handler = MediaHandler::getHandler( $props['mime'] );
 			if ( $handler ) {
-				$metadata = \Wikimedia\AtEase\AtEase::quietCall( 'unserialize', $props['metadata'] );
+
+				$metadata = $props['metadata'];
+				if ( !is_array( $metadata ) ) {
+					$metadata = \Wikimedia\AtEase\AtEase::quietCall( 'unserialize', $metadata );
+				}
 
 				$publishOptions['headers'] = $handler->getContentHeaders( $metadata );
 			} else {
