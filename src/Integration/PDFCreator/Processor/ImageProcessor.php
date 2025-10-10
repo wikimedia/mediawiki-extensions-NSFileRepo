@@ -1,17 +1,17 @@
 <?php
 
-namespace MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\PreProcessor;
+namespace MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Processor;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility\ImageFinder;
-use MediaWiki\Extension\PDFCreator\IPreProcessor;
+use MediaWiki\Extension\PDFCreator\IProcessor;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
 use MediaWiki\Extension\PDFCreator\Utility\ImageUrlUpdater;
 use MediaWiki\Extension\PDFCreator\Utility\ImageWidthUpdater;
 use MediaWiki\Title\TitleFactory;
 use RepoGroup;
 
-class ImageProcessor implements IPreProcessor {
+class ImageProcessor implements IProcessor {
 
 	/** @var TitleFactory */
 	private $titleFactory;
@@ -70,7 +70,7 @@ class ImageProcessor implements IPreProcessor {
 	 * @return int
 	 */
 	public function getPosition(): int {
-		// This processor must run after PDFCreator\PreProcessor\ObjectProcessor.
-		return 50;
+		// This processor must run after PDFCreator\Processor\ObjectProcessor.
+		return 80;
 	}
 }

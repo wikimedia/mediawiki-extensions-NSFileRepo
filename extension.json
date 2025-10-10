@@ -44,13 +44,13 @@
 			]
 		},
 		"PDFCreator": {
-			"PreProcessors": {
-				"NSFileRepoImages": {
-					"class": "MediaWiki\\Extension\\NSFileRepo\\Integration\\PDFCreator\\PreProcessor\\ImageProcessor",
+			"Processors": {
+				"NSFileRepoAttachments": {
+					"class": "MediaWiki\\Extension\\NSFileRepo\\Integration\\PDFCreator\\Processor\\AttachmentProcessor",
 					"services": [ "TitleFactory", "MainConfig", "RepoGroup" ]
 				},
-				"NSFileRepoAttachments": {
-					"class": "MediaWiki\\Extension\\NSFileRepo\\Integration\\PDFCreator\\PreProcessor\\AttachmentProcessor",
+				"NSFileRepoImages": {
+					"class": "MediaWiki\\Extension\\NSFileRepo\\Integration\\PDFCreator\\Processor\\ImageProcessor",
 					"services": [ "TitleFactory", "MainConfig", "RepoGroup" ]
 				}
 			}

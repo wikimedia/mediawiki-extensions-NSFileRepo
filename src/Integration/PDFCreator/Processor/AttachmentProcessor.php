@@ -1,16 +1,16 @@
 <?php
 
-namespace MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\PreProcessor;
+namespace MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Processor;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility\AttachmentFinder;
-use MediaWiki\Extension\PDFCreator\IPreProcessor;
+use MediaWiki\Extension\PDFCreator\IProcessor;
 use MediaWiki\Extension\PDFCreator\Utility\AttachmentUrlUpdater;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
 use MediaWiki\Title\TitleFactory;
 use RepoGroup;
 
-class AttachmentProcessor implements IPreProcessor {
+class AttachmentProcessor implements IProcessor {
 
 	/** @var TitleFactory */
 	private $titleFactory;
@@ -59,5 +59,12 @@ class AttachmentProcessor implements IPreProcessor {
 			$filename = $result->getFilename();
 			$attachments[$filename] = $result->getAbsolutePath();
 		}
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getPosition(): int {
+		return 80;
 	}
 }
