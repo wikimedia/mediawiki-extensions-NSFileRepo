@@ -3,7 +3,8 @@
 		"authors": [
 			"Meno25",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Mohammed Qays"
 		]
 	},
 	"nsfilerepo-desc": "يوفر خصائص معنمدة على النطاق للملفات المرفوعة",
@@ -12,7 +13,7 @@
 	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "لا يمكن تعديل هذا الحقل عند إعادة رفع الملف",
 	"nsfilerepo-move-file-namespace-action-label": "تعيين نطاق الملف",
 	"nsfilerepo-move-file-namespace-dialog-title": "تعيين نطاق الملف",
-	"nsfilerepo-move-file-namespace-dialog-button-done": "تم",
+	"nsfilerepo-move-file-namespace-dialog-button-done": "نُفّذ",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "إلغاء",
 	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "النطاق",
 	"nsfilerepo-upload-file-namespace-namespaceselector-label": "النطاق",
