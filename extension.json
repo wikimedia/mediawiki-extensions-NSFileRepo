@@ -101,8 +101,8 @@
 		},
 		"ext.nsfilerepo.namespace.cpd": {
 			"scripts": [
-				"ext.nsfilerepo.namespace.cpd.js",
-				"nsfr/NamespaceFilenameProcessor.js"
+				"nsfr/NamespaceFilenameProcessor.js",
+				"ext.nsfilerepo.namespace.cpd.js"
 			],
 			"dependencies": [
 				"oojs-ui"
@@ -110,8 +110,8 @@
 		},
 		"ext.nsfilerepo.namespace.drawioeditor": {
 			"scripts": [
-				"ext.nsfilerepo.namespace.drawioeditor.js",
-				"nsfr/NamespaceFilenameProcessor.js"
+				"nsfr/NamespaceFilenameProcessor.js",
+				"ext.nsfilerepo.namespace.drawioeditor.js"
 			],
 			"dependencies": [
 				"oojs-ui"
