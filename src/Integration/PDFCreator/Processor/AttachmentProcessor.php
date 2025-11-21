@@ -7,6 +7,8 @@ use MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility\AttachmentFind
 use MediaWiki\Extension\PDFCreator\IProcessor;
 use MediaWiki\Extension\PDFCreator\Utility\AttachmentUrlUpdater;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
+use MediaWiki\Extension\PDFCreator\Utility\ExportPage;
+use MediaWiki\Extension\PDFCreator\Utility\WikiFileResource;
 use MediaWiki\Title\TitleFactory;
 use RepoGroup;
 
@@ -51,8 +53,8 @@ class AttachmentProcessor implements IProcessor {
 		);
 		$results = $attachmentFinder->execute( $pages, $attachments );
 
-		$ImageUrlUpdater = new AttachmentUrlUpdater( $this->titleFactory );
-		$ImageUrlUpdater->execute( $pages, $attachments );
+		$attachmentUrlUpdater = new AttachmentUrlUpdater();
+		$attachmentUrlUpdater->execute( $pages, $results );
 
 		/** @var WikiFileResource */
 		foreach ( $results as $result ) {
