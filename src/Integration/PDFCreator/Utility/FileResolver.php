@@ -42,13 +42,19 @@ class FileResolver extends PDFCreatorFileResolver {
 			$srcFilename = $thumbFilenameExtractor->extractFilename( $srcUrl );
 		}
 
+		/**
+		 * Check url for
+		 * - thumb
+		 * - custom namespace
+		 * - archived file
+		 */
 		$matches = [];
+		$file = null;
 		preg_match( '#(\/thumb)?\/(\d{4})\/[a-z0-9]{1}\/[a-z0-9]{2}\/(.*)#', $srcUrl, $matches );
 		if ( !empty( $matches ) ) {
 			$namespace = $matches[2];
 			$dummyTitle = $this->titleFactory->newFromText( 'Dummy', $namespace );
-			$srcFilename = $dummyTitle->getNsText() . ':' . $srcFilename;
-			$fileTitle = $this->titleFactory->newFromText( 'File:' . $srcFilename );
+			$fileTitle = $this->titleFactory->newFromText( 'File:' . $dummyTitle->getNsText() . ':' . $srcFilename );
 			$file = $this->repoGroup->findFile( $fileTitle );
 		} else {
 			preg_match( '#\/([a-z0-9])\/([a-z0-9]{2})\/(.*)#', $srcUrl, $matches );
@@ -56,6 +62,10 @@ class FileResolver extends PDFCreatorFileResolver {
 				$fileTitle = $this->titleFactory->newFromText( $srcFilename, NS_FILE );
 				$file = $this->repoGroup->findFile( $fileTitle );
 			}
+		}
+
+		if ( !$file ) {
+			$file = $this->findArchivedFile( $srcFilename );
 		}
 
 		return $file ?: null;
