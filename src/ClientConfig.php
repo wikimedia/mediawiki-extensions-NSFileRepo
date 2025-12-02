@@ -28,14 +28,16 @@ class ClientConfig {
 		$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 		$field = '';
 
-		if ( $dbr->getType() === 'mysql' ) {
-			$field = 'DISTINCT SUBSTRING_INDEX(img_name, ":", 1) as namespace';
-		}
-		if ( $dbr->getType() === 'sqlite' ) {
-			$field = 'DISTINCT SUBSTR(img_name, 1, INSTR(img_name, ":") - 1) as namespace';
-		}
-		if ( $dbr->getType() === 'postgres' ) {
-			$field = 'DISTINCT SUBSTRING(img_name FROM 1 FOR POSITION(":" IN img_name) - 1) as namespace';
+		switch ( $dbr->getType() ) {
+			case 'mysql':
+				$field = "DISTINCT SUBSTRING_INDEX(img_name, ':', 1) AS namespace";
+				break;
+			case 'sqlite':
+				$field = "DISTINCT SUBSTR(img_name, 1, INSTR(img_name, ':') - 1) AS namespace";
+				break;
+			case 'postgres':
+				$field = "DISTINCT SUBSTRING(img_name FROM 1 FOR POSITION(':' IN img_name) - 1) AS namespace";
+				break;
 		}
 
 		$res = $dbr->newSelectQueryBuilder()
