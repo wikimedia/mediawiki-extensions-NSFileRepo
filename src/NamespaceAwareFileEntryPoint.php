@@ -50,7 +50,12 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 		$permissionManager = $services->getPermissionManager();
 
 		$request = $this->getRequest();
-		$publicWiki = $services->getGroupPermissionsLookup()->groupHasPermission( '*', 'read' );
+		// HINT: We intentionally disable "public wiki" logic in this entry point, because it
+		// is not considered a valid use case for this extension. The only thing it could have
+		// been used for is to remove headers that break (CDN) caching. But given the nature
+		// of this extension, we also don't want files delivered by it to be cached by a CDN
+		// in any case.
+		// $publicWiki = $services->getGroupPermissionsLookup()->groupHasPermission( '*', 'read' );
 
 		// Find the path assuming the request URL is relative to the local public zone URL
 		$baseUrl = $services->getRepoGroup()->getLocalRepo()->getZoneUrl( 'public' );
@@ -142,32 +147,29 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 		}
 
 		$headers = [];
-
 		$title = $services->getTitleFactory()->makeTitleSafe( NS_FILE, $name );
+		if ( !$title instanceof Title ) {
+			// files have valid titles
+			$this->forbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
+			return;
+		}
 
 		$hookRunner = new HookRunner( $services->getHookContainer() );
-		if ( !$publicWiki ) {
-			// For private wikis, run extra auth checks and set cache control headers
-			$headers['Cache-Control'] = 'private';
-			$headers['Vary'] = 'Cookie';
 
-			if ( !$title instanceof Title ) {
-				// files have valid titles
-				$this->forbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
-				return;
-			}
+		// For private wikis, run extra auth checks and set cache control headers
+		$headers['Cache-Control'] = 'private';
+		$headers['Vary'] = 'Cookie';
 
-			// Run hook for extension authorization plugins
-			$authResult = [];
-			if ( !$hookRunner->onImgAuthBeforeStream( $title, $path, $name, $authResult ) ) {
-				$this->forbidden( $authResult[0], $authResult[1], array_slice( $authResult, 2 ) );
-				return;
-			}
+		// Run hook for extension authorization plugins
+		$authResult = [];
+		if ( !$hookRunner->onImgAuthBeforeStream( $title, $path, $name, $authResult ) ) {
+			$this->forbidden( $authResult[0], $authResult[1], array_slice( $authResult, 2 ) );
+			return;
+		}
 
-			if ( !$this->authenticateNamespaceTitle( $path, $user ) ) {
-				$this->forbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
-				return;
-			}
+		if ( !$this->authenticateNamespaceTitle( $path, $user ) ) {
+			$this->forbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
+			return;
 		}
 
 		$range = $this->environment->getServerInfo( 'HTTP_RANGE' );
