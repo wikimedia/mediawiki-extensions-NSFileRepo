@@ -18,13 +18,39 @@ nsfr.NamespaceFilenameProcessor.prototype.initializeFilename = function () {
  * @inheritDoc
  */
 nsfr.NamespaceFilenameProcessor.prototype.validateFilename = function ( filename ) {
-	if ( filename === '' ) {
+	if ( !filename || !filename.match( /^[\w,-.:\s]+$/ ) ) {
 		return false;
 	}
-	if ( !filename.match( /^[\w,-.:\s]+$/ ) ) {
+
+	const colonCount = ( filename.match( /:/g ) || [] ).length;
+	if ( colonCount > 1 ) {
 		return false;
 	}
+
+	const prefix = ( colonCount === 1 ) ?
+		filename.split( ':' )[ 0 ] :
+		null;
+
+	if ( prefix && !this.isRegisteredNamespace( prefix ) ) {
+		return false;
+	}
+
 	return true;
+};
+
+nsfr.NamespaceFilenameProcessor.prototype.isRegisteredNamespace = function ( prefix ) {
+	if ( !prefix ) {
+		return false;
+	}
+
+	const namespaces = mw.config.get( 'wgFormattedNamespaces' );
+	for ( const nsId in namespaces ) {
+		if ( namespaces[ nsId ] === prefix ) {
+			return true;
+		}
+	}
+
+	return false;
 };
 
 /**
