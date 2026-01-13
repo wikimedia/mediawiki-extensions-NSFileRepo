@@ -5,6 +5,9 @@
 		"wikimedia/jquery",
 		"wikimedia/mediawiki"
 	],
+	"parserOptions": {
+		"sourceType": "commonjs"
+	},
 	"globals": {
 		"jQuery": "readonly",
 		"mediaWiki": "readonly",
@@ -13,6 +16,7 @@
 		"QUnit": "readonly"
 	},
 	"rules": {
+		"es-x/no-object-entries": "off",
 		"max-len": "off",
 		"no-jquery/no-done-fail": "warn"
 	}

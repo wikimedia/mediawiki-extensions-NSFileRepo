@@ -1,36 +1,100 @@
-( function ( d ) {
-	function setDestName() {
-		const prefix = d.getElementById( 'mw-input-wpNSFR_Namespace' ).value;
-		const destName = d.getElementById( 'wpDestFile' ).value;
-		const destFileParts = [ destName ];
-		if ( prefix !== '-' ) {
-			destFileParts.unshift( prefix );
-		}
-		d.getElementById( 'mw-input-wpNSFR_DestFile' ).value = destFileParts.join( ':' );
+( function () {
+	const namespaces = mw.config.get( 'nsfilerepoNamespaces' );
+
+	if ( !window.mw || !mw.loader ) {
+		return;
 	}
-	d.addEventListener( 'DOMContentLoaded', () => {
-		const namespaceInput = d.getElementById( 'mw-input-wpNSFR_Namespace' );
-		const uploadFileInput = d.getElementById( 'wpUploadFile' );
-		const destFileInput = d.getElementById( 'wpDestFile' );
-		const uploadForm = d.getElementById( 'mw-upload-form' );
-		if ( namespaceInput ) {
-			namespaceInput.addEventListener( 'change', setDestName );
+
+	mw.loader.using( 'mediawiki.special.upload' ).then( waitForDialog );
+
+	function waitForDialog() {
+		if ( mw.Upload && mw.Upload.Dialog ) {
+			patchDialog();
+			return;
 		}
-		if ( uploadFileInput ) {
-			uploadFileInput.addEventListener( 'change', () => {
-				setTimeout( setDestName, 50 );
-			} );
+		setTimeout( waitForDialog, 50 );
+	}
+
+	function patchDialog() {
+		const DialogProto = mw.Upload.Dialog.prototype;
+
+		if ( DialogProto.nsfrPatched ) {
+			return;
 		}
-		if ( destFileInput ) {
-			destFileInput.addEventListener( 'change', setDestName );
-			destFileInput.addEventListener( 'input', setDestName );
+		DialogProto.nsfrPatched = true;
+
+		const originalOnSet = DialogProto.onUploadBookletSet;
+
+		DialogProto.onUploadBookletSet = function ( page ) {
+			originalOnSet.call( this, page );
+
+			if ( page && page.getName && page.getName() === 'info' ) {
+				injectNamespaceSelector( page );
+			}
+		};
+	}
+
+	function injectNamespaceSelector( page ) {
+		if ( page.nsfrInjected ) {
+			return;
 		}
-		if ( uploadForm ) {
-			uploadForm.addEventListener( 'submit', () => {
-				setDestName();
-				d.getElementById( 'wpDestFile' ).value = d.getElementById( 'mw-input-wpNSFR_DestFile' ).value;
-			} );
+		page.nsfrInjected = true;
+
+		const $fieldset = page.$element.find( '.oo-ui-fieldsetLayout' ).first();
+		if ( !$fieldset.length ) {
+			return;
 		}
-		setDestName();
-	} );
-}( document ) );
+
+		const $nsDropdown = $( '<select>' ).css( { width: '100%' } );
+		for ( const [ label, value ] of Object.entries( namespaces ) ) {
+			$nsDropdown.append(
+				$( '<option>' ).attr( 'value', value ).text( label )
+			);
+		}
+
+		const $wrapper = $( '<div>' )
+			.addClass( 'nsfr-namespace-selector' )
+			.css( { marginBottom: '1em' } )
+			.append(
+				$( '<label>' ).text( mw.message( 'namespace' ).text() ),
+				$nsDropdown
+			);
+
+		$fieldset.prepend( $wrapper );
+
+		const $filenameInput = page.$element
+			.find( '.oo-ui-textInputWidget input' )
+			.first();
+
+		if ( !$filenameInput.length ) {
+			return;
+		}
+
+		function stripNamespace( name ) {
+			return name.replace( /^[^:]+:/, '' );
+		}
+
+		// Update filename to include selected namespace
+		function updateFilename() {
+			const nsPrefix = $nsDropdown.val();
+			const current = $filenameInput.val() || '';
+			const baseName = stripNamespace( current );
+
+			if ( nsPrefix ) {
+				$filenameInput.val( nsPrefix + ':' + baseName );
+			} else {
+				$filenameInput.val( baseName );
+			}
+		}
+
+		// Event: namespace selection change → rewrite filename
+		$nsDropdown.on( 'change', updateFilename );
+
+		// Event: typing in filename → preserve namespace prefix
+		$filenameInput.on( 'input', () => {
+			setTimeout( updateFilename, 0 );
+		} );
+
+		updateFilename();
+	}
+}() );
