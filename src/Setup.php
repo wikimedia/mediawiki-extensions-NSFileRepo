@@ -8,7 +8,6 @@ class Setup {
 	 * @return void
 	 */
 	public static function register() {
-		$GLOBALS['wgLocalFileRepo']['class'] = NamespaceLocalRepo::class;
 		if ( PHP_SAPI === 'cli' ) {
 			// Avoid `--skip-config-validation` issues in context of `update.php`
 			// Unfortunately there is no good way to know if in context of this particular maintenance script

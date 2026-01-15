@@ -178,6 +178,9 @@
 		},
 		"oldImageLinkHandler": {
 			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\OldImageLinkHandler"
+		},
+		"overrideLocalRepo": {
+			"class": "MediaWiki\\Extension\\NSFileRepo\\HookHandler\\OverrideLocalRepo"
 		}
 	},
 	"Hooks": {
@@ -189,7 +192,8 @@
 		"GetPreferences": "userpreference",
 		"UploadVerifyFile": "handleUpload",
 		"UploadForm:BeforeProcessing": "handleUpload",
-		"HtmlPageLinkRendererBegin": "oldImageLinkHandler"
+		"HtmlPageLinkRendererBegin": "oldImageLinkHandler",
+		"MediaWikiServices": "overrideLocalRepo"
 	},
 	"QUnitTestModule": {
 		"localBasePath": "",
