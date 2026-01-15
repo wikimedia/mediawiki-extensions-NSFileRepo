@@ -21,7 +21,8 @@ class NamespaceOldLocalFile extends \OldLocalFile {
 	 * @return string|null
 	 */
 	public function getArchiveName(): ?string {
-		return $this->internalFile->getFileNameStripped( parent::getArchiveName() );
+		$archiveName = parent::getArchiveName();
+		return $archiveName ? $this->internalFile->getFileNameStripped( $archiveName ) : null;
 	}
 
 	/**
