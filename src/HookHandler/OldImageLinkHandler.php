@@ -16,11 +16,11 @@ class OldImageLinkHandler implements HtmlPageLinkRendererBeginHook {
 		if (
 			isset( $query['oldimage'] ) &&
 			isset( $query['action'] ) &&
-			$query['action'] === 'revert' &&
+			( $query['action'] === 'delete' || $query['action'] === 'revert' ) &&
 			$target->inNamespace( NS_FILE )
 		) {
 			$oldimage = $query['oldimage'];
-			$prefixed = $target->getText();
+			$prefixed = $target->getDBKey();
 
 			// TIMESTAMP!FILENAME
 			$parts = explode( '!', $oldimage, 2 );
