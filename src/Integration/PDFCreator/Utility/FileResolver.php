@@ -27,8 +27,8 @@ class FileResolver extends PDFCreatorFileResolver {
 
 		// Extracting the filename
 		foreach ( $pathsForRegex as $path ) {
-			$srcUrl = preg_replace( "#" . preg_quote( $path, "#" ) . "#", '', $srcUrl );
-			$srcUrl = preg_replace( '/(&.*)/', '', $srcUrl );
+			$src = preg_replace( "#" . preg_quote( $path, "#" ) . "#", '', $src );
+			$src = preg_replace( '/(&.*)/', '', $src );
 		}
 
 		$srcUrl = urldecode( $src );
