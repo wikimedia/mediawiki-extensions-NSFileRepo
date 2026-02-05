@@ -24,7 +24,6 @@ class FileResolver extends PDFCreatorFileResolver {
 		if ( strpos( $src, '?' ) ) {
 			$src = substr( $src, 0, strpos( $src, '?' ) );
 		}
-		$srcUrl = urldecode( $src );
 
 		// Extracting the filename
 		foreach ( $pathsForRegex as $path ) {
@@ -32,6 +31,7 @@ class FileResolver extends PDFCreatorFileResolver {
 			$srcUrl = preg_replace( '/(&.*)/', '', $srcUrl );
 		}
 
+		$srcUrl = urldecode( $src );
 		$srcFilename = wfBaseName( $srcUrl );
 
 		$thumbFilenameExtractor = new ThumbFilenameExtractor();
