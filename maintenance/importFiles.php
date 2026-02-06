@@ -176,7 +176,8 @@ class ImportFiles extends Maintenance {
 
 				$metadata = $props['metadata'];
 				if ( !is_array( $metadata ) ) {
-					$metadata = \Wikimedia\AtEase\AtEase::quietCall( 'unserialize', $metadata );
+					// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+					$metadata = @unserialize( $metadata );
 				}
 
 				$publishOptions['headers'] = $handler->getContentHeaders( $metadata );
