@@ -15,5 +15,7 @@
 	"nsfilerepo-move-file-namespace-dialog-title": "Definir espaço nominal de arquivos",
 	"nsfilerepo-move-file-namespace-dialog-button-done": "Feito",
 	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Cancelar",
-	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espaço nominal"
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Espaço nominal",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Espaço nominal",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Espaço nominal"
 }
