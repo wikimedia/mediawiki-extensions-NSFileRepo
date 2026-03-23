@@ -11,7 +11,6 @@ use MediaWiki\Html\TemplateParser;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MediaWiki\User\User;
 use Wikimedia\FileBackend\HTTPFileStreamer;
 
 class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
@@ -147,7 +146,8 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 		}
 
 		$headers = [];
-		$title = $services->getTitleFactory()->makeTitleSafe( NS_FILE, $name );
+		$nsfrHelper = new NSFileRepoHelper();
+		$title = $nsfrHelper->getTitleFromPath( $path );
 		if ( !$title instanceof Title ) {
 			// files have valid titles
 			$this->forbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
@@ -160,16 +160,22 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 		$headers['Cache-Control'] = 'private';
 		$headers['Vary'] = 'Cookie';
 
-		// Run hook for extension authorization plugins
-		$authResult = [];
-		if ( !$hookRunner->onImgAuthBeforeStream( $title, $path, $name, $authResult ) ) {
-			$this->forbidden( $authResult[0], $authResult[1], array_slice( $authResult, 2 ) );
-			return;
-		}
+		$whitelisted = false;
+		$services->getHookContainer()->run( 'CheckFileWhitelisted', [ $title, $path, $name, &$whitelisted ] );
 
-		if ( !$this->authenticateNamespaceTitle( $path, $user ) ) {
-			$this->forbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
-			return;
+		if ( !$whitelisted ) {
+			// Run hook for extension authorization plugins
+			$authResult = [];
+			if ( !$hookRunner->onImgAuthBeforeStream( $title, $path, $name, $authResult ) ) {
+				$this->forbidden( $authResult[0], $authResult[1], array_slice( $authResult, 2 ) );
+				return;
+			}
+
+			$permissionManager = $this->getServiceContainer()->getPermissionManager();
+			if ( !$permissionManager->userCan( 'read', $user, $title ) ) {
+				$this->forbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
+				return;
+			}
 		}
 
 		$range = $this->environment->getServerInfo( 'HTTP_RANGE' );
@@ -272,26 +278,4 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 
 		return $name;
 	}
-
-	/**
-	 * @param string $path
-	 * @param User $user
-	 * @return bool
-	 */
-	private function authenticateNamespaceTitle( string $path, User $user ) {
-		$nsfrHelper = new NSFileRepoHelper();
-		$authTitle = $nsfrHelper->getTitleFromPath( $path );
-
-		if ( $authTitle instanceof Title === false ) {
-			return false;
-		}
-
-		$permissionManager = $this->getServiceContainer()->getPermissionManager();
-		if ( !$permissionManager->userCan( 'read', $user, $authTitle ) ) {
-			return false;
-		}
-
-		return true;
-	}
-
 }
