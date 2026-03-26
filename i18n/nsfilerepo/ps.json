@@ -1,8 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"شاه زمان پټان"
 		]
 	},
-	"nsfilerepo-nsmain": "(آرنی)"
+	"nsfilerepo-nsmain": "(آرنی)",
+	"nsfilerepo-desc": "راپورته شوو دوتنو ته د نوم‌تشيال پربنسټ ځانگړنې چمتو کوي",
+	"nsfilerepo-upload-target": "په نوم‌تشيال کې د موخې‌وړ دوتنې نوم",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "دا ډگر د دوتنې بياراپورته کولو پرمهال نشي بدلېدای",
+	"nsfilerepo-move-file-namespace-action-label": "دوتنې نوم ټاکل",
+	"nsfilerepo-move-file-namespace-dialog-title": "دوتنې نوم ټاکل",
+	"nsfilerepo-move-file-namespace-dialog-button-done": "وشو",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "ناگارل",
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "نوم‌تشيال",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "نوم‌تشيال",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "نوم‌تشيال"
 }
