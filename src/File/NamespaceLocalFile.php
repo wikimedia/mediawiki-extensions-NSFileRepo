@@ -7,11 +7,27 @@ use MediaWiki\Deferred\AutoCommitUpdate;
 use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Extension\NSFileRepo\NamespaceFileMoveBatch;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\Authority;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use OldLocalFile;
 
 class NamespaceLocalFile extends LocalFile {
+
+	/**
+	 * @inheritDoc
+	 */
+	public function upload( $src, $comment, $pageText, $flags = 0, $props = false, $timestamp = false,
+	?Authority $uploader = null, $tags = [], $createNullRevision = true, $revert = false ) {
+		$status = parent::upload( $src, $comment, $pageText, $flags, $props,
+			$timestamp, $uploader, $tags, $createNullRevision, $revert );
+		if ( $status->hasMessage( 'fileexists-no-change' ) ) {
+			$title = Title::makeTitle( NS_FILE, $this->getName() );
+			return Status::newFatal( 'fileexists-no-change', $title->getPrefixedText() );
+		}
+
+		return $status;
+	}
 
 	/**
 	 * @inheritDoc
