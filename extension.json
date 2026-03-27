@@ -71,9 +71,6 @@
 			"scripts": [
 				"ext.nsfilerepo.special.upload.js"
 			],
-			"dependencies": [
-				"mediawiki.special.upload"
-			],
 			"messages": [
 				"namespace"
 			]
