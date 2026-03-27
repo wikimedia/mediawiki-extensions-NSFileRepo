@@ -5,7 +5,7 @@
 		return;
 	}
 
-	mw.loader.using( 'mediawiki.special.upload' ).then( waitForDialog );
+	mw.loader.using( 'mediawiki.Upload.Dialog' ).then( waitForDialog );
 
 	function waitForDialog() {
 		if ( mw.Upload && mw.Upload.Dialog ) {
