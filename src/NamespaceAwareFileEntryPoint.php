@@ -11,6 +11,7 @@ use MediaWiki\Html\TemplateParser;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use Wikimedia\FileBackend\HTTPFileStreamer;
 
 class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
@@ -146,8 +147,7 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 		}
 
 		$headers = [];
-		$nsfrHelper = new NSFileRepoHelper();
-		$title = $nsfrHelper->getTitleFromPath( $path );
+		$title = $services->getTitleFactory()->makeTitleSafe( NS_FILE, $name );
 		if ( !$title instanceof Title ) {
 			// files have valid titles
 			$this->forbidden( 'img-auth-accessdenied', 'img-auth-badtitle', $name );
@@ -171,8 +171,7 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 				return;
 			}
 
-			$permissionManager = $this->getServiceContainer()->getPermissionManager();
-			if ( !$permissionManager->userCan( 'read', $user, $title ) ) {
+			if ( !$this->authenticateNamespaceTitle( $path, $user ) ) {
 				$this->forbidden( 'img-auth-accessdenied', 'img-auth-noread', $name );
 				return;
 			}
@@ -277,5 +276,26 @@ class NamespaceAwareFileEntryPoint extends AuthenticatedFileEntryPoint {
 		}
 
 		return $name;
+	}
+
+	/**
+	 * @param string $path
+	 * @param User $user
+	 * @return bool
+	 */
+	private function authenticateNamespaceTitle( string $path, User $user ) {
+		$nsfrHelper = new NSFileRepoHelper();
+		$authTitle = $nsfrHelper->getTitleFromPath( $path );
+
+		if ( $authTitle instanceof Title === false ) {
+			return false;
+		}
+
+		$permissionManager = $this->getServiceContainer()->getPermissionManager();
+		if ( !$permissionManager->userCan( 'read', $user, $authTitle ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }
