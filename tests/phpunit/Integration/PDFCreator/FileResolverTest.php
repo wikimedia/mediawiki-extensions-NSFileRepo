@@ -191,7 +191,44 @@ class FileResolverTest extends TestCase {
 				'expectedFilename' => '20251121111456!A.pdf',
 				'expectedNamespace' => 3002,
 				'shouldFindFile' => true
-			]
+			],
+			// --- resolveFromThumbScript cases (wgThumbnailScriptPath active) ---
+			'thumb script URL - plain file' => [
+				'srcUrl' => '/thumb_handler.php?f=Image.png&width=120',
+				'expectedFilename' => 'Image.png',
+				'expectedNamespace' => null,
+				'shouldFindFile' => true,
+			],
+			'thumb script URL - namespace-prefixed file (URL-encoded colon)' => [
+				'srcUrl' => '/thumb_handler.php?f=Project%3AImage.png&width=120',
+				'expectedFilename' => 'Project:Image.png',
+				'expectedNamespace' => 100,
+				'shouldFindFile' => true,
+			],
+			'thumb script URL - absolute URL with server prefix' => [
+				'srcUrl' => 'https://example.com/thumb_handler.php?f=Image.png&width=300',
+				'expectedFilename' => 'Image.png',
+				'expectedNamespace' => null,
+				'shouldFindFile' => true,
+			],
+			'thumb script URL - archived file via archived param' => [
+				'srcUrl' => '/thumb_handler.php?f=20210101000000%21Archive.png&archived=1',
+				'expectedFilename' => '20210101000000!Archive.png',
+				'expectedNamespace' => null,
+				'shouldFindFile' => true,
+			],
+			'thumb script URL - missing f param returns null' => [
+				'srcUrl' => '/thumb_handler.php?width=120',
+				'expectedFilename' => null,
+				'expectedNamespace' => null,
+				'shouldFindFile' => false,
+			],
+			'thumb script URL - non-matching script path falls through' => [
+				'srcUrl' => '/w/other.php?f=Image.png',
+				'expectedFilename' => null,
+				'expectedNamespace' => null,
+				'shouldFindFile' => false,
+			],
 		];
 	}
 

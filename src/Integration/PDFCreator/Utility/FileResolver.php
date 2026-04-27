@@ -13,14 +13,23 @@ class FileResolver extends PDFCreatorFileResolver {
 	 * @inheritDoc
 	 */
 	public function execute( DOMElement $element, string $attrSrc = 'src' ): ?File {
+		$src = $element->getAttribute( $attrSrc );
+
+		// When wgThumbnailScriptPath is set, thumbnail src attributes are query-based:
+		// e.g. /w/nsfr_thumb.php?f=Project%3AImage.png&width=120
+		// The path-stripping logic below strips the query string early, making filename
+		// extraction impossible. Handle these URLs explicitly before that happens.
+		$file = $this->resolveFromThumbScript( $src );
+		if ( $file !== null ) {
+			return $file;
+		}
+
 		$pathsForRegex = [
 			$this->config->get( 'Server' ),
-			$this->config->get( 'ThumbnailScriptPath' ) . "?f=",
 			$this->config->get( 'UploadPath' ),
 			$this->config->get( 'ScriptPath' )
 		];
 
-		$src = $element->getAttribute( $attrSrc );
 		if ( strpos( $src, '?' ) ) {
 			$src = substr( $src, 0, strpos( $src, '?' ) );
 		}
@@ -69,5 +78,58 @@ class FileResolver extends PDFCreatorFileResolver {
 		}
 
 		return $file ?: null;
+	}
+
+	/**
+	 * Attempt to resolve a file from a ThumbnailScriptPath-style URL
+	 * (e.g. /w/nsfr_thumb.php?f=Project%3AImage.png&width=120).
+	 *
+	 * When $wgThumbnailScriptPath is configured, all thumbnail src attributes
+	 * are query-based rather than path-based, so the path-stripping logic in
+	 * execute() cannot extract a filename from them. This method handles that
+	 * case by reading the 'f' query parameter directly.
+	 *
+	 * @param string $src Raw value of the src/href attribute
+	 * @return File|null
+	 */
+	protected function resolveFromThumbScript( string $src ): ?File {
+		$thumbScriptPath = $this->config->get( 'ThumbnailScriptPath' );
+		if ( !$thumbScriptPath || strpos( $src, '?' ) === false ) {
+			return null;
+		}
+
+		// Compare only the path component so absolute URLs (with server prefix) also match.
+		$srcPath = parse_url( $src, PHP_URL_PATH ) ?? '';
+		$scriptPath = parse_url( $thumbScriptPath, PHP_URL_PATH ) ?? $thumbScriptPath;
+		if ( $srcPath !== $scriptPath ) {
+			return null;
+		}
+
+		$query = parse_url( $src, PHP_URL_QUERY ) ?? '';
+		parse_str( $query, $params );
+		$fileName = $params['f'] ?? '';
+		if ( $fileName === '' ) {
+			return null;
+		}
+
+		// Archived files have the format <timestamp>!<name> and need a different lookup.
+		if ( !empty( $params['archived'] ) ) {
+			return $this->findArchivedFile( $fileName );
+		}
+
+		// Build a proper NS_FILE title for the filename.
+		// Prefixing with 'File:' ensures the result is always in NS_FILE even for
+		// namespace-prefixed filenames, because MediaWiki treats the text after the
+		// first recognised namespace prefix as the DB key:
+		//   'File:Project:Image.png' → NS_FILE, DB key 'Project:Image.png'  (namespace-prefixed)
+		//   'File:Image.png'         → NS_FILE, DB key 'Image.png'           (plain)
+		// Using newFromText( $fileName, NS_FILE ) would be wrong for 'Project:Image.png'
+		// because 'Project:' would be resolved as a namespace, yielding NS_PROJECT.
+		$fileTitle = $this->titleFactory->newFromText( 'File:' . $fileName );
+		if ( $fileTitle === null ) {
+			return null;
+		}
+
+		return $this->repoGroup->findFile( $fileTitle ) ?: null;
 	}
 }
