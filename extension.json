@@ -71,6 +71,9 @@
 			"scripts": [
 				"ext.nsfilerepo.special.upload.js"
 			],
+			"styles": [
+				"ext.nsfilerepo.special.upload.css"
+			],
 			"messages": [
 				"namespace"
 			]
