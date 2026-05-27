@@ -1,0 +1,9 @@
+/**
+ * Styles for the NSFileRepo namespace selector injected into mw.Upload.Dialog
+ */
+
+.ext-pageforms-uploadable-dialog .mw-upload-bookletLayout-filePreview {
+	width: auto !important;
+	height: auto !important;
+	min-height: 2.5em;
+}
