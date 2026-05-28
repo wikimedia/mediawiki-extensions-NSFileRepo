@@ -49,8 +49,11 @@ nsfr.EnhancedUploadParamsProcessor.prototype.getParams = function ( params, item
 	if ( !skipNamespace ) {
 		params.namespace = this.targetNamespaceSelector.getValue();
 	}
+	// Use item.name (original filename) to avoid double-prefixing when
+	// base ParamsProcessor has already added the prefix into params.filename
+	const processParams = Object.assign( {}, params, { filename: item.name } );
 	// eslint-disable-next-line no-underscore-dangle
-	params.filename = this._makeUploadFilenameFromParams( params );
+	params.filename = this._makeUploadFilenameFromParams( processParams );
 	return params;
 };
 
