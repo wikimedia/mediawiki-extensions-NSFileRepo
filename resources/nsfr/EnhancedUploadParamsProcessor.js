@@ -50,11 +50,15 @@ nsfr.EnhancedUploadParamsProcessor.prototype.getParams = function ( params, item
 		params.namespace = this.targetNamespaceSelector.getValue();
 	}
 	// Use item.data.name/item.name (original filename) to avoid double-prefixing when
-	// base ParamsProcessor has already added the prefix into params.filename
+	// base ParamsProcessor has already added the prefix into params.filename.
+	// If params.filename was already set to something different (e.g. wpDestFile),
+	// skip reconstruction to preserve the intended destination filename.
 	const originalFilename = item.data ? item.data.name : item.name;
-	const processParams = Object.assign( {}, params, { filename: originalFilename } );
-	// eslint-disable-next-line no-underscore-dangle
-	params.filename = this._makeUploadFilenameFromParams( processParams );
+	if ( params.filename === originalFilename ) {
+		const processParams = Object.assign( {}, params, { filename: originalFilename } );
+		// eslint-disable-next-line no-underscore-dangle
+		params.filename = this._makeUploadFilenameFromParams( processParams );
+	}
 	return params;
 };
 
