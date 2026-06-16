@@ -49,12 +49,14 @@ nsfr.EnhancedUploadParamsProcessor.prototype.getParams = function ( params, item
 	if ( !skipNamespace ) {
 		params.namespace = this.targetNamespaceSelector.getValue();
 	}
-	// Use item.data.name/item.name (original filename) to avoid double-prefixing when
-	// base ParamsProcessor has already added the prefix into params.filename.
-	// If params.filename was already set to something different (e.g. wpDestFile),
-	// skip reconstruction to preserve the intended destination filename.
+	// Reconstruct filename with namespace-aware logic when:
+	// 1. Namespace was explicitly selected (not skipped), OR
+	// 2. There's a prefix from the base ParamsProcessor
+	// This ensures user's namespace selection is applied, and colons are used for valid namespaces.
+	// However, if wpDestFile was explicitly set and namespace is skipped,
+	// preserve the intended destination filename.
 	const originalFilename = item.data ? item.data.name : item.name;
-	if ( params.filename === originalFilename ) {
+	if ( ( !skipNamespace && params.namespace ) || ( params.prefix && params.prefix !== '' ) ) {
 		const processParams = Object.assign( {}, params, { filename: originalFilename } );
 		// eslint-disable-next-line no-underscore-dangle
 		params.filename = this._makeUploadFilenameFromParams( processParams );
