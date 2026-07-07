@@ -72,12 +72,14 @@ nsfr.EnhancedUploadParamsProcessor.prototype._makeUploadFilenameFromParams = fun
 	const namespaces = mw.config.get( 'wgFormattedNamespaces' );
 
 	let prefixNamespace = '';
+	let originalPrefix = '';
 	if ( params.namespace ) {
 		prefixNamespace = namespaces[ namespace ];
 	}
 	const prefixParts = prefix.split( ':' );
 	if ( prefixParts.length > 1 ) {
 		prefixNamespace = prefixParts[ 0 ];
+		originalPrefix = prefixNamespace;
 		prefixParts.splice( 0, 1 );
 
 		// Formatted namespaces does not contain underscores, they are replaced with spaces
@@ -99,7 +101,7 @@ nsfr.EnhancedUploadParamsProcessor.prototype._makeUploadFilenameFromParams = fun
 	}
 
 	if ( validPrefixNamespace === false ) {
-		prefixStub = prefixNamespace + '_' + prefixStub;
+		prefixStub = ( originalPrefix || prefixNamespace ) + '_' + prefixStub;
 		prefixNamespace = '';
 	}
 
