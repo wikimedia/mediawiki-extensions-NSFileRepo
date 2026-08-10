@@ -5,25 +5,21 @@ namespace MediaWiki\Extension\NSFileRepo;
 class MWNamespace implements \JsonSerializable {
 
 	/**
-	 *
 	 * @var int
 	 */
 	protected $id = '';
 
 	/**
-	 *
 	 * @var string
 	 */
 	protected $canonicalName = '';
 
 	/**
-	 *
 	 * @var string
 	 */
 	protected $displayName = '';
 
 	/**
-	 *
 	 * @param int $id
 	 * @param string $canonicalName
 	 * @param string $displayName
@@ -35,7 +31,6 @@ class MWNamespace implements \JsonSerializable {
 	}
 
 	/**
-	 *
 	 * @return int
 	 */
 	public function getId() {
@@ -43,7 +38,6 @@ class MWNamespace implements \JsonSerializable {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getCanonicalName() {
@@ -51,7 +45,6 @@ class MWNamespace implements \JsonSerializable {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getDisplayName() {
@@ -59,7 +52,6 @@ class MWNamespace implements \JsonSerializable {
 	}
 
 	/**
-	 *
 	 * @return array
 	 */
 	public function jsonSerialize(): array {

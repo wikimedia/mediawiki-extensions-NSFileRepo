@@ -29,9 +29,6 @@ class ImportFiles extends Maintenance {
 	 */
 	protected $errors = [];
 
-	/**
-	 *
-	 */
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'overwrite', 'Overwrite existing files?' );

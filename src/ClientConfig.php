@@ -9,7 +9,6 @@ use MediaWiki\ResourceLoader\Context as ResourceLoaderContext;
 class ClientConfig {
 
 	/**
-	 *
 	 * @return array
 	 */
 	public static function makeConfigJson() {
