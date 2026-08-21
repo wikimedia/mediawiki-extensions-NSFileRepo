@@ -1,8 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
-			"Helix84"
+			"Helix84",
+			"Wizzard"
 		]
 	},
-	"nsfilerepo-desc": "Poskytuje nahraným súborom možnosti menných priestorov"
+	"nsfilerepo-desc": "Poskytuje nahraným súborom možnosti menných priestorov",
+	"nsfilerepo-upload-target": "Cieľový názov súboru v mennom priestore",
+	"nsfilerepo-nsmain": "(Hlavný)",
+	"nsfilerepo-reupload-namespaceselector-disabled-helptext": "Toto pole nie je možné zmeniť pri opätovnom nahrávaní súboru",
+	"nsfilerepo-move-file-namespace-action-label": "Nastaviť menný priestor súboru",
+	"nsfilerepo-move-file-namespace-dialog-title": "Nastaviť menný priestor súboru",
+	"nsfilerepo-move-file-namespace-dialog-button-done": "Hotovo",
+	"nsfilerepo-move-file-namespace-dialog-button-cancel": "Zrušiť",
+	"nsfilerepo-move-file-namespace-dialog-namespaceselector-label": "Menný priestor",
+	"nsfilerepo-upload-file-namespace-namespaceselector-label": "Menný priestor",
+	"nsfilerepo-enhanced-filelist-grid-namespace-title": "Menný priestor"
 }
