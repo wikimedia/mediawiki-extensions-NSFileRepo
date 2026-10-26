@@ -6,10 +6,10 @@ use DOMElement;
 use File;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility\FileResolver;
+use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
 use PHPUnit\Framework\TestCase;
-use RepoGroup;
 
 class FileResolverTest extends TestCase {
 

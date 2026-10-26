@@ -8,8 +8,8 @@ use MediaWiki\Extension\PDFCreator\IProcessor;
 use MediaWiki\Extension\PDFCreator\Utility\ExportContext;
 use MediaWiki\Extension\PDFCreator\Utility\ImageUrlUpdater;
 use MediaWiki\Extension\PDFCreator\Utility\ImageWidthUpdater;
+use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Title\TitleFactory;
-use RepoGroup;
 
 class ImageProcessor implements IProcessor {
 
