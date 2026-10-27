@@ -6,11 +6,11 @@ use LocalFile;
 use MediaWiki\Deferred\AutoCommitUpdate;
 use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Extension\NSFileRepo\NamespaceFileMoveBatch;
+use MediaWiki\FileRepo\File\OldLocalFile;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
-use OldLocalFile;
 
 class NamespaceLocalFile extends LocalFile {
 
