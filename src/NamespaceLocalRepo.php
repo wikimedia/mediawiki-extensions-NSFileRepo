@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\NSFileRepo;
 
-use LocalRepo;
 use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
 use MediaWiki\Extension\NSFileRepo\File\NamespaceOldLocalFile;
+use MediaWiki\FileRepo\LocalRepo;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
 
