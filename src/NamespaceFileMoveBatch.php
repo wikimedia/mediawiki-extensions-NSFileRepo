@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\NSFileRepo;
 
-use File;
 use LocalFile;
 use MediaWiki\Extension\NSFileRepo\File\NamespaceLocalFile;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\Title\Title;
 
 class NamespaceFileMoveBatch extends \LocalFileMoveBatch {
