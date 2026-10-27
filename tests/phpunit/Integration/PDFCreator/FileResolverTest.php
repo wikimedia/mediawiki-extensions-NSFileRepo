@@ -3,9 +3,9 @@
 namespace MediaWiki\Extension\NSFileRepo\Tests\Integratinon\PDFCreator;
 
 use DOMElement;
-use File;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility\FileResolver;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;

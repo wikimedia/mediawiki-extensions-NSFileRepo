@@ -3,9 +3,9 @@
 namespace MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility;
 
 use DOMElement;
-use File;
 use MediaWiki\Extension\PDFCreator\Utility\FileResolver as PDFCreatorFileResolver;
 use MediaWiki\Extension\PDFCreator\Utility\ThumbFilenameExtractor;
+use MediaWiki\FileRepo\File\File;
 
 class FileResolver extends PDFCreatorFileResolver {
 

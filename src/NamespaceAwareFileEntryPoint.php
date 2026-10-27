@@ -2,10 +2,10 @@
 
 namespace MediaWiki\Extension\NSFileRepo;
 
-use File;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\EntryPointEnvironment;
 use MediaWiki\FileRepo\AuthenticatedFileEntryPoint;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\HookContainer\HookRunner;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\MainConfigNames;
