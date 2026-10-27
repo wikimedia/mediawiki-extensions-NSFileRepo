@@ -6,6 +6,7 @@ use DOMElement;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\NSFileRepo\Integration\PDFCreator\Utility\FileResolver;
 use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\LocalRepo;
 use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleFactory;
@@ -64,7 +65,7 @@ class FileResolverTest extends TestCase {
 			// For archived files, setup findFile to return null and mock the local repo
 			if ( strpos( $expectedFilename, '!' ) !== false ) {
 				$repoGroup->method( 'findFile' )->willReturn( null );
-				$localRepo = $this->createMock( \LocalRepo::class );
+				$localRepo = $this->createMock( LocalRepo::class );
 				$localRepo->method( 'newFromArchiveName' )->willReturn( $file );
 				$repoGroup->method( 'getLocalRepo' )->willReturn( $localRepo );
 			} else {
