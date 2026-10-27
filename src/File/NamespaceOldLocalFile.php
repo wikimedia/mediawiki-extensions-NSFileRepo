@@ -2,7 +2,9 @@
 
 namespace MediaWiki\Extension\NSFileRepo\File;
 
-class NamespaceOldLocalFile extends \OldLocalFile {
+use MediaWiki\FileRepo\File\OldLocalFile;
+
+class NamespaceOldLocalFile extends OldLocalFile {
 
 	/**
 	 * @var NamespaceLocalFile
