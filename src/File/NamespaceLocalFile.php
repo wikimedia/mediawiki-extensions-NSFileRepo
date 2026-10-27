@@ -2,10 +2,10 @@
 
 namespace MediaWiki\Extension\NSFileRepo\File;
 
-use LocalFile;
 use MediaWiki\Deferred\AutoCommitUpdate;
 use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Extension\NSFileRepo\NamespaceFileMoveBatch;
+use MediaWiki\FileRepo\File\LocalFile;
 use MediaWiki\FileRepo\File\OldLocalFile;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\Authority;
