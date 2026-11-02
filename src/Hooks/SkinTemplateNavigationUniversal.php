@@ -8,8 +8,8 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\NSFileRepo\NamespaceList;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Message\Message;
+use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
-use SkinTemplate;
 
 class SkinTemplateNavigationUniversal {
 
